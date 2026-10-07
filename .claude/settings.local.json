@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(grep -n \"use App\\\\\\\\Http\\\\\\\\Controllers\\\\\\\\PenunjangController\" C:/xampp/htdocs/backend_dashbord/routes/web.php)"
+    ]
+  }
+}
