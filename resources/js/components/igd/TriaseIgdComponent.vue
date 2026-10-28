@@ -1,6 +1,34 @@
-﻿<template>
+<template>
     <section class="content">
         <ConfirmDialog></ConfirmDialog>
+
+        <!-- ===== DRAWER KANAN: MENU AKSI ===== -->
+        <Drawer v-model:visible="showMenuAksi" header="Aksi" position="right" :style="{width: '340px', maxWidth: '94vw'}"
+            @show="fokusCariMenu">
+            <div v-if="rowMenu" class="menu-aksi-list">
+                <div class="menu-aksi-pasien">
+                    <strong>{{ rowMenu.NAMAPASIEN }}</strong>
+                    <small># {{ rowMenu.NOMR }}</small>
+                </div>
+                <div class="menu-aksi-search">
+                    <i class="pi pi-search"></i>
+                    <input ref="cariMenuInput" v-model="cariMenu" type="text" class="form-control" placeholder="Cari menu..."
+                        autocomplete="off" @keydown.enter="pilihMenuTunggal">
+                </div>
+                <ul class="menu-aksi-items">
+                    <li v-for="m in menuAksiTampil" :key="m.key" class="menu-aksi-item" tabindex="0"
+                        @click="aksiMenu(m.aksi)" @keydown.enter="aksiMenu(m.aksi)">
+                        <i :class="m.icon"></i>
+                        <span>{{ m.label }}</span>
+                        <i class="pi pi-angle-right menu-aksi-arrow"></i>
+                    </li>
+                    <li v-if="!menuAksiTampil.length" class="menu-aksi-kosong">Menu tidak ditemukan</li>
+                </ul>
+            </div>
+        </Drawer>
+
+        <!-- ===== DIALOG: ADMINISTRASI / BILLING (input jasa) ===== -->
+        <AdministrasiBillingDialog v-model:visible="showAdministrasi" :pasien="pasienAdministrasi" />
 
         <!-- ===== DIALOG: PINDAH RUANG ===== -->
         <Dialog header="Catatan Pasien Pindah Ruang" v-model:visible="showPindahruang" :containerStyle="{width: '80vw'}"
@@ -566,7 +594,7 @@
                                     <th class="text-center" style="width:70px">LOS</th>
                                     <th>PENUNJANG</th>
                                     <th>Cara Bayar</th>
-                                    <th class="text-center">Aksi Medis</th>
+                                    <th class="text-center">Aksi</th>
                                     <th class="text-center" style="width:90px">Pindah Ruang</th>
                                     <th class="text-center" style="width:90px">Jenis Rawat</th>
                                     <th class="text-center">Aksi Lain</th>
@@ -674,30 +702,12 @@
 
                                     </td>
                                     <td class="align-middle">
-                                        <div class="aksi-group">
-                                            <button class="btn-aksi btn-aksi-info" @click="showdetails(row)"
-                                                title="Lihat Rekam Medis">
-                                                <i class="pi pi-folder-open"></i> Rekam Medis
+                                        <div class="aksi-cepat">
+                                            <button class="btn-menu-aksi btn-rm-cepat" @click="showdetails(row)" title="Lihat Rekam Medis">
+                                                <i class="pi pi-folder-open"></i>
                                             </button>
-                                            <button v-if="row.JENISRAWAT=='INAP'" class="btn-aksi btn-aksi-default"
-                                                @click="print_soap(row.NOPENDAFTARAN)" title="Cetak CPPT">
-                                                <i class="pi pi-print"></i> CPPT
-                                            </button>
-                                            <button v-if="row.JENISRAWAT=='INAP'" class="btn-aksi btn-aksi-default"
-                                                @click="print_resume(row.NOPENDAFTARAN)" title="Resume Medis">
-                                                <i class="pi pi-file-pdf"></i> Resume
-                                            </button>
-                                            <button v-if="row.JENISRAWAT=='INAP'" class="btn-aksi btn-aksi-default"
-                                                @click="siriraj_score(row.NOPENDAFTARAN)" title="Siriraj Skor">
-                                                <i class="pi pi-file-pdf"></i> Siriraj Skor
-                                            </button>
-                                            <!-- <button v-if="row.JENISRAWAT=='INAP'" class="btn-aksi btn-aksi-purple"
-                                                @click="konsultasi_dokter(row.NOPENDAFTARAN)" title="Konsultasi Dokter">
-                                                <i class="pi pi-comments"></i> Konsultasi
-                                            </button> -->
-                                            <button  v-if="row.JENISRAWAT=='INAP'" class="btn-aksi btn-aksi-icu" @click="bukaChecklist(row)"
-                                                title="Checklist Masuk ICU/HCU">
-                                                <i class="pi pi-clipboard"></i> Checklist ICU/HCU
+                                            <button class="btn-menu-aksi" @click="bukaMenuAksi(row)" title="Menu aksi">
+                                                <i class="pi pi-ellipsis-v"></i>
                                             </button>
                                         </div>
                                     </td>
@@ -723,7 +733,6 @@
                                                 v-if="row.JENISRAWAT=='INAP'" title="Tidak Merawat">
                                                 <i class="pi pi-times"></i> Tidak Merawat
                                             </button>
-
                                             <span v-if="row.status_checklist" class="checklist-status-badge"
                                                 :class="{
                                                     'checklist-diterima': row.status_checklist === 'Diterima',
@@ -754,6 +763,7 @@
     import ProgressBar from 'primevue/progressbar';
     import Sidebar from 'primevue/sidebar';
     import Dialog from 'primevue/dialog';
+    import Drawer from 'primevue/drawer';
     import Tabs from 'primevue/tabs';
     import TabList from 'primevue/tablist';
     import Tab from 'primevue/tab';
@@ -761,6 +771,7 @@
     import TabPanel from 'primevue/tabpanel';
     import Message from 'primevue/message';
     import ConfirmDialog from 'primevue/confirmdialog';
+    import AdministrasiBillingDialog from './AdministrasiBillingDialog.vue';
     import {
         FilterMatchMode
     } from 'primevue/api';
@@ -770,6 +781,7 @@
             Loading,
             Sidebar,
             Dialog,
+            Drawer,
             Tabs,
             TabList,
             Tab,
@@ -777,13 +789,19 @@
             TabPanel,
             Message,
             ProgressBar,
-            ConfirmDialog
+            ConfirmDialog,
+            AdministrasiBillingDialog
         },
         props: {
             msg: String
         },
         data() {
             return {
+                showMenuAksi: false,
+                cariMenu: '',
+                rowMenu: null,
+                showAdministrasi: false,
+                pasienAdministrasi: null,
                 globalFilter: '',
                 sortMode: 'multiple',
                 showAdvanced: false,
@@ -887,6 +905,27 @@
 
         },
         computed: {
+            menuAksi() {
+                const r = this.rowMenu;
+                if (!r) return [];
+                const menu = [
+                    { key: 'rm', label: 'Rekam Medis', icon: 'pi pi-folder-open', aksi: () => this.showdetails(r) }
+                ];
+                if (r.JENISRAWAT == 'INAP') {
+                    menu.push(
+                        { key: 'cppt', label: 'CPPT', icon: 'pi pi-print', aksi: () => this.print_soap(r.NOPENDAFTARAN) },
+                        { key: 'resume', label: 'Resume', icon: 'pi pi-file-pdf', aksi: () => this.print_resume(r.NOPENDAFTARAN) },
+                        { key: 'siriraj', label: 'Siriraj Skor', icon: 'pi pi-file-pdf', aksi: () => this.siriraj_score(r.NOPENDAFTARAN) },
+                        { key: 'icu', label: 'Checklist ICU/HCU', icon: 'pi pi-clipboard', aksi: () => this.bukaChecklist(r) },
+                        { key: 'adm', label: 'Administrasi', icon: 'pi pi-wallet', aksi: () => this.bukaAdministrasi(r) }
+                    );
+                }
+                return menu;
+            },
+            menuAksiTampil() {
+                const q = this.cariMenu.trim().toLowerCase();
+                return q ? this.menuAksi.filter(m => m.label.toLowerCase().includes(q)) : this.menuAksi;
+            },
             listDokter() {
                 const map = {};
                 (this.fact || []).forEach(row => {
@@ -1029,6 +1068,30 @@
                 }
             },
 
+            bukaMenuAksi(row) {
+                this.rowMenu = row;
+                this.cariMenu = '';
+                this.showMenuAksi = true;
+            },
+            fokusCariMenu() {
+                this.$nextTick(() => {
+                    if (this.$refs.cariMenuInput) this.$refs.cariMenuInput.focus();
+                });
+            },
+            // Enter di kolom cari: langsung jalankan menu bila hasil saringan tinggal satu.
+            pilihMenuTunggal() {
+                if (this.menuAksiTampil.length === 1) {
+                    this.aksiMenu(this.menuAksiTampil[0].aksi);
+                }
+            },
+            aksiMenu(fn) {
+                this.showMenuAksi = false;
+                fn();
+            },
+            bukaAdministrasi(row) {
+                this.pasienAdministrasi = row;
+                this.showAdministrasi = true;
+            },
             bukaChecklist(row) {
                 window.open('/checklist-masuk-icu-hcu/' + row.NOPENDAFTARAN, '_blank');
             },
@@ -1519,6 +1582,89 @@
         gap: 4px;
     }
 
+    .btn-menu-aksi {
+        width: 34px;
+        height: 34px;
+        border: 1px solid #cbd5e1;
+        border-radius: 50%;
+        background: #fff;
+        color: #475569;
+        cursor: pointer;
+    }
+    .aksi-cepat {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+    }
+    .btn-rm-cepat {
+        color: #0d6efd;
+    }
+    .btn-menu-aksi:hover {
+        background: #f1f5f9;
+        color: #0d6efd;
+    }
+    .menu-aksi-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .menu-aksi-search {
+        position: relative;
+    }
+    .menu-aksi-search i {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+    }
+    .menu-aksi-search .form-control {
+        padding-left: 32px;
+    }
+    .menu-aksi-items {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .menu-aksi-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: .9rem;
+        color: #334155;
+    }
+    .menu-aksi-item:hover,
+    .menu-aksi-item:focus {
+        background: #eff6ff;
+        color: #0d6efd;
+        outline: none;
+    }
+    .menu-aksi-item > i:first-child {
+        width: 18px;
+        text-align: center;
+    }
+    .menu-aksi-item span {
+        flex: 1;
+    }
+    .menu-aksi-arrow {
+        color: #94a3b8;
+        font-size: .8rem;
+    }
+    .menu-aksi-kosong {
+        padding: 16px 0;
+        text-align: center;
+        color: #94a3b8;
+        font-size: .875rem;
+    }
+    .menu-aksi-pasien {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e2e8f0;
+    }
     .btn-aksi {
         display: inline-flex;
         align-items: center;

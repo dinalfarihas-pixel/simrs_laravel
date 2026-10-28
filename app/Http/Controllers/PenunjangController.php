@@ -54,8 +54,8 @@ class PenunjangController extends Controller
                 "receipt_no"=>$request->no_receipt,
             ];
 
-            // var_dump(json_encode($json,true));
-            // exit();
+           // var_dump(json_encode($json,true));
+           // exit();
             $url = $this->ws_inv.'index.php/api/sales/get_list_labor_dan_radiologiv2'; // Replace this with the API endpoint URL
             $client = new Client();
             $response = $client->post($url, [

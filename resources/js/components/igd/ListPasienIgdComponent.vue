@@ -1,5 +1,33 @@
 <template>
     <section class="content">
+        <!-- ===== DRAWER KANAN: MENU AKSI ===== -->
+        <Drawer v-model:visible="showMenuAksi" header="Aksi" position="right"
+            :style="{width: '340px', maxWidth: '94vw'}" @show="fokusCariMenu">
+            <div v-if="rowMenu" class="menu-aksi-list">
+                <div class="menu-aksi-pasien">
+                    <strong>{{ rowMenu.NAMAPASIEN }}</strong>
+                    <small># {{ rowMenu.NOMR }}</small>
+                </div>
+                <div class="menu-aksi-search">
+                    <i class="pi pi-search"></i>
+                    <input ref="cariMenuInput" v-model="cariMenu" type="text" class="form-control"
+                        placeholder="Cari menu..." autocomplete="off" @keydown.enter="pilihMenuTunggal">
+                </div>
+                <ul class="menu-aksi-items">
+                    <li v-for="m in menuAksiTampil" :key="m.key" class="menu-aksi-item" tabindex="0"
+                        @click="aksiMenu(m.aksi)" @keydown.enter="aksiMenu(m.aksi)">
+                        <i :class="m.icon"></i>
+                        <span>{{ m.label }}</span>
+                        <i class="pi pi-angle-right menu-aksi-arrow"></i>
+                    </li>
+                    <li v-if="!menuAksiTampil.length" class="menu-aksi-kosong">Menu tidak ditemukan</li>
+                </ul>
+            </div>
+        </Drawer>
+
+        <!-- ===== DIALOG: ADMINISTRASI / BILLING (input jasa) ===== -->
+        <AdministrasiBillingDialog v-model:visible="showAdministrasi" :pasien="pasienAdministrasi" />
+
         <!-- ===== DIALOG: PERSETUJUAN PASIEN ===== -->
         <Dialog header="Persetujuan Pasien" v-model:visible="InformConsent"  :style="{ width: '50rem' }"
             :modal="true">
@@ -528,7 +556,7 @@
                                     <th style="min-width:150px">Tgl Masuk / Keluar</th>
                                     <th style="min-width:170px">PENUNJANG</th>
                                     <th style="min-width:120px">Cara Bayar</th>
-                                    <th class="text-center" style="min-width:130px">Aksi</th>
+                                    <th class="text-center" style="min-width:90px">Aksi</th>
                                     <th class="text-center" style="min-width:130px">Status IGD</th>
                                 </tr>
                             </thead>
@@ -643,18 +671,13 @@
                                         </span>
                                     </td>
                                     <td class="text-center align-middle">
-                                        <div class="aksi-group">
-                                            <button class="btn-aksi btn-aksi-info btn-sm" @click="showdetails(row)"
-                                                title="Rekam Medis">
-                                                <i class="pi pi-folder-open"></i> Rekam Medis
+                                        <div class="aksi-cepat">
+                                            <button class="btn-menu-aksi btn-rm-cepat" @click="showdetails(row)"
+                                                title="Lihat Rekam Medis">
+                                                <i class="pi pi-folder-open"></i>
                                             </button>
-                                            <button class="btn-aksi btn-aksi-warning btn-sm"
-                                                @click="showInformConsent(row)" title="Persetujuan Pasien">
-                                                <i class="pi pi-file"></i> Consent
-                                            </button>
-                                            <button class="btn-aksi btn-aksi-default btn-sm"
-                                                @click="siriraj_score(row.NOPENDAFTARAN)" title="Siriraj Skor">
-                                                <i class="pi pi-file-pdf"></i> Siriraj Skor
+                                            <button class="btn-menu-aksi" @click="bukaMenuAksi(row)" title="Menu aksi">
+                                                <i class="pi pi-ellipsis-v"></i>
                                             </button>
                                         </div>
                                     </td>
@@ -837,10 +860,14 @@
     import TabPanels from 'primevue/tabpanels';
     import TabPanel from 'primevue/tabpanel';
     import ConfirmDialog from 'primevue/confirmdialog';
+    import Drawer from 'primevue/drawer';
+    import AdministrasiBillingDialog from './AdministrasiBillingDialog.vue';
 
     export default {
         components: {
             Loading,
+            Drawer,
+            AdministrasiBillingDialog,
             Tabs,
             TabList,
             Tab,
@@ -886,6 +913,11 @@
                 characterFound: false,
                 showmessage: false,
                 InformConsent: false,
+                showMenuAksi: false,
+                cariMenu: '',
+                rowMenu: null,
+                showAdministrasi: false,
+                pasienAdministrasi: null,
                 list_notif_penunjang: [],
                 searchNama: '',
                 filterTriase: 'SEMUA',
@@ -918,6 +950,21 @@
             };
         },
         computed: {
+            // Isi drawer "Aksi" untuk baris yang sedang dipilih.
+            menuAksi() {
+                const r = this.rowMenu;
+                if (!r) return [];
+                return [
+                    { key: 'rm', label: 'Rekam Medis', icon: 'pi pi-folder-open', aksi: () => this.showdetails(r) },
+                    { key: 'consent', label: 'Persetujuan Pasien', icon: 'pi pi-file', aksi: () => this.showInformConsent(r) },
+                    { key: 'siriraj', label: 'Siriraj Skor', icon: 'pi pi-file-pdf', aksi: () => this.siriraj_score(r.NOPENDAFTARAN) },
+                    { key: 'adm', label: 'Administrasi / Billing', icon: 'pi pi-wallet', aksi: () => this.bukaAdministrasi(r) }
+                ];
+            },
+            menuAksiTampil() {
+                const q = this.cariMenu.trim().toLowerCase();
+                return q ? this.menuAksi.filter(m => m.label.toLowerCase().includes(q)) : this.menuAksi;
+            },
             factFiltered() {
                 let filtered = this.fact || [];
 
@@ -1085,6 +1132,30 @@
             this.getdata_pasien(6);
         },
         methods: {
+            bukaMenuAksi(row) {
+                this.rowMenu = row;
+                this.cariMenu = '';
+                this.showMenuAksi = true;
+            },
+            fokusCariMenu() {
+                this.$nextTick(() => {
+                    if (this.$refs.cariMenuInput) this.$refs.cariMenuInput.focus();
+                });
+            },
+            // Enter di kolom cari: langsung jalankan menu bila hasil saringan tinggal satu.
+            pilihMenuTunggal() {
+                if (this.menuAksiTampil.length === 1) {
+                    this.aksiMenu(this.menuAksiTampil[0].aksi);
+                }
+            },
+            aksiMenu(fn) {
+                this.showMenuAksi = false;
+                fn();
+            },
+            bukaAdministrasi(row) {
+                this.pasienAdministrasi = row;
+                this.showAdministrasi = true;
+            },
             checkDokterScroll() {
                 const el = this.$refs.dokterScroll;
                 if (!el) return;
@@ -1357,7 +1428,7 @@
 
                 try {
                     const response = await axios.post('/getpasien_api', this.form);
- 
+
                     this.fact = response.data.response || [];
                     this.get_notif_penunjang_json();
                 } catch (error) {
@@ -1528,6 +1599,106 @@
         display: flex;
         flex-direction: column;
         gap: 4px;
+    }
+
+    /* ===== KOLOM AKSI: tombol bulat + menu kebab (sama dengan daftar triase) ===== */
+    .aksi-cepat {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .btn-menu-aksi {
+        width: 34px;
+        height: 34px;
+        border: 1px solid #cbd5e1;
+        border-radius: 50%;
+        background: #fff;
+        color: #475569;
+        cursor: pointer;
+    }
+
+    .btn-rm-cepat {
+        color: #0d6efd;
+    }
+
+    .btn-menu-aksi:hover {
+        background: #f1f5f9;
+        color: #0d6efd;
+    }
+
+    .menu-aksi-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .menu-aksi-pasien {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .menu-aksi-search {
+        position: relative;
+    }
+
+    .menu-aksi-search i {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+    }
+
+    .menu-aksi-search .form-control {
+        padding-left: 32px;
+    }
+
+    .menu-aksi-items {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .menu-aksi-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: .9rem;
+        color: #334155;
+    }
+
+    .menu-aksi-item:hover,
+    .menu-aksi-item:focus {
+        background: #eff6ff;
+        color: #0d6efd;
+        outline: none;
+    }
+
+    .menu-aksi-item > i:first-child {
+        width: 18px;
+        text-align: center;
+    }
+
+    .menu-aksi-item span {
+        flex: 1;
+    }
+
+    .menu-aksi-arrow {
+        color: #94a3b8;
+        font-size: .8rem;
+    }
+
+    .menu-aksi-kosong {
+        padding: 16px 0;
+        text-align: center;
+        color: #94a3b8;
+        font-size: .875rem;
     }
 
     .btn-aksi {

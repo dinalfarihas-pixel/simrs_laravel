@@ -47,6 +47,15 @@ return [
             'level' => 'debug',
         ],
 
+        // Jejak audit tambah/hapus jasa pada Administrasi billing (disimpan 1 tahun).
+        // Level debug supaya jejak pencocokan transaksi (COCOK_TRANSAKSI) ikut tercatat.
+        'administrasi' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/administrasi.log'),
+            'level' => 'debug',
+            'days' => 365,
+        ],
+
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),

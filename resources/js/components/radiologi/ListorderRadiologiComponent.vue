@@ -667,6 +667,7 @@ export default {
       this.form.status          = status;
       try {
         const res = await axios.post('/listorderPenunjang', this.form);
+        /// console.log('listorderPenunjang response:', res.data);
         this.dataorderradiologi = res.data?.response || [];
         this.tempData = [...this.dataorderradiologi];
       } catch (err) {

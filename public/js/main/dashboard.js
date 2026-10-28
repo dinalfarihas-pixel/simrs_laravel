@@ -1444,7 +1444,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <img alt=\"user header\" src=\"demo/images/usercard.png\"> ")];
     }),
     content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MultiSelect, {
+      return [_cache[8] || (_cache[8] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("- ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MultiSelect, {
         style: {
           "height": "2.3em"
         },
@@ -1481,7 +1481,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return _toConsumableArray(_cache[7] || (_cache[7] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Tampikan", -1 /* CACHED */)]));
         }),
         _: 1 /* STABLE */
-      })]), _cache[8] || (_cache[8] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Dashboard adalah antarmuka visual yang menyajikan informasi penting dalam bentuk grafik, tabel, dan metrik untuk pengambilan keputusan yang cepat dan efisien. ", -1 /* CACHED */))];
+      })]), _cache[9] || (_cache[9] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Dashboard adalah antarmuka visual yang menyajikan informasi penting dalam bentuk grafik, tabel, dan metrik untuk pengambilan keputusan yang cepat dan efisien. ", -1 /* CACHED */))];
     }),
     _: 1 /* STABLE */
   })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Card, {
@@ -1494,7 +1494,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <img alt=\"user header\" src=\"demo/images/usercard.png\"> ")];
     }),
     title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return _toConsumableArray(_cache[9] || (_cache[9] = []));
+      return _toConsumableArray(_cache[10] || (_cache[10] = []));
     }),
     content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Chart, {
@@ -1503,7 +1503,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8 /* PROPS */, ["data"])];
     }),
     footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return _toConsumableArray(_cache[10] || (_cache[10] = []));
+      return _toConsumableArray(_cache[11] || (_cache[11] = []));
     }),
     _: 1 /* STABLE */
   })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Card, {
@@ -1513,10 +1513,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }
   }, {
     header: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return _toConsumableArray(_cache[11] || (_cache[11] = []));
+      return _toConsumableArray(_cache[12] || (_cache[12] = []));
     }),
     title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_cache[12] || (_cache[12] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", null, "Data okupasi Tempat Tidur", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Calendar, {
+      return [_cache[13] || (_cache[13] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", null, "Data okupasi Tempat Tidur", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Calendar, {
         modelValue: $data.form.startdate,
         "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
           return $data.form.startdate = $event;
@@ -1557,12 +1557,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       })];
     }),
     content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_9, [_cache[13] || (_cache[13] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "#"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "RUANGAN"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "JUMLAH_TT"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "TERSEDIA"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "BOR"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "AVLOS"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "BTO"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "TOI")])], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.data_okupasi, function (row, index) {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_9, [_cache[14] || (_cache[14] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "#"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "RUANGAN"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "JUMLAH_TT"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "TERSEDIA"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "BOR"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "AVLOS"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "BTO"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "TOI")])], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.data_okupasi, function (row, index) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(index + 1), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.NAMA), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.JUMLAH_TT), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.TERSEDIA), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.details.BOR), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.details.AVLOS), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.details.BTO), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.details.TOI), 1 /* TEXT */)]);
       }), 256 /* UNKEYED_FRAGMENT */))])])];
     }),
     footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return _toConsumableArray(_cache[14] || (_cache[14] = []));
+      return _toConsumableArray(_cache[15] || (_cache[15] = []));
     }),
     _: 1 /* STABLE */
   })])])])]);

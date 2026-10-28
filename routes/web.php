@@ -6,6 +6,7 @@ use App\Http\Controllers\PersediaanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DatareferensiController;
 use App\Http\Controllers\MonitoringController;
+use App\Http\Controllers\AdministrasiBillingController;
 use App\Http\Controllers\DatakunjunganpasienController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\PerencanaanController;
@@ -293,6 +294,11 @@ Route::group(['middleware'=>['oto']], function(){
 
         Route::post('/const_monitoring', [MonitoringController::class, 'const_monitoring']); //api
         Route::post('/details_cost_monitoring', [MonitoringController::class, 'details_cost_monitoring']); //api
+
+        Route::post('/administrasi_billing_kunjungan', [AdministrasiBillingController::class, 'billing_kunjungan']); //api
+        Route::post('/administrasi_daftar_jasa', [AdministrasiBillingController::class, 'daftar_jasa']); //api
+        Route::post('/administrasi_tambah_jasa', [AdministrasiBillingController::class, 'tambah_jasa']); //api
+        Route::post('/administrasi_hapus_jasa', [AdministrasiBillingController::class, 'hapus_jasa']); //api
 
         Route::post('/get_details_item', [MonitoringController::class, 'get_details_item']); //api
 

@@ -21,6 +21,17 @@
             </template>
         </Dialog>
 
+        <!-- Dialog: Persetujuan Pasien (sama dengan tombol Consent di daftar pasien IGD) -->
+        <Dialog header="Persetujuan Pasien" v-model:visible="showConsent" :style="{ width: '50rem' }" :modal="true">
+            <consent-pasien :datapasien="datapasien"></consent-pasien>
+            <template #footer>
+                <Button label="Tutup" icon="pi pi-times" @click="showConsent = false" class="p-button-text" />
+            </template>
+        </Dialog>
+
+        <!-- Dialog: Administrasi / Billing (lihat tagihan, tambah & hapus jasa) -->
+        <AdministrasiBillingDialog v-model:visible="showAdministrasi" :pasien="pasienBilling" />
+
         <!-- ===== BANNER: DRAFT TERSIMPAN ===== -->
         <transition name="draft-slide">
             <div v-if="draftBanner" class="draft-banner">
@@ -47,8 +58,19 @@
                         <i class="fas fa-ambulance mr-2 text-primary"></i>
                         Form Triase IGD
                     </h3>
-                    <div class="d-flex align-items-center" style="gap:8px">
+                    <!-- Aksi yang sama dengan kolom Aksi di daftar pasien IGD, supaya petugas
+                         tidak perlu kembali ke daftar hanya untuk membuka consent/siriraj. -->
+                    <div class="d-flex align-items-center flex-wrap justify-content-end" style="gap:8px">
                         <Button label="Riwayat Kunjungan" icon="pi pi-history" class="p-button-info p-button-sm p-button-outlined" @click="buka_riwayat_kunjungan(datapasien.NOMR)" />
+                        <Button label="Consent" icon="pi pi-file" title="Persetujuan Pasien"
+                            class="p-button-warning p-button-sm p-button-outlined" @click="showConsent = true" />
+                        <Button label="Siriraj Skor" icon="pi pi-file-pdf" title="Buka form Siriraj Score"
+                            class="p-button-secondary p-button-sm p-button-outlined"
+                            :disabled="!pasienBilling.NOPENDAFTARAN" @click="siriraj_score()" />
+                        <Button label="Administrasi / Billing" icon="pi pi-wallet"
+                            class="p-button-success p-button-sm p-button-outlined"
+                            :disabled="!bisaBuatBilling" :title="bisaBuatBilling ? 'Lihat tagihan & tambah jasa/tindakan' : 'No. registrasi pasien belum tersedia'"
+                            @click="buka_administrasi()" />
                         <!-- <Button label="ICARE" icon="pi pi-heart" class="p-button-danger p-button-sm p-button-outlined" @click="getlink_icare(datapasien.NOJAMINAN,datapasien.NOMR,datapasien.DATA_SINGKAT,datapasien)()" /> -->
                         <ProgressBar mode="indeterminate" v-show="isLoading" style="height:.25em;width:140px;border-radius:4px" />
                     </div>
@@ -976,8 +998,10 @@
     import KeluhanUtamaInput from './KeluhanUtamaInput.vue';
     import RiwayatPenyakitInput from './RiwayatPenyakitInput.vue';
     import { parseRiwayatToText } from './igdComplaintMapping';
+    import AdministrasiBillingDialog from './AdministrasiBillingDialog.vue';
     export default {
         components: {
+            AdministrasiBillingDialog,
             Dialog,
             Checkbox,
             RadioButton,
@@ -1044,6 +1068,8 @@
                 city: false,
                 sumbatanpartial: false,
                 showOtorisasi:false,
+                showAdministrasi: false,
+                showConsent: false,
                 checked_val: [],
                 fact: [],
                 check:'',
@@ -1332,6 +1358,21 @@
             }
         },
         computed: {
+            // Dialog billing hanya butuh identitas kunjungan; nama kolomnya berbeda antar
+            // halaman pemanggil (list IGD, poliklinik, ranap), jadi dinormalkan di sini.
+            pasienBilling() {
+                const p = this.datapasien || {};
+                return {
+                    NOMR: p.NOMR || p.NORM || '',
+                    NOPENDAFTARAN: p.NOPENDAFTARAN || p.NOREFF_IGD || '',
+                    NAMAPASIEN: p.NAMAPASIEN || p.NAMA || '',
+                    POLI: p.POLI || p.NAMAPOLI || '',
+                    NAMADOKTER: p.NAMADOKTER || ''
+                };
+            },
+            bisaBuatBilling() {
+                return !!(this.pasienBilling.NOMR && this.pasienBilling.NOPENDAFTARAN);
+            },
             tbQuickValues() {
                 const tahun = this.datapasien?.USIA_PASIEN?.tahun ?? 99;
                 if (tahun < 1)  return [50, 55, 60, 65, 70, 75];
@@ -1613,6 +1654,18 @@
             this.save_draft();
         },
         methods: {
+            siriraj_score() {
+                const noreg = this.pasienBilling.NOPENDAFTARAN;
+                if (!noreg) return;
+                window.open('/siriraj-score/' + noreg, '_blank');
+            },
+            buka_administrasi() {
+                if (!this.bisaBuatBilling) {
+                    EventBus.$emit('show-alert', { type: 'warning', title: '', message: 'No. rekam medis / registrasi pasien belum tersedia.' });
+                    return;
+                }
+                this.showAdministrasi = true;
+            },
             onHphtChange() {
                 if (!this.form.hpht) { this.form.hpl = ''; this.form.usia_kehamilan_minggu = null; return; }
                 const hpht = new Date(this.form.hpht);

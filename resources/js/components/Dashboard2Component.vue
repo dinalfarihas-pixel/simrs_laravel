@@ -1,4 +1,4 @@
-﻿<template>
+<template>
     <section class="content">
         <div class="container-fluid">
             <loading v-model:active="isLoading" :is-full-page="fullPage"></loading>
@@ -8,7 +8,7 @@
                         <template #header>
                             <!-- <img alt="user header" src="demo/images/usercard.png"> -->
                         </template>
-                        <template #content>
+                        <template #content>-
                             <div class="flex flex-wrap align-items-center mb-3 gap-2">
                                 <MultiSelect style="height: 2.3em;" v-model="form.selectedYear" :options="tahun"
                                     optionLabel="value" placeholder="Pilih Tahun" />
@@ -129,18 +129,18 @@
                         value: '2021'
                     },
                     {
-                        value: '2022', 
+                        value: '2022',
                     },
-                    { 
+                    {
                         value: '2023'
                     },
-                    { 
+                    {
                         value: '2024'
                     },
-                    { 
+                    {
                         value: '2025'
                     },
-                    { 
+                    {
                         value: '2026'
                     }
                 ],
