@@ -1577,7 +1577,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.form-label-custom[data-v-18f75969] {\n    font-weight: 600;\n    font-size: .85rem;\n    color: #333;\n    margin-bottom: 6px;\n}\n.checkbox-grid[data-v-18f75969] {\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 6px 16px;\n}\n.checkbox-grid .field-checkbox[data-v-18f75969] { display: flex; align-items: center;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.form-label-custom[data-v-18f75969] {\r\n    font-weight: 600;\r\n    font-size: .85rem;\r\n    color: #333;\r\n    margin-bottom: 6px;\n}\n.checkbox-grid[data-v-18f75969] {\r\n    display: grid;\r\n    grid-template-columns: 1fr 1fr 1fr;\r\n    gap: 6px 16px;\n}\n.checkbox-grid .field-checkbox[data-v-18f75969] { display: flex; align-items: center;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -1088,6 +1088,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var primevue_dialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primevue/dialog */ "./node_modules/primevue/dialog/index.mjs");
 /* harmony import */ var primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! primevue/confirmdialog */ "./node_modules/primevue/confirmdialog/index.mjs");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -1121,8 +1126,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this_week_total: 0,
         this_month_total: 0,
         this_year_total: 0
+      },
+      displaySerahTerima: false,
+      displayOtorisasi: false,
+      otorisasi: {
+        username: '',
+        password: '',
+        user: null
+      },
+      pilihSemua: false,
+      serahTerima: {
+        no_permintaan: '',
+        items: []
       }
     };
+  },
+  computed: {
+    itemBelumDiterima: function itemBelumDiterima() {
+      return this.serahTerima.items.filter(function (item) {
+        return !item.sudah_diterima;
+      });
+    },
+    itemDipilih: function itemDipilih() {
+      return this.itemBelumDiterima.filter(function (item) {
+        return item.checked;
+      });
+    }
   },
   mounted: function mounted() {
     var currentDate = new Date();
@@ -1172,19 +1201,208 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
+    sudahDiterima: function sudahDiterima(data) {
+      return Number(data.JML_ITEM) > 0 && Number(data.JML_DITERIMA) >= Number(data.JML_ITEM);
+    },
+    selisih: function selisih(item) {
+      var terima = item.sudah_diterima ? item.QTY_TERIMA : item.checked ? item.qty_input : null;
+      if (terima === null || terima === undefined) return 0;
+      return Number(terima) - Number(item.QTY_KIRIM);
+    },
+    togglePilihSemua: function togglePilihSemua() {
+      var _this2 = this;
+      this.itemBelumDiterima.forEach(function (item) {
+        return item.checked = _this2.pilihSemua;
+      });
+    },
+    openSerahTerima: function openSerahTerima(no_permintaan) {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _this3.serahTerima = {
+                no_permintaan: no_permintaan,
+                items: []
+              };
+              _this3.pilihSemua = false;
+              _this3.isLoading = true;
+              _context2.prev = 3;
+              _context2.next = 6;
+              return axios.post('/get_detail_serah_terima', {
+                no_permintaan: no_permintaan
+              });
+            case 6:
+              response = _context2.sent;
+              if (!(response.data.metadata.code != 200)) {
+                _context2.next = 10;
+                break;
+              }
+              _this3.open('warning', response.data.metadata.message);
+              return _context2.abrupt("return");
+            case 10:
+              _this3.serahTerima.items = response.data.response.map(function (item) {
+                return _objectSpread(_objectSpread({}, item), {}, {
+                  sudah_diterima: item.QTY_TERIMA !== null,
+                  checked: false,
+                  qty_input: Number(item.QTY_KIRIM)
+                });
+              });
+              _this3.displaySerahTerima = true;
+              _context2.next = 18;
+              break;
+            case 14:
+              _context2.prev = 14;
+              _context2.t0 = _context2["catch"](3);
+              console.log(_context2.t0);
+              _this3.open('error', 'Gagal memuat detail serah terima');
+            case 18:
+              _context2.prev = 18;
+              _this3.isLoading = false;
+              return _context2.finish(18);
+            case 21:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, null, [[3, 14, 18, 21]]);
+      }))();
+    },
+    konfirmasiSerahTerima: function konfirmasiSerahTerima() {
+      var kosong = this.itemDipilih.find(function (item) {
+        return item.qty_input === null || item.qty_input === undefined;
+      });
+      if (kosong) {
+        this.open('warning', 'Jumlah diterima ' + kosong.NAMA + ' belum diisi');
+        return;
+      }
+      this.otorisasi = {
+        username: '',
+        password: '',
+        user: null
+      };
+      this.displayOtorisasi = true;
+    },
+    cekUserOtorisasi: function cekUserOtorisasi() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              if (!(!_this4.otorisasi.username || !_this4.otorisasi.password)) {
+                _context3.next = 3;
+                break;
+              }
+              _this4.open('warning', 'Username dan password otorisasi wajib diisi');
+              return _context3.abrupt("return");
+            case 3:
+              _this4.isLoading = true;
+              _context3.prev = 4;
+              _context3.next = 7;
+              return axios.post('/cek_otorisasi_serah_terima', {
+                username: _this4.otorisasi.username,
+                password: _this4.otorisasi.password
+              });
+            case 7:
+              response = _context3.sent;
+              if (response.data.metadata.code == 200) {
+                _this4.otorisasi.user = response.data.response;
+              } else {
+                _this4.otorisasi.user = null;
+                _this4.open('warning', response.data.metadata.message);
+              }
+              _context3.next = 15;
+              break;
+            case 11:
+              _context3.prev = 11;
+              _context3.t0 = _context3["catch"](4);
+              console.log(_context3.t0);
+              _this4.open('error', 'Gagal memeriksa user otorisasi');
+            case 15:
+              _context3.prev = 15;
+              _this4.isLoading = false;
+              return _context3.finish(15);
+            case 18:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, null, [[4, 11, 15, 18]]);
+      }))();
+    },
+    simpanSerahTerima: function simpanSerahTerima() {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var payload, response;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              if (_this5.otorisasi.user) {
+                _context4.next = 3;
+                break;
+              }
+              _this5.cekUserOtorisasi();
+              return _context4.abrupt("return");
+            case 3:
+              payload = {
+                username: _this5.otorisasi.username,
+                password: _this5.otorisasi.password,
+                no_permintaan: _this5.serahTerima.no_permintaan,
+                items: _this5.itemDipilih.map(function (item) {
+                  return {
+                    BARCODE: item.BARCODE,
+                    ITEMSEQNO: item.ITEMSEQNO,
+                    QTY_TERIMA: item.qty_input
+                  };
+                })
+              };
+              _this5.isLoading = true;
+              _context4.prev = 5;
+              _context4.next = 8;
+              return axios.post('/simpan_serah_terima', payload);
+            case 8:
+              response = _context4.sent;
+              if (response.data.metadata.code == 200) {
+                _this5.open('success', response.data.metadata.message);
+                _this5.displayOtorisasi = false;
+                _this5.displaySerahTerima = false;
+                _this5.getlist_permintaan();
+              } else {
+                _this5.open('warning', response.data.metadata.message);
+              }
+              _context4.next = 16;
+              break;
+            case 12:
+              _context4.prev = 12;
+              _context4.t0 = _context4["catch"](5);
+              console.log(_context4.t0);
+              _this5.open('error', 'Gagal menyimpan serah terima');
+            case 16:
+              _context4.prev = 16;
+              _this5.otorisasi.password = '';
+              _this5.otorisasi.user = null;
+              _this5.isLoading = false;
+              return _context4.finish(16);
+            case 21:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4, null, [[5, 12, 16, 21]]);
+      }))();
+    },
     formatCurrency: function formatCurrency(value) {
       if (value === 0 || value === null || value === undefined) return '0';
       return new Intl.NumberFormat('id-ID').format(value);
     },
     confirm1: function confirm1(x) {
-      var _this2 = this;
+      var _this6 = this;
       this.$confirm.require({
         message: 'Anda ingin menghapus permintaan ' + x + ' ?',
         header: 'Hapus konfirmasi',
         icon: 'pi pi-info-circle',
         acceptClass: 'p-button-danger',
         accept: function accept() {
-          _this2.hapus_permintaan(x);
+          _this6.hapus_permintaan(x);
         },
         reject: function reject() {
           //this.$toast.add({severity:'info', summary:'Rejected', detail:'You have rejected', life: 3000});
@@ -1202,88 +1420,91 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     hapus_permintaan: function hapus_permintaan(no_permintaan) {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
         var dataform;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
             case 0:
               dataform = new FormData();
-              _this3.param.no_permintaan = no_permintaan;
-              _this3.isLoading = true;
-              _context2.next = 5;
-              return axios.post('/hapus_permintaan', _this3.param).then(function (response) {
+              _this7.param.no_permintaan = no_permintaan;
+              _this7.isLoading = true;
+              _context5.next = 5;
+              return axios.post('/hapus_permintaan', _this7.param).then(function (response) {
                 console.log(response.data);
                 var respon = response.data.metadata.code;
                 if (respon == 200) {
-                  _this3.open('success', response.data.metadata.message);
-                  _this3.getlist_permintaan();
+                  _this7.open('success', response.data.metadata.message);
+                  _this7.getlist_permintaan();
                 } else {
-                  _this3.open('warning', response.data.metadata.message);
+                  _this7.open('warning', response.data.metadata.message);
                 }
-                _this3.isLoading = false;
+                _this7.isLoading = false;
               })["catch"](function (error) {
                 console.log(error);
               })["finally"](function () {
-                return _this3.isLoading = false;
+                return _this7.isLoading = false;
               });
             case 5:
             case "end":
-              return _context2.stop();
+              return _context5.stop();
           }
-        }, _callee2);
+        }, _callee5);
       }))();
     },
     getlist_permintaan: function getlist_permintaan() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      var _this8 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
         var dataform;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
             case 0:
               dataform = new FormData();
-              _this4.isLoading = true;
-              _context3.next = 4;
-              return axios.post('/getlist_permintaan_baselokasi', _this4.form).then(function (response) {
-                _this4.fact = response.data.response;
-                _this4.isLoading = false;
-                _this4.getTransferSummary();
+              _this8.isLoading = true;
+              _context6.next = 4;
+              return axios.post('/getlist_permintaan_baselokasi', _this8.form).then(function (response) {
+                if (response.data.metadata && response.data.metadata.code != 200) {
+                  _this8.open('warning', response.data.metadata.message);
+                }
+                _this8.fact = response.data.response;
+                _this8.isLoading = false;
+                _this8.getTransferSummary();
               })["catch"](function (error) {
                 console.log(error);
               })["finally"](function () {
-                return _this4.isLoading = false;
+                return _this8.isLoading = false;
               });
             case 4:
             case "end":
-              return _context3.stop();
+              return _context6.stop();
           }
-        }, _callee3);
+        }, _callee6);
       }))();
     },
     getTransferSummary: function getTransferSummary() {
-      var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      var _this9 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
         var dataform;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
             case 0:
               dataform = new FormData();
-              _this5.isLoading = true;
-              _context4.next = 4;
-              return axios.post('/getTransferSummary', _this5.form).then(function (response) {
+              _this9.isLoading = true;
+              _context7.next = 4;
+              return axios.post('/getTransferSummary', _this9.form).then(function (response) {
                 console.log(response.data);
-                _this5.summary = response.data;
-                _this5.isLoading = false;
+                _this9.summary = response.data;
+                _this9.isLoading = false;
               })["catch"](function (error) {
                 console.log(error);
               })["finally"](function () {
-                return _this5.isLoading = false;
+                return _this9.isLoading = false;
               });
             case 4:
             case "end":
-              return _context4.stop();
+              return _context7.stop();
           }
-        }, _callee4);
+        }, _callee7);
       }))();
     }
   }
@@ -3499,69 +3720,153 @@ var _hoisted_9 = {
   "class": "project-actions text-center"
 };
 var _hoisted_10 = {
-  "class": "card elevation-0"
+  "class": "form-serah-terima"
 };
 var _hoisted_11 = {
-  "class": "card-body"
-};
-var _hoisted_12 = {
-  "class": "summary-blocks"
-};
-var _hoisted_13 = {
-  "class": "summary-block"
-};
-var _hoisted_14 = {
-  "class": "block-content"
-};
-var _hoisted_15 = {
-  "class": "block-value"
-};
-var _hoisted_16 = {
-  "class": "summary-block"
-};
-var _hoisted_17 = {
-  "class": "block-content"
-};
-var _hoisted_18 = {
-  "class": "block-value"
-};
-var _hoisted_19 = {
-  "class": "summary-block"
-};
-var _hoisted_20 = {
-  "class": "block-content"
-};
-var _hoisted_21 = {
-  "class": "block-value"
-};
-var _hoisted_22 = {
-  "class": "card"
-};
-var _hoisted_23 = {
-  "class": "card-body"
-};
-var _hoisted_24 = {
-  "class": "card"
-};
-var _hoisted_25 = {
-  "class": "card-header"
-};
-var _hoisted_26 = {
-  "class": "card-body"
-};
-var _hoisted_27 = {
   "class": "table table-striped projects"
 };
-var _hoisted_28 = {
-  "class": "project-state"
+var _hoisted_12 = {
+  style: {
+    "width": "4%"
+  },
+  "class": "text-center"
 };
-var _hoisted_29 = {
+var _hoisted_13 = {
+  "class": "text-center"
+};
+var _hoisted_14 = {
+  "class": "text-center"
+};
+var _hoisted_15 = {
+  "class": "text-center"
+};
+var _hoisted_16 = {
+  "class": "text-center"
+};
+var _hoisted_17 = {
   key: 0
 };
+var _hoisted_18 = {
+  "class": "text-center"
+};
+var _hoisted_19 = {
+  key: 0,
+  "class": "status-terima"
+};
+var _hoisted_20 = {
+  "class": "status-terima-user"
+};
+var _hoisted_21 = {
+  "class": "status-terima-waktu"
+};
+var _hoisted_22 = {
+  key: 1,
+  "class": "badge badge-warning"
+};
+var _hoisted_23 = {
+  key: 2,
+  "class": "text-danger status-selisih"
+};
+var _hoisted_24 = {
+  "class": "form-serah-terima"
+};
+var _hoisted_25 = {
+  "class": "mb-3 text-muted"
+};
+var _hoisted_26 = {
+  "class": "form-group"
+};
+var _hoisted_27 = {
+  "class": "form-group"
+};
+var _hoisted_28 = {
+  key: 0,
+  "class": "oto-user-info"
+};
+var _hoisted_29 = {
+  "class": "w-100"
+};
 var _hoisted_30 = {
-  key: 1
+  key: 0
 };
 var _hoisted_31 = {
+  key: 1
+};
+var _hoisted_32 = {
+  "class": "card elevation-0"
+};
+var _hoisted_33 = {
+  "class": "card-body"
+};
+var _hoisted_34 = {
+  "class": "summary-blocks"
+};
+var _hoisted_35 = {
+  "class": "summary-block"
+};
+var _hoisted_36 = {
+  "class": "block-content"
+};
+var _hoisted_37 = {
+  "class": "block-value"
+};
+var _hoisted_38 = {
+  "class": "summary-block"
+};
+var _hoisted_39 = {
+  "class": "block-content"
+};
+var _hoisted_40 = {
+  "class": "block-value"
+};
+var _hoisted_41 = {
+  "class": "summary-block"
+};
+var _hoisted_42 = {
+  "class": "block-content"
+};
+var _hoisted_43 = {
+  "class": "block-value"
+};
+var _hoisted_44 = {
+  "class": "card"
+};
+var _hoisted_45 = {
+  "class": "card-body"
+};
+var _hoisted_46 = {
+  "class": "card"
+};
+var _hoisted_47 = {
+  "class": "card-header"
+};
+var _hoisted_48 = {
+  "class": "card-body"
+};
+var _hoisted_49 = {
+  "class": "table table-striped projects"
+};
+var _hoisted_50 = {
+  "class": "project-state"
+};
+var _hoisted_51 = {
+  key: 0
+};
+var _hoisted_52 = {
+  key: 1
+};
+var _hoisted_53 = {
+  key: 2
+};
+var _hoisted_54 = {
+  key: 3,
+  "class": "badge badge-primary"
+};
+var _hoisted_55 = {
+  key: 4,
+  "class": "badge badge-info"
+};
+var _hoisted_56 = {
   "class": "project-actions text-center"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -3570,6 +3875,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ConfirmDialog = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ConfirmDialog");
   var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
   var _component_Dialog = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Dialog");
+  var _component_Checkbox = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Checkbox");
+  var _component_InputNumber = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputNumber");
+  var _component_InputText = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputText");
   var _component_Calendar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Calendar");
   var _component_Toolbar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Toolbar");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_loading, {
@@ -3603,9 +3911,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8 /* PROPS */, ["onClick"])];
     }),
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+      return [_cache[16] || (_cache[16] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
         "class": "m-0"
-      }, null, -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_3, [_cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+      }, null, -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_3, [_cache[15] || (_cache[15] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
         style: {
           "width": "7%"
         }
@@ -3630,35 +3938,205 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }), 256 /* UNKEYED_FRAGMENT */))])])];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["header", "visible"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Summary Section "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Summary Blocks - Left to Right Vertical "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Block 1: Items Summary "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_cache[8] || (_cache[8] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, 8 /* PROPS */, ["header", "visible"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
+    header: 'Konfirmasi Serah Terima: ' + $data.serahTerima.no_permintaan,
+    visible: $data.displaySerahTerima,
+    "onUpdate:visible": _cache[4] || (_cache[4] = function ($event) {
+      return $data.displaySerahTerima = $event;
+    }),
+    style: {
+      width: '85%'
+    },
+    modal: true
+  }, {
+    footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+        label: "Tutup",
+        icon: "pi pi-times",
+        onClick: _cache[3] || (_cache[3] = function ($event) {
+          return $data.displaySerahTerima = false;
+        }),
+        "class": "p-button-text"
+      }), $options.itemBelumDiterima.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Button, {
+        key: 0,
+        label: "Konfirmasi Terima",
+        icon: "pi pi-check",
+        disabled: $options.itemDipilih.length == 0,
+        onClick: $options.konfirmasiSerahTerima
+      }, null, 8 /* PROPS */, ["disabled", "onClick"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
+    }),
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_cache[26] || (_cache[26] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+        "class": "mb-2 text-muted"
+      }, " Centang item yang sudah diterima dan isi jumlah yang benar-benar diterima ruangan. ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Checkbox, {
+        modelValue: $data.pilihSemua,
+        "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+          return $data.pilihSemua = $event;
+        }),
+        binary: true,
+        disabled: $options.itemBelumDiterima.length == 0,
+        onChange: $options.togglePilihSemua
+      }, null, 8 /* PROPS */, ["modelValue", "disabled", "onChange"])]), _cache[17] || (_cache[17] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        style: {
+          "width": "4%"
+        }
+      }, "NO", -1 /* CACHED */)), _cache[18] || (_cache[18] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        style: {
+          "width": "10%"
+        }
+      }, "Barcode", -1 /* CACHED */)), _cache[19] || (_cache[19] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        style: {
+          "width": "28%"
+        }
+      }, "Nama Barang", -1 /* CACHED */)), _cache[20] || (_cache[20] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Satuan", -1 /* CACHED */)), _cache[21] || (_cache[21] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        "class": "text-center"
+      }, "Diminta", -1 /* CACHED */)), _cache[22] || (_cache[22] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        "class": "text-center"
+      }, "Dikirim", -1 /* CACHED */)), _cache[23] || (_cache[23] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        "class": "text-center",
+        style: {
+          "width": "14%"
+        }
+      }, "Jumlah Diterima", -1 /* CACHED */)), _cache[24] || (_cache[24] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        "class": "text-center"
+      }, "Status", -1 /* CACHED */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.serahTerima.items, function (item, k) {
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+          key: item.BARCODE + '-' + item.ITEMSEQNO
+        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Checkbox, {
+          modelValue: item.checked,
+          "onUpdate:modelValue": function onUpdateModelValue($event) {
+            return item.checked = $event;
+          },
+          binary: true,
+          disabled: item.sudah_diterima
+        }, null, 8 /* PROPS */, ["modelValue", "onUpdate:modelValue", "disabled"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(k + 1), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.BARCODE), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.NAMA), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.SATUAN), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral(item.QTY_ORDER, '0,0.[00]')), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral(item.QTY_KIRIM, '0,0.[00]')), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_16, [item.sudah_diterima ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral(item.QTY_TERIMA, '0,0.[00]')), 1 /* TEXT */)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_InputNumber, {
+          key: 1,
+          modelValue: item.qty_input,
+          "onUpdate:modelValue": function onUpdateModelValue($event) {
+            return item.qty_input = $event;
+          },
+          min: 0,
+          max: Number(item.QTY_KIRIM),
+          maxFractionDigits: 2,
+          disabled: !item.checked,
+          inputClass: "text-center",
+          inputStyle: {
+            width: '6em'
+          }
+        }, null, 8 /* PROPS */, ["modelValue", "onUpdate:modelValue", "max", "disabled"]))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_18, [item.sudah_diterima ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_19, [_cache[25] || (_cache[25] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+          "class": "badge badge-primary"
+        }, "Diterima", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.DITERIMA_OLEH), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.TANGGAL_TERIMA), 1 /* TEXT */)])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_22, "Belum diterima")), $options.selisih(item) != 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23, " Selisih " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral($options.selisih(item), '0,0.[00]')), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+      }), 128 /* KEYED_FRAGMENT */))])])])];
+    }),
+    _: 1 /* STABLE */
+  }, 8 /* PROPS */, ["header", "visible"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
+    header: "Otorisasi Serah Terima",
+    visible: $data.displayOtorisasi,
+    "onUpdate:visible": _cache[11] || (_cache[11] = function ($event) {
+      return $data.displayOtorisasi = $event;
+    }),
+    style: {
+      width: '450px'
+    },
+    modal: true
+  }, {
+    footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+        label: "Batal",
+        icon: "pi pi-times",
+        onClick: _cache[10] || (_cache[10] = function ($event) {
+          return $data.displayOtorisasi = false;
+        }),
+        "class": "p-button-text"
+      }), !$data.otorisasi.user ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Button, {
+        key: 0,
+        label: "Cek User",
+        icon: "pi pi-user",
+        disabled: !$data.otorisasi.username || !$data.otorisasi.password,
+        onClick: $options.cekUserOtorisasi
+      }, null, 8 /* PROPS */, ["disabled", "onClick"])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Button, {
+        key: 1,
+        label: "Konfirmasi & Simpan",
+        icon: "pi pi-lock-open",
+        "class": "p-button-success",
+        onClick: $options.simpanSerahTerima
+      }, null, 8 /* PROPS */, ["onClick"]))];
+    }),
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_25, " Konfirmasi terima " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.itemDipilih.length) + " item untuk permintaan " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.serahTerima.no_permintaan) + ". Masukkan user dan password petugas ruangan. Data yang sudah dikonfirmasi tidak dapat diubah. ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+        onSubmit: _cache[9] || (_cache[9] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+          return $data.otorisasi.user ? $options.simpanSerahTerima() : $options.cekUserOtorisasi();
+        }, ["prevent"])),
+        autocomplete: "off"
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [_cache[27] || (_cache[27] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+        "for": "oto_username"
+      }, "Username", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+        id: "oto_username",
+        modelValue: $data.otorisasi.username,
+        "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+          return $data.otorisasi.username = $event;
+        }),
+        "class": "w-100",
+        autocomplete: "off",
+        autofocus: "",
+        onInput: _cache[6] || (_cache[6] = function ($event) {
+          return $data.otorisasi.user = null;
+        })
+      }, null, 8 /* PROPS */, ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [_cache[28] || (_cache[28] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+        "for": "oto_password"
+      }, "Password", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+        id: "oto_password",
+        modelValue: $data.otorisasi.password,
+        "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+          return $data.otorisasi.password = $event;
+        }),
+        type: "password",
+        "class": "w-100",
+        autocomplete: "new-password",
+        onInput: _cache[8] || (_cache[8] = function ($event) {
+          return $data.otorisasi.user = null;
+        })
+      }, null, 8 /* PROPS */, ["modelValue"])]), _cache[29] || (_cache[29] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+        type: "submit",
+        "class": "d-none"
+      }, null, -1 /* CACHED */))], 32 /* NEED_HYDRATION */), $data.otorisasi.user ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_28, [_cache[34] || (_cache[34] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+        "class": "text-muted small mb-1"
+      }, "Pastikan data user berikut benar sebelum konfirmasi:", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_cache[30] || (_cache[30] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+        style: {
+          "width": "35%"
+        }
+      }, "Nama", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.otorisasi.user.nama), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_cache[31] || (_cache[31] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Username", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.otorisasi.user.username), 1 /* TEXT */)]), $data.otorisasi.user.jabatan ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_30, [_cache[32] || (_cache[32] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Jabatan", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.otorisasi.user.jabatan), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.otorisasi.user.lokasi ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_31, [_cache[33] || (_cache[33] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Lokasi", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.otorisasi.user.lokasi), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])];
+    }),
+    _: 1 /* STABLE */
+  }, 8 /* PROPS */, ["visible"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Summary Section "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Summary Blocks - Left to Right Vertical "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Block 1: Items Summary "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [_cache[36] || (_cache[36] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "block-icon items-icon"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     "class": "pi pi-box"
-  })], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  })], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [_cache[35] || (_cache[35] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "block-label"
-  }, "Terima Minggu Ini", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatCurrency((_$data$summary = $data.summary) === null || _$data$summary === void 0 ? void 0 : _$data$summary.this_week_total)), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Block 2: Quantity Summary "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [_cache[10] || (_cache[10] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, "Terima Minggu Ini", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatCurrency((_$data$summary = $data.summary) === null || _$data$summary === void 0 ? void 0 : _$data$summary.this_week_total)), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Block 2: Quantity Summary "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [_cache[38] || (_cache[38] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "block-icon quantity-icon"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     "class": "pi pi-shopping-cart"
-  })], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_cache[9] || (_cache[9] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  })], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [_cache[37] || (_cache[37] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "block-label"
-  }, "Terima Bulan Ini", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatCurrency((_$data$summary2 = $data.summary) === null || _$data$summary2 === void 0 ? void 0 : _$data$summary2.this_month_total)), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Block 3: Revenue Summary "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [_cache[12] || (_cache[12] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, "Terima Bulan Ini", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatCurrency((_$data$summary2 = $data.summary) === null || _$data$summary2 === void 0 ? void 0 : _$data$summary2.this_month_total)), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Block 3: Revenue Summary "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [_cache[40] || (_cache[40] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "block-icon revenue-icon"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     "class": "pi pi-dollar"
-  })], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_cache[11] || (_cache[11] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  })], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [_cache[39] || (_cache[39] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "block-label"
-  }, "Terima Tahun Ini", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, "Rp " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatCurrency((_$data$summary3 = $data.summary) === null || _$data$summary3 === void 0 ? void 0 : _$data$summary3.this_year_total)), 1 /* TEXT */)])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_cache[14] || (_cache[14] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, "Terima Tahun Ini", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, "Rp " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatCurrency((_$data$summary3 = $data.summary) === null || _$data$summary3 === void 0 ? void 0 : _$data$summary3.this_year_total)), 1 /* TEXT */)])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [_cache[42] || (_cache[42] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "card-header"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", {
     "class": "card-title"
-  }, "Pilih tanggal permintaan")], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Toolbar, {
+  }, "Pilih tanggal permintaan")], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Toolbar, {
     "class": "mb-0"
   }, {
     start: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Calendar, {
         modelValue: $data.form.startdate,
-        "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+        "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
           return $data.form.startdate = $event;
         }),
         "class": "text-sm mr-1",
@@ -3673,7 +4151,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }
       }, null, 8 /* PROPS */, ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Calendar, {
         modelValue: $data.form.enddate,
-        "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+        "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
           return $data.form.enddate = $event;
         }),
         "class": "text-sm mr-1",
@@ -3689,7 +4167,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8 /* PROPS */, ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
         label: "",
         align: "",
-        onClick: _cache[4] || (_cache[4] = function ($event) {
+        onClick: _cache[14] || (_cache[14] = function ($event) {
           return $options.getlist_permintaan();
         }),
         icon: "pi pi-check",
@@ -3697,7 +4175,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       })];
     }),
     end: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return _toConsumableArray(_cache[13] || (_cache[13] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+      return _toConsumableArray(_cache[41] || (_cache[41] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
         "class": "btn btn-info",
         href: "/permintaanlogistik"
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
@@ -3705,7 +4183,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Permintaan baru ")], -1 /* CACHED */)]));
     }),
     _: 1 /* STABLE */
-  })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_27, [_cache[18] || (_cache[18] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_49, [_cache[46] || (_cache[46] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     style: {
       "width": "10%"
     }
@@ -3727,23 +4205,40 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     },
     "class": "text-center"
   }, " Status/Batalkan ")])], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.fact, function (data) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.NO_PERMINTAAN) + " ", 1 /* TEXT */), _cache[15] || (_cache[15] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.TANGGAL), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.LOKASI), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.TUJUAN), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_28, [data.TELAH_DIPROSES == 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_29, _toConsumableArray(_cache[16] || (_cache[16] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.NO_PERMINTAAN) + " ", 1 /* TEXT */), _cache[43] || (_cache[43] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.TANGGAL), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.LOKASI), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.TUJUAN), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_50, [data.TELAH_DIPROSES == 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_51, _toConsumableArray(_cache[44] || (_cache[44] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       "class": "badge badge-warning"
-    }, " Menunggu ", -1 /* CACHED */)])))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), data.TELAH_DIPROSES == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_30, _toConsumableArray(_cache[17] || (_cache[17] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    }, " Menunggu ", -1 /* CACHED */)])))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), data.TELAH_DIPROSES == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_52, _toConsumableArray(_cache[45] || (_cache[45] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       "class": "badge badge-success"
-    }, " Sudah diproses ", -1 /* CACHED */)])))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.CATATAN), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+    }, " Sudah diproses ", -1 /* CACHED */)])))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), data.TELAH_DIPROSES == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("br", _hoisted_53)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), data.TELAH_DIPROSES == 1 && $options.sudahDiterima(data) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_54, " Sudah diterima ")) : data.TELAH_DIPROSES == 1 && data.JML_DITERIMA > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_55, " Diterima " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.JML_DITERIMA) + "/" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.JML_ITEM) + " item ", 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.CATATAN), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_56, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
       icon: "pi pi-search",
       onClick: function onClick($event) {
         return $options.openModal(data.NO_PERMINTAAN);
       },
       "class": "p-button-rounded p-button-success"
-    }, null, 8 /* PROPS */, ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+    }, null, 8 /* PROPS */, ["onClick"]), data.TELAH_DIPROSES == 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Button, {
+      key: 0,
       icon: "pi pi-times",
       onClick: function onClick($event) {
         return $options.confirm1(data.NO_PERMINTAAN);
       },
       "class": "p-button-rounded p-button-danger"
-    }, null, 8 /* PROPS */, ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Button icon=\"pi pi-remove\" class=\"p-button-rounded p-button-warning\" /> ")])]);
+    }, null, 8 /* PROPS */, ["onClick"])) : !$options.sudahDiterima(data) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Button, {
+      key: 1,
+      icon: "pi pi-inbox",
+      label: "Konfirmasi terima",
+      onClick: function onClick($event) {
+        return $options.openSerahTerima(data.NO_PERMINTAAN);
+      },
+      "class": "p-button-rounded p-button-warning ml-1"
+    }, null, 8 /* PROPS */, ["onClick"])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Button, {
+      key: 2,
+      icon: "pi pi-check-circle",
+      label: "Lihat serah terima",
+      onClick: function onClick($event) {
+        return $options.openSerahTerima(data.NO_PERMINTAAN);
+      },
+      "class": "p-button-rounded p-button-outlined p-button-secondary ml-1"
+    }, null, 8 /* PROPS */, ["onClick"]))])]);
   }), 256 /* UNKEYED_FRAGMENT */))])])])])])]);
 }
 
@@ -4266,7 +4761,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.sortable-th[data-v-7ac0c174] {\n    cursor: pointer;\n    -webkit-user-select: none;\n       -moz-user-select: none;\n            user-select: none;\n    white-space: nowrap;\n}\n.sortable-th i[data-v-7ac0c174] {\n    font-size: .7rem;\n    opacity: .6;\n    margin-left: 3px;\n}\n.sortable-th[data-v-7ac0c174]:hover {\n    background: #f1f5f9;\n}\n.filter-summary-bar[data-v-7ac0c174] {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n    font-size: .85rem;\n    color: #495057;\n    flex-wrap: wrap;\n}\n.filter-summary-sep[data-v-7ac0c174] {\n    color: #cbd5e0;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.sortable-th[data-v-7ac0c174] {\r\n    cursor: pointer;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n            user-select: none;\r\n    white-space: nowrap;\n}\n.sortable-th i[data-v-7ac0c174] {\r\n    font-size: .7rem;\r\n    opacity: .6;\r\n    margin-left: 3px;\n}\n.sortable-th[data-v-7ac0c174]:hover {\r\n    background: #f1f5f9;\n}\n.filter-summary-bar[data-v-7ac0c174] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 8px;\r\n    font-size: .85rem;\r\n    color: #495057;\r\n    flex-wrap: wrap;\n}\n.filter-summary-sep[data-v-7ac0c174] {\r\n    color: #cbd5e0;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4289,7 +4784,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.summary-container[data-v-781f0706] {\r\n         background: #ffffff;\r\n         border-radius: 12px;\r\n         padding: 2rem;\r\n         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);\r\n         border: 1px solid #e5e7eb;\n}\n.summary-title[data-v-781f0706] {\r\n         font-weight: 700;\r\n         color: #1f2937;\r\n         margin-bottom: 2rem;\r\n         text-align: center;\n}\n.summary-blocks[data-v-781f0706] {\r\n         display: grid;\r\n         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\r\n         gap: 1.5rem;\n}\n.summary-block[data-v-781f0706] {\r\n         background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);\r\n         border: 1px solid #e2e8f0;\r\n         border-radius: 12px;\r\n         padding: 1.5rem;\r\n         display: flex;\r\n         align-items: center;\r\n         gap: 1rem;\r\n         transition: all 0.3s ease;\r\n         position: relative;\r\n         overflow: hidden;\n}\n.summary-block[data-v-781f0706]:hover {\r\n         transform: translateY(-2px);\r\n         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);\r\n         border-color: #cbd5e1;\n}\n.summary-block[data-v-781f0706]::before {\r\n         content: '';\r\n         position: absolute;\r\n         top: 0;\r\n         left: 0;\r\n         width: 4px;\r\n         height: 100%;\r\n         background: var(--block-color, #3b82f6);\n}\n.block-icon[data-v-781f0706] {\r\n         width: 60px;\r\n         height: 60px;\r\n         border-radius: 12px;\r\n         display: flex;\r\n         align-items: center;\r\n         justify-content: center;\r\n         color: white;\r\n         flex-shrink: 0;\n}\n.items-icon[data-v-781f0706] {\r\n         background: linear-gradient(135deg, #3b82f6, #1d4ed8);\n}\n.summary-block[data-v-781f0706]:nth-child(1)::before {\r\n         background: #3b82f6;\n}\n.quantity-icon[data-v-781f0706] {\r\n         background: linear-gradient(135deg, #10b981, #047857);\n}\n.summary-block[data-v-781f0706]:nth-child(2)::before {\r\n         background: #10b981;\n}\n.revenue-icon[data-v-781f0706] {\r\n         background: linear-gradient(135deg, #f59e0b, #d97706);\n}\n.summary-block[data-v-781f0706]:nth-child(3)::before {\r\n         background: #f59e0b;\n}\n.price-icon[data-v-781f0706] {\r\n         background: linear-gradient(135deg, #8b5cf6, #7c3aed);\n}\n.summary-block[data-v-781f0706]:nth-child(4)::before {\r\n         background: #8b5cf6;\n}\n.period-icon[data-v-781f0706] {\r\n         background: linear-gradient(135deg, #ef4444, #dc2626);\n}\n.summary-block[data-v-781f0706]:nth-child(5)::before {\r\n         background: #ef4444;\n}\n.bestseller-icon[data-v-781f0706] {\r\n         background: linear-gradient(135deg, #f97316, #ea580c);\n}\n.summary-block[data-v-781f0706]:nth-child(6)::before {\r\n         background: #f97316;\n}\n.block-content[data-v-781f0706] {\r\n         flex: 1;\r\n         min-width: 0;\n}\n.block-label[data-v-781f0706] {\r\n         font-weight: 500;\r\n         color: #6b7280;\r\n         margin-bottom: 0.25rem;\n}\n.block-value[data-v-781f0706] {\r\n         font-weight: 500;\r\n         color: #111827;\r\n         font-size: 1.3rem;\r\n         line-height: 1.2;\r\n         margin-bottom: 0.25rem;\n}\n.block-value-small[data-v-781f0706] {\r\n         font-weight: 600;\r\n         color: #111827;\r\n         line-height: 1.3;\r\n         margin-bottom: 0.25rem;\n}\n.block-subtitle[data-v-781f0706] {\r\n         color: #9ca3af;\r\n         font-weight: 400;\n}\n.period-block .block-value-small[data-v-781f0706] {\r\n\r\n         font-weight: 600;\n}\r\n\r\n     /* Responsive Design */\n@media (max-width: 1024px) {\n.summary-blocks[data-v-781f0706] {\r\n             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));\r\n             gap: 1rem;\n}\n}\n@media (max-width: 768px) {\n.summary-container[data-v-781f0706] {\r\n             padding: 1.5rem;\n}\n.summary-blocks[data-v-781f0706] {\r\n             grid-template-columns: 1fr;\r\n             gap: 1rem;\n}\n.summary-block[data-v-781f0706] {\r\n             padding: 1.25rem;\n}\n.block-icon[data-v-781f0706] {\r\n             width: 50px;\r\n             height: 50px;\n}\n}\n@media (max-width: 480px) {\n.summary-title[data-v-781f0706] {\r\n             margin-bottom: 1.5rem;\n}\n.summary-block[data-v-781f0706] {\r\n             flex-direction: column;\r\n             text-align: center;\r\n             gap: 0.75rem;\n}\n.block-content[data-v-781f0706] {\r\n             width: 100%;\n}\n}\n.table-header[data-v-781f0706] {\r\n         display: flex;\r\n         justify-content: space-between;\r\n         align-items: center;\r\n         padding: 1rem;\r\n         background: #f8f9fa;\r\n         border-radius: 8px 8px 0 0;\n}\n.category-badge[data-v-781f0706] {\r\n         background: #e3f2fd;\r\n         color: #1976d2;\r\n         padding: 0.25rem 0.5rem;\r\n         border-radius: 4px;\r\n         font-weight: 500;\n}\n.table-footer[data-v-781f0706] {\r\n         padding: 1rem;\r\n         background: #f8f9fa;\r\n         border-radius: 0 0 8px 8px;\n}\n.footer-summary[data-v-781f0706] {\r\n         display: flex;\r\n         justify-content: space-between;\r\n         align-items: center;\n}\r\n\r\n     /* Responsive adjustments for table */\n@media (max-width: 768px) {\n.table-header[data-v-781f0706] {\r\n             flex-direction: column;\r\n             gap: 1rem;\n}\n.footer-summary[data-v-781f0706] {\r\n             flex-direction: column;\r\n             gap: 0.5rem;\r\n             text-align: center;\n}\n}\r\n\r\n     /* PrimeVue DataTable customizations */\n[data-v-781f0706] .p-datatable {\r\n         border-radius: 8px;\r\n         overflow: hidden;\r\n         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n[data-v-781f0706] .p-datatable .p-datatable-header {\r\n         border-radius: 8px 8px 0 0;\n}\n[data-v-781f0706] .p-datatable .p-datatable-footer {\r\n         border-radius: 0 0 8px 8px;\n}\n[data-v-781f0706] .p-paginator {\r\n         border-radius: 0 0 8px 8px;\n}\r\n\r\n ", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.summary-container[data-v-781f0706] {\r\n         background: #ffffff;\r\n         border-radius: 12px;\r\n         padding: 2rem;\r\n         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);\r\n         border: 1px solid #e5e7eb;\n}\n.summary-title[data-v-781f0706] {\r\n         font-weight: 700;\r\n         color: #1f2937;\r\n         margin-bottom: 2rem;\r\n         text-align: center;\n}\n.summary-blocks[data-v-781f0706] {\r\n         display: grid;\r\n         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\r\n         gap: 1.5rem;\n}\n.summary-block[data-v-781f0706] {\r\n         background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);\r\n         border: 1px solid #e2e8f0;\r\n         border-radius: 12px;\r\n         padding: 1.5rem;\r\n         display: flex;\r\n         align-items: center;\r\n         gap: 1rem;\r\n         transition: all 0.3s ease;\r\n         position: relative;\r\n         overflow: hidden;\n}\n.summary-block[data-v-781f0706]:hover {\r\n         transform: translateY(-2px);\r\n         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);\r\n         border-color: #cbd5e1;\n}\n.summary-block[data-v-781f0706]::before {\r\n         content: '';\r\n         position: absolute;\r\n         top: 0;\r\n         left: 0;\r\n         width: 4px;\r\n         height: 100%;\r\n         background: var(--block-color, #3b82f6);\n}\n.block-icon[data-v-781f0706] {\r\n         width: 60px;\r\n         height: 60px;\r\n         border-radius: 12px;\r\n         display: flex;\r\n         align-items: center;\r\n         justify-content: center;\r\n         color: white;\r\n         flex-shrink: 0;\n}\n.items-icon[data-v-781f0706] {\r\n         background: linear-gradient(135deg, #3b82f6, #1d4ed8);\n}\n.summary-block[data-v-781f0706]:nth-child(1)::before {\r\n         background: #3b82f6;\n}\n.quantity-icon[data-v-781f0706] {\r\n         background: linear-gradient(135deg, #10b981, #047857);\n}\n.summary-block[data-v-781f0706]:nth-child(2)::before {\r\n         background: #10b981;\n}\n.revenue-icon[data-v-781f0706] {\r\n         background: linear-gradient(135deg, #f59e0b, #d97706);\n}\n.summary-block[data-v-781f0706]:nth-child(3)::before {\r\n         background: #f59e0b;\n}\n.price-icon[data-v-781f0706] {\r\n         background: linear-gradient(135deg, #8b5cf6, #7c3aed);\n}\n.summary-block[data-v-781f0706]:nth-child(4)::before {\r\n         background: #8b5cf6;\n}\n.period-icon[data-v-781f0706] {\r\n         background: linear-gradient(135deg, #ef4444, #dc2626);\n}\n.summary-block[data-v-781f0706]:nth-child(5)::before {\r\n         background: #ef4444;\n}\n.bestseller-icon[data-v-781f0706] {\r\n         background: linear-gradient(135deg, #f97316, #ea580c);\n}\n.summary-block[data-v-781f0706]:nth-child(6)::before {\r\n         background: #f97316;\n}\n.block-content[data-v-781f0706] {\r\n         flex: 1;\r\n         min-width: 0;\n}\n.block-label[data-v-781f0706] {\r\n         font-weight: 500;\r\n         color: #6b7280;\r\n         margin-bottom: 0.25rem;\n}\n.block-value[data-v-781f0706] {\r\n         font-weight: 500;\r\n         color: #111827;\r\n         font-size: 1.3rem;\r\n         line-height: 1.2;\r\n         margin-bottom: 0.25rem;\n}\n.block-value-small[data-v-781f0706] {\r\n         font-weight: 600;\r\n         color: #111827;\r\n         line-height: 1.3;\r\n         margin-bottom: 0.25rem;\n}\n.block-subtitle[data-v-781f0706] {\r\n         color: #9ca3af;\r\n         font-weight: 400;\n}\n.period-block .block-value-small[data-v-781f0706] {\r\n\r\n         font-weight: 600;\n}\r\n\r\n     /* Responsive Design */\n@media (max-width: 1024px) {\n.summary-blocks[data-v-781f0706] {\r\n             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));\r\n             gap: 1rem;\n}\n}\n@media (max-width: 768px) {\n.summary-container[data-v-781f0706] {\r\n             padding: 1.5rem;\n}\n.summary-blocks[data-v-781f0706] {\r\n             grid-template-columns: 1fr;\r\n             gap: 1rem;\n}\n.summary-block[data-v-781f0706] {\r\n             padding: 1.25rem;\n}\n.block-icon[data-v-781f0706] {\r\n             width: 50px;\r\n             height: 50px;\n}\n}\n@media (max-width: 480px) {\n.summary-title[data-v-781f0706] {\r\n             margin-bottom: 1.5rem;\n}\n.summary-block[data-v-781f0706] {\r\n             flex-direction: column;\r\n             text-align: center;\r\n             gap: 0.75rem;\n}\n.block-content[data-v-781f0706] {\r\n             width: 100%;\n}\n}\n.table-header[data-v-781f0706] {\r\n         display: flex;\r\n         justify-content: space-between;\r\n         align-items: center;\r\n         padding: 1rem;\r\n         background: #f8f9fa;\r\n         border-radius: 8px 8px 0 0;\n}\n.category-badge[data-v-781f0706] {\r\n         background: #e3f2fd;\r\n         color: #1976d2;\r\n         padding: 0.25rem 0.5rem;\r\n         border-radius: 4px;\r\n         font-weight: 500;\n}\n.table-footer[data-v-781f0706] {\r\n         padding: 1rem;\r\n         background: #f8f9fa;\r\n         border-radius: 0 0 8px 8px;\n}\n.footer-summary[data-v-781f0706] {\r\n         display: flex;\r\n         justify-content: space-between;\r\n         align-items: center;\n}\r\n\r\n     /* Responsive adjustments for table */\n@media (max-width: 768px) {\n.table-header[data-v-781f0706] {\r\n             flex-direction: column;\r\n             gap: 1rem;\n}\n.footer-summary[data-v-781f0706] {\r\n             flex-direction: column;\r\n             gap: 0.5rem;\r\n             text-align: center;\n}\n}\r\n\r\n     /* Form konfirmasi serah terima */\n.form-serah-terima[data-v-781f0706] {\r\n         font-size: 1.05rem;\n}\n.form-serah-terima .table td[data-v-781f0706],\r\n     .form-serah-terima .table th[data-v-781f0706] {\r\n         vertical-align: middle;\n}\n.form-serah-terima .badge[data-v-781f0706] {\r\n         font-size: 0.9rem;\r\n         padding: 0.4em 0.7em;\n}\n.form-serah-terima .status-terima-user[data-v-781f0706] {\r\n         font-weight: 600;\r\n         font-size: 0.95rem;\r\n         margin-top: 0.3rem;\n}\n.form-serah-terima .status-terima-waktu[data-v-781f0706] {\r\n         font-size: 0.85rem;\r\n         color: #6b7280;\n}\n.form-serah-terima .status-selisih[data-v-781f0706] {\r\n         font-size: 0.9rem;\r\n         font-weight: 600;\n}\n.oto-user-info[data-v-781f0706] {\r\n         background: #ecfdf5;\r\n         border: 1px solid #a7f3d0;\r\n         border-radius: 8px;\r\n         padding: 0.75rem 1rem;\n}\n.oto-user-info td[data-v-781f0706] {\r\n         padding: 0.15rem 0;\n}\n.form-serah-terima[data-v-781f0706] .p-inputnumber-input {\r\n         font-size: 1.05rem;\n}\r\n\r\n     /* PrimeVue DataTable customizations */\n[data-v-781f0706] .p-datatable {\r\n         border-radius: 8px;\r\n         overflow: hidden;\r\n         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n[data-v-781f0706] .p-datatable .p-datatable-header {\r\n         border-radius: 8px 8px 0 0;\n}\n[data-v-781f0706] .p-datatable .p-datatable-footer {\r\n         border-radius: 0 0 8px 8px;\n}\n[data-v-781f0706] .p-paginator {\r\n         border-radius: 0 0 8px 8px;\n}\r\n\r\n ", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4312,7 +4807,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n/* ===== PANEL KANAN: ITEM DIPILIH ===== */\n.perm-item[data-v-0271816a] {\n    border-bottom: 1px solid #e9ecef;\n    padding: 8px 12px;\n}\n.perm-item[data-v-0271816a]:last-child { border-bottom: none;\n}\n.perm-item-header[data-v-0271816a] {\n    display: flex;\n    align-items: flex-start;\n    gap: 8px;\n    margin-bottom: 8px;\n}\n.perm-item-no[data-v-0271816a] {\n    min-width: 22px;\n    height: 22px;\n    border-radius: 50%;\n    background: #1976d2;\n    color: #fff;\n    font-weight: 700;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    flex-shrink: 0;\n    margin-top: 2px;\n}\n.perm-item-info[data-v-0271816a] { flex: 1; min-width: 0;\n}\n.perm-item-barcode[data-v-0271816a] {\n    font-weight: 600;\n    color: #333;\n}\n.perm-item-nama[data-v-0271816a] {\n    color: #666;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n/* Tiga kotak stat dalam satu baris */\n.perm-item-stats[data-v-0271816a] {\n    display: flex;\n    gap: 6px;\n}\n.perm-stat[data-v-0271816a] {\n    flex: 1;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    border-radius: 6px;\n    padding: 4px 6px;\n}\n.perm-stat-label[data-v-0271816a] {\n    text-transform: uppercase;\n    letter-spacing: .03em;\n    margin-bottom: 3px;\n    white-space: nowrap;\n    font-weight: 600;\n}\n.perm-stat-qty[data-v-0271816a]      { background: #e8f5e9;\n}\n.perm-stat-qty .perm-stat-label[data-v-0271816a] { color: #2e7d32;\n}\n.perm-stat-sisa[data-v-0271816a]     { background: #ffebee;\n}\n.perm-stat-sisa .perm-stat-label[data-v-0271816a] { color: #c62828;\n}\n.perm-stat-kebutuhan[data-v-0271816a]{ background: #fff8e1;\n}\n.perm-stat-kebutuhan .perm-stat-label[data-v-0271816a] { color: #e65100;\n}\n\n/* InputNumber di dalam stat box */\n.perm-stat[data-v-0271816a] .p-inputnumber { width: 100%;\n}\n.perm-stat[data-v-0271816a] .p-inputnumber .p-inputtext {\n    text-align: center;\n    font-weight: 700;\n    border: none;\n    background: transparent;\n    padding: 2px 4px;\n    height: 28px;\n    width: 100%;\n    box-shadow: none;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* ===== PANEL KANAN: ITEM DIPILIH ===== */\n.perm-item[data-v-0271816a] {\r\n    border-bottom: 1px solid #e9ecef;\r\n    padding: 8px 12px;\n}\n.perm-item[data-v-0271816a]:last-child { border-bottom: none;\n}\n.perm-item-header[data-v-0271816a] {\r\n    display: flex;\r\n    align-items: flex-start;\r\n    gap: 8px;\r\n    margin-bottom: 8px;\n}\n.perm-item-no[data-v-0271816a] {\r\n    min-width: 22px;\r\n    height: 22px;\r\n    border-radius: 50%;\r\n    background: #1976d2;\r\n    color: #fff;\r\n    font-weight: 700;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-shrink: 0;\r\n    margin-top: 2px;\n}\n.perm-item-info[data-v-0271816a] { flex: 1; min-width: 0;\n}\n.perm-item-barcode[data-v-0271816a] {\r\n    font-weight: 600;\r\n    color: #333;\n}\n.perm-item-nama[data-v-0271816a] {\r\n    color: #666;\r\n    white-space: nowrap;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\n}\r\n\r\n/* Tiga kotak stat dalam satu baris */\n.perm-item-stats[data-v-0271816a] {\r\n    display: flex;\r\n    gap: 6px;\n}\n.perm-stat[data-v-0271816a] {\r\n    flex: 1;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    border-radius: 6px;\r\n    padding: 4px 6px;\n}\n.perm-stat-label[data-v-0271816a] {\r\n    text-transform: uppercase;\r\n    letter-spacing: .03em;\r\n    margin-bottom: 3px;\r\n    white-space: nowrap;\r\n    font-weight: 600;\n}\n.perm-stat-qty[data-v-0271816a]      { background: #e8f5e9;\n}\n.perm-stat-qty .perm-stat-label[data-v-0271816a] { color: #2e7d32;\n}\n.perm-stat-sisa[data-v-0271816a]     { background: #ffebee;\n}\n.perm-stat-sisa .perm-stat-label[data-v-0271816a] { color: #c62828;\n}\n.perm-stat-kebutuhan[data-v-0271816a]{ background: #fff8e1;\n}\n.perm-stat-kebutuhan .perm-stat-label[data-v-0271816a] { color: #e65100;\n}\r\n\r\n/* InputNumber di dalam stat box */\n.perm-stat[data-v-0271816a] .p-inputnumber { width: 100%;\n}\n.perm-stat[data-v-0271816a] .p-inputnumber .p-inputtext {\r\n    text-align: center;\r\n    font-weight: 700;\r\n    border: none;\r\n    background: transparent;\r\n    padding: 2px 4px;\r\n    height: 28px;\r\n    width: 100%;\r\n    box-shadow: none;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

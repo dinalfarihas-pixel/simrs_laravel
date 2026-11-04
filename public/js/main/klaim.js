@@ -635,7 +635,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         icon: "pi pi-refresh",
         "class": "p-button p-button-success"
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <video ref=\"video\" width=\"640\" height=\"480\" autoplay></video>\n                    <button @click=\"capture\">Capture</button>\n                    <canvas ref=\"canvas\" width=\"640\" height=\"480\" style=\"display: none;\"></canvas>\n                    <img :src=\"imageData\" alt=\"Captured Image\" v-if=\"imageData\"> ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_cache[26] || (_cache[26] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <video ref=\"video\" width=\"640\" height=\"480\" autoplay></video>\r\n                    <button @click=\"capture\">Capture</button>\r\n                    <canvas ref=\"canvas\" width=\"640\" height=\"480\" style=\"display: none;\"></canvas>\r\n                    <img :src=\"imageData\" alt=\"Captured Image\" v-if=\"imageData\"> ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_cache[26] || (_cache[26] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         "class": "card-header"
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, "Lampiran")], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Galleria, {
         value: $data.list_lampiran,

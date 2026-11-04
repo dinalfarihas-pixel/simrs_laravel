@@ -150,7 +150,7 @@
     </div>
     <!-- ./wrapper -->
     <!-- jQuery -->
-    <script src="{{asset('js/app.js')}}?v=643a63c5c0b1cd139c8d26f9f8181e65"></script>
+    <script src="{{asset('js/app.js')}}?v=e57622377d6638f4384f97c72b2696f4"></script>
     <!-- <script src="{{asset('js/app.js?=643a63c5c0b1cd139c8d26f9f8181e65 ')}}"></script> -->
     <script src="{{asset('template/plugins/jquery/jquery.min.js')}}"></script>
     <!-- Bootstrap -->

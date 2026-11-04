@@ -88,14 +88,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../bus */ "./resources/js/components/bus.js");
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/index.js");
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var primevue_dialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primevue/dialog */ "./node_modules/primevue/dialog/index.mjs");
-/* harmony import */ var primevue_inputnumber__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primevue/inputnumber */ "./node_modules/primevue/inputnumber/index.mjs");
-/* harmony import */ var primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primevue/confirmdialog */ "./node_modules/primevue/confirmdialog/index.mjs");
-/* harmony import */ var primevue_tag__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primevue/tag */ "./node_modules/primevue/tag/index.mjs");
-/* harmony import */ var primevue_checkbox__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primevue/checkbox */ "./node_modules/primevue/checkbox/index.mjs");
-/* harmony import */ var primevue_autocomplete__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primevue/autocomplete */ "./node_modules/primevue/autocomplete/index.mjs");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var primevue_dialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primevue/dialog */ "./node_modules/primevue/dialog/index.mjs");
+/* harmony import */ var primevue_inputnumber__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primevue/inputnumber */ "./node_modules/primevue/inputnumber/index.mjs");
+/* harmony import */ var primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primevue/confirmdialog */ "./node_modules/primevue/confirmdialog/index.mjs");
+/* harmony import */ var primevue_tag__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primevue/tag */ "./node_modules/primevue/tag/index.mjs");
+/* harmony import */ var primevue_checkbox__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primevue/checkbox */ "./node_modules/primevue/checkbox/index.mjs");
+/* harmony import */ var primevue_autocomplete__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! primevue/autocomplete */ "./node_modules/primevue/autocomplete/index.mjs");
+/* harmony import */ var _SerahTerimaResepComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SerahTerimaResepComponent.vue */ "./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 var _methods;
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -114,21 +115,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     Loading: (vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default()),
-    Dialog: primevue_dialog__WEBPACK_IMPORTED_MODULE_3__["default"],
-    InputNumber: primevue_inputnumber__WEBPACK_IMPORTED_MODULE_4__["default"],
-    ConfirmDialog: primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_5__["default"],
-    Tag: primevue_tag__WEBPACK_IMPORTED_MODULE_6__["default"],
-    Checkbox: primevue_checkbox__WEBPACK_IMPORTED_MODULE_7__["default"],
-    AutoComplete: primevue_autocomplete__WEBPACK_IMPORTED_MODULE_8__["default"]
+    Dialog: primevue_dialog__WEBPACK_IMPORTED_MODULE_4__["default"],
+    InputNumber: primevue_inputnumber__WEBPACK_IMPORTED_MODULE_5__["default"],
+    ConfirmDialog: primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_6__["default"],
+    Tag: primevue_tag__WEBPACK_IMPORTED_MODULE_7__["default"],
+    Checkbox: primevue_checkbox__WEBPACK_IMPORTED_MODULE_8__["default"],
+    AutoComplete: primevue_autocomplete__WEBPACK_IMPORTED_MODULE_9__["default"],
+    SerahTerimaResep: _SerahTerimaResepComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: ['isInput', 'datapasien'],
   data: function data() {
     return {
       loadinngItem: false,
-      showOtorisasi: false,
+      showSerahTerima: false,
       responvalue: 0,
       soapId: "0",
       fact: [],
@@ -244,32 +247,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       //console.log(this.form.startdate);
     },
     confirmTerimaObat: function confirmTerimaObat(data) {
-      var _this = this;
-      if (data.WAKTU_DITERIMA != 0) {
-        this.open("success", "Obat sudah di terima pada " + data.WAKTU_DITERIMA);
-        return;
-      }
-      this.$confirm.require({
-        group: 'terimaObat',
-        message: 'Apakah anda akan konfirmasi obat telah di terima?',
-        header: 'Konfirmasi',
-        icon: 'pi pi-exclamation-triangle',
-        accept: function accept() {
-          //this.konfirmasiTerimaObat(data)
-          _this.soapId = data.RECEIPT_NO, _this.showOtorisasi = true;
-        },
-        reject: function reject() {
-          _this.open("warning", "Gagal tersimpan, Data Quantity untuk jumlah item");
-        }
-      });
-    },
-    responsOtorisasi: function responsOtorisasi(value) {
-      this.responvalue = value; // Update the parent data with the value from the child
-      // console.log("respon otorisasi : " + this.responvalue);
-      if (this.responvalue == 200) {
-        this.showOtorisasi = false;
-        this.get_riwayat();
-      }
+      // Buka form serah terima per item; jika sudah diterima, form tampil read-only
+      this.soapId = data.RECEIPT_NO;
+      this.showSerahTerima = true;
     },
     set_jenisresep: function set_jenisresep(e) {
       console.log(e.value);
@@ -281,26 +261,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.item = item;
     },
     get_lokasi: function get_lokasi() {
-      var _this2 = this;
+      var _this = this;
       return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var dataform;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               dataform = new FormData();
-              _this2.isLoading = true;
+              _this.isLoading = true;
               _context.next = 4;
               return axios.get('/getlokasi-api', "").then(function (response) {
-                _this2.lokasi_arr = response.data.response;
-                _this2.lokasi_arr = _this2.lokasi_arr.filter(function (x) {
+                _this.lokasi_arr = response.data.response;
+                _this.lokasi_arr = _this.lokasi_arr.filter(function (x) {
                   return x.IS_DEPO == "1";
                 });
-                _this2.isLoading = false;
+                _this.isLoading = false;
                 // console.log(this.lokasi_arr);
               })["catch"](function (error) {
                 console.log(error);
               })["finally"](function () {
-                return _this2.isLoading = false;
+                return _this.isLoading = false;
               });
             case 4:
             case "end":
@@ -310,25 +290,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     konfirmasiTerimaObat: function konfirmasiTerimaObat(data) {
-      var _this3 = this;
+      var _this2 = this;
       return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var param;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _this3.isLoading = true;
+              _this2.isLoading = true;
               param = {
                 noreceipt: data.RECEIPT_NO
               }; //this.param.RECEIPT_NO = this.datapasien.NOPENDAFTARAN;
               _context2.next = 4;
               return axios.post('/konfirmasiTerimaObat', param).then(function (response) {
                 // console.log(response.data);
-                _this3.isLoading = false;
+                _this2.isLoading = false;
               })["catch"](function (error) {
                 console.log(error);
-                _this3.isLoading = false;
+                _this2.isLoading = false;
               })["finally"](function () {
-                return _this3.isLoading = false;
+                return _this2.isLoading = false;
               });
             case 4:
             case "end":
@@ -347,22 +327,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       // now `items` will be showed in the suggestion list
     },
     handleCheckboxChange: function handleCheckboxChange() {
-      var _this4 = this;
+      var _this3 = this;
       return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              _this4.isLoading = true;
+              _this3.isLoading = true;
               //this.param.RECEIPT_NO = this.datapasien.NOPENDAFTARAN;
               _context3.next = 3;
-              return axios.post('/update_stts_obat_pulang', _this4.param).then(function (response) {
+              return axios.post('/update_stts_obat_pulang', _this3.param).then(function (response) {
                 //console.log(response.data);
-                _this4.isLoading = false;
+                _this3.isLoading = false;
               })["catch"](function (error) {
                 console.log(error);
-                _this4.isLoading = false;
+                _this3.isLoading = false;
               })["finally"](function () {
-                return _this4.isLoading = false;
+                return _this3.isLoading = false;
               });
             case 3:
             case "end":
@@ -372,29 +352,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     get_riwayat: function get_riwayat() {
-      var _this5 = this;
+      var _this4 = this;
       return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _this5.isLoading = true;
-              _this5.param.NOPENDAFTARAN = _this5.datapasien.NOPENDAFTARAN;
-              _this5.param.RECEIPT_NO = _this5.datapasien.NOPENDAFTARAN;
-              _this5.param.mode = 2;
+              _this4.isLoading = true;
+              _this4.param.NOPENDAFTARAN = _this4.datapasien.NOPENDAFTARAN;
+              _this4.param.RECEIPT_NO = _this4.datapasien.NOPENDAFTARAN;
+              _this4.param.mode = 2;
               _context4.next = 6;
-              return axios.post('/getheader_sales_v2', _this5.param).then(function (response) {
+              return axios.post('/getheader_sales_v2', _this4.param).then(function (response) {
                 console.log(response.data);
-                _this5.riwayat_obat = response.data.response;
-                _this5.riwayat_obat = _this5.riwayat_obat.filter(function (x) {
+                _this4.riwayat_obat = response.data.response;
+                _this4.riwayat_obat = _this4.riwayat_obat.filter(function (x) {
                   return x.OBAT_OBATAN == 1;
                 });
                 //console.log(response.data.response)
-                _this5.isLoading = false;
+                _this4.isLoading = false;
               })["catch"](function (error) {
                 console.log(error);
-                _this5.isLoading = false;
+                _this4.isLoading = false;
               })["finally"](function () {
-                return _this5.isLoading = false;
+                return _this4.isLoading = false;
               });
             case 6:
             case "end":
@@ -507,24 +487,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }];
     },
     getdetail_sales: function getdetail_sales(data) {
-      var _this6 = this;
+      var _this5 = this;
       return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
               data.loadinngItem = true;
-              _this6.param.NOPENDAFTARAN = _this6.datapasien.NOPENDAFTARAN;
-              _this6.param.RECEIPT_NO = data.RECEIPT_NO;
+              _this5.param.NOPENDAFTARAN = _this5.datapasien.NOPENDAFTARAN;
+              _this5.param.RECEIPT_NO = data.RECEIPT_NO;
               _context5.next = 5;
-              return axios.post('/getdetils_sales', _this6.param).then(function (response) {
-                _this6.detils_obat = response.data.response;
-                if (_this6.detils_obat[0].OBAT_PULANG == 1) {
-                  _this6.param.UpdateisObatPulang = true;
+              return axios.post('/getdetils_sales', _this5.param).then(function (response) {
+                _this5.detils_obat = response.data.response;
+                if (_this5.detils_obat[0].OBAT_PULANG == 1) {
+                  _this5.param.UpdateisObatPulang = true;
                 } else {
-                  _this6.param.UpdateisObatPulang = false;
+                  _this5.param.UpdateisObatPulang = false;
                 }
                 data.loadinngItem = false;
-                _this6.details_confirmation = true;
+                _this5.details_confirmation = true;
               })["catch"](function (error) {
                 console.log(error);
                 data.loadinngItem = false;
@@ -612,20 +592,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.form.obatselected[index].TOTALAMOUNT = this.form.obatselected[index].QTY * this.form.obatselected[index].HARGA;
     this.counting();
   }), _defineProperty(_methods, "get_caraminum", function get_caraminum() {
-    var _this7 = this;
+    var _this6 = this;
     return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
       return _regeneratorRuntime().wrap(function _callee6$(_context6) {
         while (1) switch (_context6.prev = _context6.next) {
           case 0:
             _context6.next = 2;
             return axios.post('/get_carapakai_obat', "").then(function (response) {
-              _this7.carapakai_obat = response.data.response;
-              _this7.isLoading = false;
+              _this6.carapakai_obat = response.data.response;
+              _this6.isLoading = false;
             })["catch"](function (error) {
               console.log(error);
-              _this7.isLoading = false;
+              _this6.isLoading = false;
             })["finally"](function () {
-              return _this7.isLoading = false;
+              return _this6.isLoading = false;
             });
           case 2:
           case "end":
@@ -648,48 +628,48 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
     return isvalid;
   }), _defineProperty(_methods, "simpan_sales", function simpan_sales() {
-    var _this8 = this;
+    var _this7 = this;
     return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
       var currentDate, isValid;
       return _regeneratorRuntime().wrap(function _callee7$(_context7) {
         while (1) switch (_context7.prev = _context7.next) {
           case 0:
-            _this8.isLoading = true;
+            _this7.isLoading = true;
             currentDate = new Date(); //this.form.waktu_masuk = currentDate;
-            _this8.form.DATA_SINGKAT = _this8.datapasien.DATA_SINGKAT;
-            _this8.form.NOPENDAFTARAN = _this8.datapasien.NOPENDAFTARAN;
-            _this8.form.modesales = 'REG';
-            _this8.form.DPJP = _this8.datapasien.NAMADOKTER;
-            _this8.form.NOMR = _this8.datapasien.NOMR;
-            _this8.form.RECEIPT_NO = '', _this8.form.POLI_RUANG = _this8.datapasien.POLI;
-            _this8.form.OBAT_OBATAN = 1;
-            _this8.form.id_ruangan = _this8.datapasien.KODERUANGAN;
-            isValid = _this8.validation_data();
+            _this7.form.DATA_SINGKAT = _this7.datapasien.DATA_SINGKAT;
+            _this7.form.NOPENDAFTARAN = _this7.datapasien.NOPENDAFTARAN;
+            _this7.form.modesales = 'REG';
+            _this7.form.DPJP = _this7.datapasien.NAMADOKTER;
+            _this7.form.NOMR = _this7.datapasien.NOMR;
+            _this7.form.RECEIPT_NO = '', _this7.form.POLI_RUANG = _this7.datapasien.POLI;
+            _this7.form.OBAT_OBATAN = 1;
+            _this7.form.id_ruangan = _this7.datapasien.KODERUANGAN;
+            isValid = _this7.validation_data();
             if (!(isValid == false)) {
               _context7.next = 14;
               break;
             }
-            _this8.isLoading = false;
+            _this7.isLoading = false;
             return _context7.abrupt("return");
           case 14:
             _context7.next = 16;
-            return axios.post('/kirimpermintaan_obat', _this8.form).then(function (response) {
+            return axios.post('/kirimpermintaan_obat', _this7.form).then(function (response) {
               console.log(response.data);
-              _this8.isLoading = false;
+              _this7.isLoading = false;
               if (response.data.metadata.code == 200) {
-                _this8.open("success", "Data obat telah tersimpan, dengan nomor" + response.data.metadata.Receipt);
-                _this8.form.RECEIPT_NO = response.data.metadata.Receipt;
-                _this8.cleartable();
-                _this8.get_riwayat();
+                _this7.open("success", "Data obat telah tersimpan, dengan nomor" + response.data.metadata.Receipt);
+                _this7.form.RECEIPT_NO = response.data.metadata.Receipt;
+                _this7.cleartable();
+                _this7.get_riwayat();
               } else {
                 var data = response.data.metadata.message;
-                _this8.open("warning", data);
+                _this7.open("warning", data);
               }
             })["catch"](function (error) {
               console.log(error);
-              _this8.isLoading = false;
+              _this7.isLoading = false;
             })["finally"](function () {
-              return _this8.isLoading = false;
+              return _this7.isLoading = false;
             });
           case 16:
           case "end":
@@ -710,48 +690,48 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.form.remark.splice(index, 1);
     }
   }), _defineProperty(_methods, "getdataobat", function getdataobat(mode) {
-    var _this9 = this;
+    var _this8 = this;
     return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
       return _regeneratorRuntime().wrap(function _callee8$(_context8) {
         while (1) switch (_context8.prev = _context8.next) {
           case 0:
-            if (!(!_this9.form.lokasiSelected || _this9.form.lokasiSelected == null || !_this9.form.lokasiSelected.ID)) {
+            if (!(!_this8.form.lokasiSelected || _this8.form.lokasiSelected == null || !_this8.form.lokasiSelected.ID)) {
               _context8.next = 3;
               break;
             }
-            _this9.open("warning", "Anda belum memilih lokasi");
+            _this8.open("warning", "Anda belum memilih lokasi");
             return _context8.abrupt("return");
           case 3:
             if (!(mode == 10)) {
               _context8.next = 9;
               break;
             }
-            if (!(_this9.form.itembarang == "")) {
+            if (!(_this8.form.itembarang == "")) {
               _context8.next = 7;
               break;
             }
-            _this9.fact = [];
+            _this8.fact = [];
             return _context8.abrupt("return");
           case 7:
-            if (!(_this9.form.itembarang.length < 3)) {
+            if (!(_this8.form.itembarang.length < 3)) {
               _context8.next = 9;
               break;
             }
             return _context8.abrupt("return");
           case 9:
-            _this9.isLoading = true;
-            _this9.form.mode = mode;
-            _this9.form.breakdown = 1;
-            _this9.fact = [];
+            _this8.isLoading = true;
+            _this8.form.mode = mode;
+            _this8.form.breakdown = 1;
+            _this8.fact = [];
             _context8.next = 15;
-            return axios.post('/getdata_obat_baseparam', _this9.form).then(function (response) {
-              _this9.fact = response.data.response;
-              _this9.isLoading = false;
+            return axios.post('/getdata_obat_baseparam', _this8.form).then(function (response) {
+              _this8.fact = response.data.response;
+              _this8.isLoading = false;
             })["catch"](function (error) {
               console.log(error);
-              _this9.isLoading = false;
+              _this8.isLoading = false;
             })["finally"](function () {
-              return _this9.isLoading = false;
+              return _this8.isLoading = false;
             });
           case 15:
           case "end":
@@ -780,23 +760,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     // Format the datetime
     return "".concat(year, "-").concat(month, "-").concat(day, " ").concat(hours, ":").concat(minutes, ":").concat(seconds);
   }), _defineProperty(_methods, "getdata_kco", function getdata_kco() {
-    var _this10 = this;
+    var _this9 = this;
     return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
       return _regeneratorRuntime().wrap(function _callee9$(_context9) {
         while (1) switch (_context9.prev = _context9.next) {
           case 0:
-            _this10.isLoading = true;
-            _this10.form.NOREGISTER = _this10.datapasien.NOPENDAFTARAN;
+            _this9.isLoading = true;
+            _this9.form.NOREGISTER = _this9.datapasien.NOPENDAFTARAN;
             _context9.next = 4;
-            return axios.post('/get_data_kco', _this10.form).then(function (response) {
-              _this10.data_kco = response.data.response;
-              _this10.form_kco = true;
-              _this10.isLoading = false;
+            return axios.post('/get_data_kco', _this9.form).then(function (response) {
+              _this9.data_kco = response.data.response;
+              _this9.form_kco = true;
+              _this9.isLoading = false;
             })["catch"](function (error) {
               console.log(error);
-              _this10.isLoading = false;
+              _this9.isLoading = false;
             })["finally"](function () {
-              return _this10.isLoading = false;
+              return _this9.isLoading = false;
             });
           case 4:
           case "end":
@@ -814,17 +794,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   }), _defineProperty(_methods, "handleValue", function handleValue(data)
   ///terima nila dari funtion data obat
   {
-    var _this11 = this;
+    var _this10 = this;
     return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
-      var notFoundItems, nonaktifItems, i, _this11$fact, item, barcode, nama, barang;
+      var notFoundItems, nonaktifItems, i, _this10$fact, item, barcode, nama, barang;
       return _regeneratorRuntime().wrap(function _callee10$(_context10) {
         while (1) switch (_context10.prev = _context10.next) {
           case 0:
             // Tutup dialog template segera agar user tidak menunggu di layar yang
             // terlihat diam — proses penambahan item berjalan di halaman utama,
             // yang sudah punya overlay loading sendiri (isLoading).
-            _this11.ShowtemplateObat = false;
-            _this11.isLoading = true;
+            _this10.ShowtemplateObat = false;
+            _this10.isLoading = true;
             notFoundItems = []; // simpan nama obat yang tidak ditemukan
             nonaktifItems = []; // simpan nama obat yang arsipkan = 1 (non aktif, tidak bisa dipilih)
             i = 0;
@@ -851,11 +831,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             return _context10.abrupt("continue", 24);
           case 15:
             console.log(nama);
-            _this11.form.barcode = barcode;
+            _this10.form.barcode = barcode;
             _context10.next = 19;
-            return _this11.getdataobat(3);
+            return _this10.getdataobat(3);
           case 19:
-            barang = (_this11$fact = _this11.fact) === null || _this11$fact === void 0 ? void 0 : _this11$fact[0];
+            barang = (_this10$fact = _this10.fact) === null || _this10$fact === void 0 ? void 0 : _this10$fact[0];
             if (barang) {
               _context10.next = 23;
               break;
@@ -863,7 +843,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             notFoundItems.push(nama);
             return _context10.abrupt("continue", 24);
           case 23:
-            _this11.additem_barang(barang);
+            _this10.additem_barang(barang);
           case 24:
             i++;
             _context10.next = 5;
@@ -871,14 +851,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           case 27:
             // Tampilkan pesan jika ada item non aktif yang dilewati
             if (nonaktifItems.length > 0) {
-              _this11.open('warning', "".concat(nonaktifItems.length, " item non-aktif dilewati: ").concat(nonaktifItems.join(', ')));
+              _this10.open('warning', "".concat(nonaktifItems.length, " item non-aktif dilewati: ").concat(nonaktifItems.join(', ')));
             }
 
             // Tampilkan pesan jika ada item yang tidak ditemukan
             if (notFoundItems.length > 0) {
-              _this11.open('warning', "".concat(notFoundItems.length, " item sudah tidak tersedia: ").concat(notFoundItems.join(', ')));
+              _this10.open('warning', "".concat(notFoundItems.length, " item sudah tidak tersedia: ").concat(notFoundItems.join(', ')));
             }
-            _this11.isLoading = false;
+            _this10.isLoading = false;
           case 30:
           case "end":
             return _context10.stop();
@@ -886,19 +866,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee10);
     }))();
   }), _defineProperty(_methods, "add_copy_item", function add_copy_item(row) {
-    var _this12 = this;
+    var _this11 = this;
     return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
       var barang;
       return _regeneratorRuntime().wrap(function _callee11$(_context11) {
         while (1) switch (_context11.prev = _context11.next) {
           case 0:
-            _this12.form.barcode = row.BARCODE;
+            _this11.form.barcode = row.BARCODE;
             _context11.next = 3;
-            return _this12.getdataobat(3);
+            return _this11.getdataobat(3);
           case 3:
-            barang = _this12.fact[0];
-            _this12.additem_barang(barang);
-            _this12.open("success", row.NAMABARANG + " " + "Telah di tambahkan");
+            barang = _this11.fact[0];
+            _this11.additem_barang(barang);
+            _this11.open("success", row.NAMABARANG + " " + "Telah di tambahkan");
           case 6:
           case "end":
             return _context11.stop();
@@ -906,25 +886,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee11);
     }))();
   }), _defineProperty(_methods, "add_copy_all", function add_copy_all() {
-    var _this13 = this;
+    var _this12 = this;
     return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
       var i, barang;
       return _regeneratorRuntime().wrap(function _callee12$(_context12) {
         while (1) switch (_context12.prev = _context12.next) {
           case 0:
-            _this13.form_kco = false;
+            _this12.form_kco = false;
             i = 0;
           case 2:
-            if (!(i < _this13.data_kco.itembarang.length)) {
+            if (!(i < _this12.data_kco.itembarang.length)) {
               _context12.next = 11;
               break;
             }
-            _this13.form.barcode = _this13.data_kco.itembarang[i].BARCODE;
+            _this12.form.barcode = _this12.data_kco.itembarang[i].BARCODE;
             _context12.next = 6;
-            return _this13.getdataobat(3);
+            return _this12.getdataobat(3);
           case 6:
-            barang = _this13.fact[0];
-            _this13.additem_barang(barang);
+            barang = _this12.fact[0];
+            _this12.additem_barang(barang);
           case 8:
             i++;
             _context12.next = 2;
@@ -940,28 +920,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.form.qty_selected = [];
     this.form.remark = [];
   }), _defineProperty(_methods, "void_sales", function void_sales(rcpt_no) {
-    var _this14 = this;
+    var _this13 = this;
     return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
       return _regeneratorRuntime().wrap(function _callee13$(_context13) {
         while (1) switch (_context13.prev = _context13.next) {
           case 0:
-            _this14.isLoading = true;
-            _this14.form.NOREGISTER = _this14.datapasien.NOPENDAFTARAN;
-            _this14.form.RECEIPT_NO = rcpt_no;
+            _this13.isLoading = true;
+            _this13.form.NOREGISTER = _this13.datapasien.NOPENDAFTARAN;
+            _this13.form.RECEIPT_NO = rcpt_no;
             _context13.next = 5;
-            return axios.post('/void_sales', _this14.form).then(function (response) {
-              _this14.isLoading = false;
+            return axios.post('/void_sales', _this13.form).then(function (response) {
+              _this13.isLoading = false;
               if (response.data.metadata.code == "200") {
-                _this14.open("success", response.data.metadata.message);
-                _this14.get_riwayat();
+                _this13.open("success", response.data.metadata.message);
+                _this13.get_riwayat();
               } else {
-                _this14.open("warning", response.data.metadata.message);
+                _this13.open("warning", response.data.metadata.message);
               }
             })["catch"](function (error) {
               console.log(error);
-              _this14.isLoading = false;
+              _this13.isLoading = false;
             })["finally"](function () {
-              return _this14.isLoading = false;
+              return _this13.isLoading = false;
             });
           case 5:
           case "end":
@@ -970,24 +950,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee13);
     }))();
   }), _defineProperty(_methods, "kirim_resep", function kirim_resep(rcpt_no) {
-    var _this15 = this;
+    var _this14 = this;
     return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
       return _regeneratorRuntime().wrap(function _callee14$(_context14) {
         while (1) switch (_context14.prev = _context14.next) {
           case 0:
-            _this15.isLoading = true;
-            _this15.form.RECEIPT_NO = rcpt_no;
+            _this14.isLoading = true;
+            _this14.form.RECEIPT_NO = rcpt_no;
             _context14.next = 4;
-            return axios.post('/kirim_resep', _this15.form).then(function (response) {
-              _this15.isLoading = false;
-              _this15.details_confirmation = false;
-              _this15.open("success", response.data.metadata.message);
-              _this15.get_riwayat();
+            return axios.post('/kirim_resep', _this14.form).then(function (response) {
+              _this14.isLoading = false;
+              _this14.details_confirmation = false;
+              _this14.open("success", response.data.metadata.message);
+              _this14.get_riwayat();
             })["catch"](function (error) {
               console.log(error);
-              _this15.isLoading = false;
+              _this14.isLoading = false;
             })["finally"](function () {
-              return _this15.isLoading = false;
+              return _this14.isLoading = false;
             });
           case 4:
           case "end":
@@ -1028,19 +1008,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var day = ('0' + d.getDate()).slice(-2);
     return "".concat(y, "-").concat(m, "-").concat(day);
   }), _defineProperty(_methods, "getRecentObat", function getRecentObat() {
-    var _this16 = this;
+    var _this15 = this;
     return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
-      var _this16$datapasien;
+      var _this15$datapasien;
       var kodePoli, RECENT_OBAT_KEY, RECENT_OBAT_DATE_KEY, _response$data, today, savedDate, cached, response;
       return _regeneratorRuntime().wrap(function _callee15$(_context15) {
         while (1) switch (_context15.prev = _context15.next) {
           case 0:
-            kodePoli = ((_this16$datapasien = _this16.datapasien) === null || _this16$datapasien === void 0 ? void 0 : _this16$datapasien.KODERUANGAN) || 'UNKNOWN';
+            kodePoli = ((_this15$datapasien = _this15.datapasien) === null || _this15$datapasien === void 0 ? void 0 : _this15$datapasien.KODERUANGAN) || 'UNKNOWN';
             RECENT_OBAT_KEY = "recent_obat_poly_".concat(kodePoli);
             RECENT_OBAT_DATE_KEY = "recent_obat_poly_date_".concat(kodePoli);
             _context15.prev = 3;
-            _this16.loadingRecent = true;
-            today = _this16.getTodayStr();
+            _this15.loadingRecent = true;
+            today = _this15.getTodayStr();
             savedDate = localStorage.getItem(RECENT_OBAT_DATE_KEY);
             if (!(savedDate === today)) {
               _context15.next = 12;
@@ -1051,7 +1031,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context15.next = 12;
               break;
             }
-            _this16.list_recent_obatan = JSON.parse(cached);
+            _this15.list_recent_obatan = JSON.parse(cached);
             return _context15.abrupt("return");
           case 12:
             localStorage.removeItem(RECENT_OBAT_KEY);
@@ -1064,8 +1044,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           case 16:
             response = _context15.sent;
             if (((_response$data = response.data) === null || _response$data === void 0 ? void 0 : _response$data.code) === 200) {
-              _this16.list_recent_obatan = response.data.result || [];
-              localStorage.setItem(RECENT_OBAT_KEY, JSON.stringify(_this16.list_recent_obatan));
+              _this15.list_recent_obatan = response.data.result || [];
+              localStorage.setItem(RECENT_OBAT_KEY, JSON.stringify(_this15.list_recent_obatan));
               localStorage.setItem(RECENT_OBAT_DATE_KEY, today);
             }
             _context15.next = 23;
@@ -1076,7 +1056,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             console.error('Gagal memuat recent obat:', _context15.t0);
           case 23:
             _context15.prev = 23;
-            _this16.loadingRecent = false;
+            _this15.loadingRecent = false;
             return _context15.finish(23);
           case 26:
           case "end":
@@ -1161,6 +1141,273 @@ __webpack_require__.r(__webpack_exports__);
     },
     hapusItem: function hapusItem(index) {
       this.item_pulv.splice(index, 1);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=script&lang=js":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=script&lang=js ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var primevue_dialog__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! primevue/dialog */ "./node_modules/primevue/dialog/index.mjs");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    Dialog: primevue_dialog__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: {
+    visible: Boolean,
+    receiptNo: [String, Number]
+  },
+  emits: ['update:visible', 'saved', 'loading'],
+  data: function data() {
+    return {
+      header: null,
+      items: [],
+      pilihSemua: false,
+      displayOtorisasi: false,
+      otorisasi: {
+        username: '',
+        password: '',
+        user: null
+      }
+    };
+  },
+  computed: {
+    itemBelumDiterima: function itemBelumDiterima() {
+      var _this = this;
+      return this.items.filter(function (item) {
+        return _this.bisaDikonfirmasi(item);
+      });
+    },
+    itemDipilih: function itemDipilih() {
+      return this.itemBelumDiterima.filter(function (item) {
+        return item.checked;
+      });
+    }
+  },
+  watch: {
+    visible: function visible(val) {
+      if (val) this.loadDetail();
+    }
+  },
+  mounted: function mounted() {
+    if (this.visible) this.loadDetail();
+  },
+  methods: {
+    open: function open(type, message) {
+      this.$toast.open({
+        message: message,
+        position: 'top-right',
+        type: type,
+        duration: 4000,
+        dismissible: true
+      });
+    },
+    bisaDikonfirmasi: function bisaDikonfirmasi(item) {
+      // Header sudah diterima (termasuk konfirmasi lama tanpa rincian) -> tidak bisa dikonfirmasi lagi
+      return !item.sudah_diterima && !(this.header && this.header.WAKTU_DITERIMA);
+    },
+    selisih: function selisih(item) {
+      var terima = item.sudah_diterima ? item.QTY_TERIMA : item.checked ? item.qty_input : null;
+      if (terima === null || terima === undefined) return 0;
+      return Number(terima) - Number(item.QTY_KIRIM);
+    },
+    togglePilihSemua: function togglePilihSemua() {
+      var _this2 = this;
+      this.itemBelumDiterima.forEach(function (item) {
+        return item.checked = _this2.pilihSemua;
+      });
+    },
+    loadDetail: function loadDetail() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _this3.header = null;
+              _this3.items = [];
+              _this3.pilihSemua = false;
+              _this3.$emit('loading', true);
+              _context.prev = 4;
+              _context.next = 7;
+              return axios.post('/get_detail_serah_terima_resep', {
+                receipt_no: _this3.receiptNo
+              });
+            case 7:
+              response = _context.sent;
+              if (!(response.data.metadata.code != 200)) {
+                _context.next = 12;
+                break;
+              }
+              _this3.open('warning', response.data.metadata.message);
+              _this3.$emit('update:visible', false);
+              return _context.abrupt("return");
+            case 12:
+              _this3.header = response.data.header;
+              _this3.items = response.data.response.map(function (item) {
+                return _objectSpread(_objectSpread({}, item), {}, {
+                  sudah_diterima: item.QTY_TERIMA !== null,
+                  checked: false,
+                  qty_input: Number(item.QTY_KIRIM)
+                });
+              });
+              _context.next = 20;
+              break;
+            case 16:
+              _context.prev = 16;
+              _context.t0 = _context["catch"](4);
+              console.log(_context.t0);
+              _this3.open('error', 'Gagal memuat detail serah terima obat');
+            case 20:
+              _context.prev = 20;
+              _this3.$emit('loading', false);
+              return _context.finish(20);
+            case 23:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[4, 16, 20, 23]]);
+      }))();
+    },
+    konfirmasi: function konfirmasi() {
+      var kosong = this.itemDipilih.find(function (item) {
+        return item.qty_input === null || item.qty_input === undefined;
+      });
+      if (kosong) {
+        this.open('warning', 'Jumlah diterima ' + kosong.NAMABARANG + ' belum diisi');
+        return;
+      }
+      this.otorisasi = {
+        username: '',
+        password: '',
+        user: null
+      };
+      this.displayOtorisasi = true;
+    },
+    cekUser: function cekUser() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              if (!(!_this4.otorisasi.username || !_this4.otorisasi.password)) {
+                _context2.next = 3;
+                break;
+              }
+              _this4.open('warning', 'Username dan password otorisasi wajib diisi');
+              return _context2.abrupt("return");
+            case 3:
+              _this4.$emit('loading', true);
+              _context2.prev = 4;
+              _context2.next = 7;
+              return axios.post('/cek_otorisasi_serah_terima', {
+                username: _this4.otorisasi.username,
+                password: _this4.otorisasi.password
+              });
+            case 7:
+              response = _context2.sent;
+              if (response.data.metadata.code == 200) {
+                _this4.otorisasi.user = response.data.response;
+              } else {
+                _this4.otorisasi.user = null;
+                _this4.open('warning', response.data.metadata.message);
+              }
+              _context2.next = 15;
+              break;
+            case 11:
+              _context2.prev = 11;
+              _context2.t0 = _context2["catch"](4);
+              console.log(_context2.t0);
+              _this4.open('error', 'Gagal memeriksa user otorisasi');
+            case 15:
+              _context2.prev = 15;
+              _this4.$emit('loading', false);
+              return _context2.finish(15);
+            case 18:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, null, [[4, 11, 15, 18]]);
+      }))();
+    },
+    simpan: function simpan() {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var payload, response;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              if (_this5.otorisasi.user) {
+                _context3.next = 3;
+                break;
+              }
+              _this5.cekUser();
+              return _context3.abrupt("return");
+            case 3:
+              payload = {
+                username: _this5.otorisasi.username,
+                password: _this5.otorisasi.password,
+                receipt_no: _this5.receiptNo,
+                items: _this5.itemDipilih.map(function (item) {
+                  return {
+                    ITEM_ID: item.ITEM_ID,
+                    QTY_TERIMA: item.qty_input
+                  };
+                })
+              };
+              _this5.$emit('loading', true);
+              _context3.prev = 5;
+              _context3.next = 8;
+              return axios.post('/simpan_serah_terima_resep', payload);
+            case 8:
+              response = _context3.sent;
+              if (response.data.metadata.code == 200) {
+                _this5.open('success', response.data.metadata.message);
+                _this5.displayOtorisasi = false;
+                _this5.$emit('update:visible', false);
+                _this5.$emit('saved');
+              } else {
+                _this5.open('warning', response.data.metadata.message);
+              }
+              _context3.next = 16;
+              break;
+            case 12:
+              _context3.prev = 12;
+              _context3.t0 = _context3["catch"](5);
+              console.log(_context3.t0);
+              _this5.open('error', 'Gagal menyimpan serah terima obat');
+            case 16:
+              _context3.prev = 16;
+              _this5.otorisasi.password = '';
+              _this5.otorisasi.user = null;
+              _this5.$emit('loading', false);
+              return _context3.finish(16);
+            case 21:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, null, [[5, 12, 16, 21]]);
+      }))();
     }
   }
 });
@@ -1950,7 +2197,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_InputNumber = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputNumber");
   var _component_InputText = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputText");
   var _component_history_obat = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("history_obat");
-  var _component_otorisasi_form = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("otorisasi-form");
+  var _component_serah_terima_resep = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("serah-terima-resep");
   var _component_obat_pulvis = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("obat-pulvis");
   var _component_templateObat = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("templateObat");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_loading, {
@@ -2059,7 +2306,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           })];
         }),
         _: 1 /* STABLE */
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Button label=\"Kirim Permintaan\" icon=\"pi pi-send\" @click=\"kirim_resep(param.RECEIPT_NO)\"\n                        autofocus /> ")];
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Button label=\"Kirim Permintaan\" icon=\"pi pi-send\" @click=\"kirim_resep(param.RECEIPT_NO)\"\r\n                        autofocus /> ")];
     }),
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_cache[39] || (_cache[39] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -2187,7 +2434,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       },
       "class": "p-button-text p-button-danger",
       icon: "pi pi-times"
-    }, null, 8 /* PROPS */, ["onClick"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("address", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.RECEIPT_NO) + " ", 1 /* TEXT */), _cache[47] || (_cache[47] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{data.LOKASI}} <br> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.DPJP), 1 /* TEXT */), _cache[48] || (_cache[48] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)()), _cache[49] || (_cache[49] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* CACHED */))]), _cache[52] || (_cache[52] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, " RUANG: ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.POLI_RUANG) + " ", 1 /* TEXT */), _cache[53] || (_cache[53] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* CACHED */)), data.TELAH_DIKIRIM == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_36, [_cache[50] || (_cache[50] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Status: ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Button icon=\"pi pi-check\" @click=\"getdetail_sales(data.RECEIPT_NO)\"\n                                            class=\"p-button-rounded p-button-success p-button-outlined\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Tag, {
+    }, null, 8 /* PROPS */, ["onClick"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("address", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.RECEIPT_NO) + " ", 1 /* TEXT */), _cache[47] || (_cache[47] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{data.LOKASI}} <br> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.DPJP), 1 /* TEXT */), _cache[48] || (_cache[48] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)()), _cache[49] || (_cache[49] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* CACHED */))]), _cache[52] || (_cache[52] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, " RUANG: ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.POLI_RUANG) + " ", 1 /* TEXT */), _cache[53] || (_cache[53] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* CACHED */)), data.TELAH_DIKIRIM == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_36, [_cache[50] || (_cache[50] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Status: ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Button icon=\"pi pi-check\" @click=\"getdetail_sales(data.RECEIPT_NO)\"\r\n                                            class=\"p-button-rounded p-button-success p-button-outlined\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Tag, {
       "class": "mr-2",
       severity: "success"
     }, {
@@ -2213,7 +2460,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: function onClick($event) {
         return $options.confirmTerimaObat(data);
       }
-    }, [data.WAKTU_DITERIMA != 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_39, "Terima : " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.WAKTU_DITERIMA), 1 /* TEXT */)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_40, "Konfirmasi Terima Obat"))], 8 /* PROPS */, _hoisted_38)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Button icon=\"pi pi-check-circle\" label=\"Konfirmasi Terima Obat\"\n                                       class=\"p-button-sm btn-outline-danger p-button-primary w-100 mt-2\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Button label=\"Yes\" icon=\"pi pi-check\" @click=\"addMessages\" autofocus />  ")])]);
+    }, [data.WAKTU_DITERIMA != 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_39, "Terima : " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.WAKTU_DITERIMA), 1 /* TEXT */)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_40, "Konfirmasi Terima Obat"))], 8 /* PROPS */, _hoisted_38)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Button icon=\"pi pi-check-circle\" label=\"Konfirmasi Terima Obat\"\r\n                                       class=\"p-button-sm btn-outline-danger p-button-primary w-100 mt-2\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Button label=\"Yes\" icon=\"pi pi-check\" @click=\"addMessages\" autofocus />  ")])]);
   }), 256 /* UNKEYED_FRAGMENT */))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [_cache[56] || (_cache[56] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "col-md-2"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, "Permintaan Obat")], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [_cache[55] || (_cache[55] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
@@ -2258,7 +2505,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onChange: $options.set_jenisresep,
     "class": "mr-3",
     options: $data.bentuk_racik
-  }, null, 8 /* PROPS */, ["modelValue", "onChange", "options"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.form.selectedjns_resep == 'RR' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("label", _hoisted_47, "Jml Kemasan : ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <InputNumber  id=\"minmax\" v-model=\"form.jml_kemasan\"\n                                autocomplete=\"off\"  :minFractionDigits=\"0\"\n                                mode=\"integer\" :min=\"0\" :max=\"200\" />  "), $data.form.selectedjns_resep == 'RR' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_InputNumber, {
+  }, null, 8 /* PROPS */, ["modelValue", "onChange", "options"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.form.selectedjns_resep == 'RR' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("label", _hoisted_47, "Jml Kemasan : ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <InputNumber  id=\"minmax\" v-model=\"form.jml_kemasan\"\r\n                                autocomplete=\"off\"  :minFractionDigits=\"0\"\r\n                                mode=\"integer\" :min=\"0\" :max=\"200\" />  "), $data.form.selectedjns_resep == 'RR' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_InputNumber, {
     key: 2,
     id: "minmax",
     modelValue: $data.form.jml_kemasan,
@@ -2314,7 +2561,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         options: $data.lokasi_arr,
         optionLabel: "DISPLAY2",
         placeholder: "Tujuan Permintaan"
-      }, null, 8 /* PROPS */, ["modelValue", "onChange", "options"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Button label=\"Proses\" @click=\"getdata()\" style=\"height: 2.5em;\" icon=\"pi pi-refresh\"\n                                class=\"p-button-help mr-2\" /> ")];
+      }, null, 8 /* PROPS */, ["modelValue", "onChange", "options"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Button label=\"Proses\" @click=\"getdata()\" style=\"height: 2.5em;\" icon=\"pi pi-refresh\"\r\n                                class=\"p-button-help mr-2\" /> ")];
     }),
     _: 1 /* STABLE */
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_49, [_cache[69] || (_cache[69] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "#"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "NO"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "JENIS"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "BARCODE"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "NAMA"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "QTY"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "SATUAN"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "CARA PAKAI")])], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.form.obatselected, function (selected, index) {
@@ -2339,7 +2586,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       placeholder: "Satuan"
     }, null, 8 /* PROPS */, ["modelValue", "onUpdate:modelValue"])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_51, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(selected.NAMA), 1 /* TEXT */)), _cache[60] || (_cache[60] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* CACHED */)), selected.AS_PARENT == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(selected.ITEM_RACIKAN.nama), 1 /* TEXT */), _cache[59] || (_cache[59] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* CACHED */)), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(selected.ITEM_RACIKAN.item, function (pulvis) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(pulvis.nama) + " -- " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(pulvis.dosis) + " ", 1 /* TEXT */), _cache[58] || (_cache[58] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* CACHED */))]);
-    }), 256 /* UNKEYED_FRAGMENT */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <small> Harga : {{selected.HARGA}}- Persediaan :\n                                                {{selected.PERSEDIAAN}}</small> ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [$data.form.selectedjns_resep == 'RT' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_53, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputNumber, {
+    }), 256 /* UNKEYED_FRAGMENT */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <small> Harga : {{selected.HARGA}}- Persediaan :\r\n                                                {{selected.PERSEDIAAN}}</small> ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [$data.form.selectedjns_resep == 'RT' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_53, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputNumber, {
       id: "minmax",
       modelValue: selected.QTY,
       "onUpdate:modelValue": function onUpdateModelValue($event) {
@@ -2353,7 +2600,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       mode: "decimal",
       min: 0,
       max: 200
-    }, null, 8 /* PROPS */, ["modelValue", "onUpdate:modelValue", "onInput"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(selected.SATUAN), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [selected.JENIS_R == 'R/' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_54, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Select v-model=\"form.remark[index]\" :filter=\"true\" :key=\"index\"\n                                                    :showClear=\"true\" optionLabel=\"REMARK\" @change=\"setdosis(index)\"\n                                                    :options=\"carapakai_obat\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+    }, null, 8 /* PROPS */, ["modelValue", "onUpdate:modelValue", "onInput"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(selected.SATUAN), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [selected.JENIS_R == 'R/' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_54, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Select v-model=\"form.remark[index]\" :filter=\"true\" :key=\"index\"\r\n                                                    :showClear=\"true\" optionLabel=\"REMARK\" @change=\"setdosis(index)\"\r\n                                                    :options=\"carapakai_obat\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
       type: "text",
       "class": "form-control",
       style: {
@@ -2406,44 +2653,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1 /* STABLE */
   })])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_history_obat, {
     datapasien: $props.datapasien
-  }, null, 8 /* PROPS */, ["datapasien"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
-    header: "Otorisasi",
-    visible: $data.showOtorisasi,
-    "onUpdate:visible": _cache[25] || (_cache[25] = function ($event) {
-      return $data.showOtorisasi = $event;
+  }, null, 8 /* PROPS */, ["datapasien"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Serah terima obat per item (menggantikan otorisasi mode 11) "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_serah_terima_resep, {
+    visible: $data.showSerahTerima,
+    "onUpdate:visible": _cache[23] || (_cache[23] = function ($event) {
+      return $data.showSerahTerima = $event;
     }),
-    containerStyle: {
-      width: '40vw'
-    },
-    "class": "container_modal",
-    modal: true
-  }, {
-    footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
-        label: "No",
-        icon: "pi pi-times",
-        onClick: _cache[23] || (_cache[23] = function ($event) {
-          return $data.showOtorisasi = false;
-        }),
-        "class": "p-button-text"
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
-        label: "Tutup",
-        icon: "pi pi-check",
-        onClick: _cache[24] || (_cache[24] = function ($event) {
-          return $data.showOtorisasi = false;
-        }),
-        autofocus: ""
-      })];
+    receiptNo: $data.soapId,
+    onLoading: _cache[24] || (_cache[24] = function ($event) {
+      return $data.isLoading = $event;
     }),
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_otorisasi_form, {
-        onGetvalue: $options.responsOtorisasi,
-        mode: 11,
-        noregister: $data.soapId
-      }, null, 8 /* PROPS */, ["onGetvalue", "noregister"])];
-    }),
-    _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["visible"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
+    onSaved: _cache[25] || (_cache[25] = function ($event) {
+      return $options.get_riwayat();
+    })
+  }, null, 8 /* PROPS */, ["visible", "receiptNo"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
     header: "Obat Pulvis",
     visible: $data.modalracik,
     "onUpdate:visible": _cache[28] || (_cache[28] = function ($event) {
@@ -2636,6 +2858,286 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }
     }, null, 8 /* PROPS */, ["onClick"])])]);
   }), 256 /* UNKEYED_FRAGMENT */))])])])]);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=template&id=747ed988&scoped=true":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=template&id=747ed988&scoped=true ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "form-serah-terima"
+};
+var _hoisted_2 = {
+  key: 0,
+  "class": "alert-diterima mb-3"
+};
+var _hoisted_3 = {
+  key: 1,
+  "class": "mb-2 text-muted"
+};
+var _hoisted_4 = {
+  "class": "table table-striped"
+};
+var _hoisted_5 = {
+  style: {
+    "width": "4%"
+  },
+  "class": "text-center"
+};
+var _hoisted_6 = {
+  "class": "text-center"
+};
+var _hoisted_7 = {
+  key: 0,
+  "class": "text-warning-dark small"
+};
+var _hoisted_8 = {
+  "class": "text-center"
+};
+var _hoisted_9 = {
+  "class": "text-center"
+};
+var _hoisted_10 = {
+  "class": "text-center"
+};
+var _hoisted_11 = {
+  key: 0
+};
+var _hoisted_12 = {
+  key: 1
+};
+var _hoisted_13 = {
+  "class": "text-center"
+};
+var _hoisted_14 = {
+  key: 0
+};
+var _hoisted_15 = {
+  "class": "status-terima-user"
+};
+var _hoisted_16 = {
+  "class": "status-terima-waktu"
+};
+var _hoisted_17 = {
+  key: 1,
+  "class": "badge badge-secondary"
+};
+var _hoisted_18 = {
+  key: 2,
+  "class": "badge badge-warning"
+};
+var _hoisted_19 = {
+  key: 3,
+  "class": "text-danger status-selisih"
+};
+var _hoisted_20 = {
+  "class": "form-serah-terima"
+};
+var _hoisted_21 = {
+  "class": "mb-3 text-muted"
+};
+var _hoisted_22 = {
+  "class": "form-group"
+};
+var _hoisted_23 = {
+  "class": "form-group"
+};
+var _hoisted_24 = {
+  key: 0,
+  "class": "oto-user-info"
+};
+var _hoisted_25 = {
+  "class": "w-100"
+};
+var _hoisted_26 = {
+  key: 0
+};
+var _hoisted_27 = {
+  key: 1
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_Checkbox = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Checkbox");
+  var _component_InputNumber = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputNumber");
+  var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
+  var _component_Dialog = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Dialog");
+  var _component_InputText = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputText");
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
+    header: 'Serah Terima Obat: ' + $props.receiptNo,
+    visible: $props.visible,
+    "onUpdate:visible": _cache[2] || (_cache[2] = function ($event) {
+      return _ctx.$emit('update:visible', $event);
+    }),
+    style: {
+      width: '85vw'
+    },
+    modal: true
+  }, {
+    footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+        label: "Tutup",
+        icon: "pi pi-times",
+        onClick: _cache[1] || (_cache[1] = function ($event) {
+          return _ctx.$emit('update:visible', false);
+        }),
+        "class": "p-button-text"
+      }), $options.itemBelumDiterima.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Button, {
+        key: 0,
+        label: "Konfirmasi Terima",
+        icon: "pi pi-check",
+        disabled: $options.itemDipilih.length == 0,
+        onClick: $options.konfirmasi
+      }, null, 8 /* PROPS */, ["disabled", "onClick"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
+    }),
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [$data.header && $data.header.WAKTU_DITERIMA ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [_cache[10] || (_cache[10] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+        "class": "pi pi-check-circle mr-1"
+      }, null, -1 /* CACHED */)), _cache[11] || (_cache[11] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Obat sudah diterima ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.header.DITERIMA_OLEH), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" pada " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.header.WAKTU_DITERIMA), 1 /* TEXT */)])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_3, " Cocokkan obat yang diantar dengan permintaan. Centang item yang sudah diterima dan isi jumlah yang benar-benar diterima. ")), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Checkbox, {
+        modelValue: $data.pilihSemua,
+        "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+          return $data.pilihSemua = $event;
+        }),
+        binary: true,
+        disabled: $options.itemBelumDiterima.length == 0,
+        onChange: $options.togglePilihSemua
+      }, null, 8 /* PROPS */, ["modelValue", "disabled", "onChange"])]), _cache[12] || (_cache[12] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        style: {
+          "width": "4%"
+        }
+      }, "NO", -1 /* CACHED */)), _cache[13] || (_cache[13] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        style: {
+          "width": "32%"
+        }
+      }, "Nama Obat", -1 /* CACHED */)), _cache[14] || (_cache[14] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Satuan", -1 /* CACHED */)), _cache[15] || (_cache[15] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        "class": "text-center"
+      }, "Diminta", -1 /* CACHED */)), _cache[16] || (_cache[16] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        "class": "text-center"
+      }, "Diberikan", -1 /* CACHED */)), _cache[17] || (_cache[17] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        "class": "text-center",
+        style: {
+          "width": "14%"
+        }
+      }, "Jumlah Diterima", -1 /* CACHED */)), _cache[18] || (_cache[18] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        "class": "text-center"
+      }, "Status", -1 /* CACHED */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.items, function (item, k) {
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+          key: item.ITEM_ID
+        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Checkbox, {
+          modelValue: item.checked,
+          "onUpdate:modelValue": function onUpdateModelValue($event) {
+            return item.checked = $event;
+          },
+          binary: true,
+          disabled: !$options.bisaDikonfirmasi(item)
+        }, null, 8 /* PROPS */, ["modelValue", "onUpdate:modelValue", "disabled"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(k + 1), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.NAMABARANG) + " ", 1 /* TEXT */), item.NAMABARANG_REQ && item.NAMABARANG_REQ != item.NAMABARANG ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, " Diminta: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.NAMABARANG_REQ), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.SATUAN), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral(item.QTY_REQ, '0,0.[00]')), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral(item.QTY_KIRIM, '0,0.[00]')), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_10, [item.sudah_diterima ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral(item.QTY_TERIMA, '0,0.[00]')), 1 /* TEXT */)) : !$options.bisaDikonfirmasi(item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_12, "-")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_InputNumber, {
+          key: 2,
+          modelValue: item.qty_input,
+          "onUpdate:modelValue": function onUpdateModelValue($event) {
+            return item.qty_input = $event;
+          },
+          min: 0,
+          max: Number(item.QTY_KIRIM),
+          maxFractionDigits: 2,
+          disabled: !item.checked,
+          inputClass: "text-center",
+          inputStyle: {
+            width: '6em'
+          }
+        }, null, 8 /* PROPS */, ["modelValue", "onUpdate:modelValue", "max", "disabled"]))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_13, [item.sudah_diterima ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_14, [_cache[19] || (_cache[19] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+          "class": "badge badge-primary"
+        }, "Diterima", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.DITERIMA_OLEH), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.TANGGAL_TERIMA), 1 /* TEXT */)])) : $data.header && $data.header.WAKTU_DITERIMA ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_17, "Tanpa rincian item")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_18, "Belum diterima")), $options.selisih(item) != 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_19, " Selisih " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral($options.selisih(item), '0,0.[00]')), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+      }), 128 /* KEYED_FRAGMENT */))])])])];
+    }),
+    _: 1 /* STABLE */
+  }, 8 /* PROPS */, ["header", "visible"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
+    header: "Otorisasi Serah Terima Obat",
+    visible: $data.displayOtorisasi,
+    "onUpdate:visible": _cache[9] || (_cache[9] = function ($event) {
+      return $data.displayOtorisasi = $event;
+    }),
+    style: {
+      width: '450px'
+    },
+    modal: true
+  }, {
+    footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+        label: "Batal",
+        icon: "pi pi-times",
+        onClick: _cache[8] || (_cache[8] = function ($event) {
+          return $data.displayOtorisasi = false;
+        }),
+        "class": "p-button-text"
+      }), !$data.otorisasi.user ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Button, {
+        key: 0,
+        label: "Cek User",
+        icon: "pi pi-user",
+        disabled: !$data.otorisasi.username || !$data.otorisasi.password,
+        onClick: $options.cekUser
+      }, null, 8 /* PROPS */, ["disabled", "onClick"])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Button, {
+        key: 1,
+        label: "Konfirmasi & Simpan",
+        icon: "pi pi-lock-open",
+        "class": "p-button-success",
+        onClick: $options.simpan
+      }, null, 8 /* PROPS */, ["onClick"]))];
+    }),
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_21, " Konfirmasi terima " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.itemDipilih.length) + " item obat resep " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.receiptNo) + ". Masukkan user dan password petugas. Data yang sudah dikonfirmasi tidak dapat diubah. ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+        onSubmit: _cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+          return $data.otorisasi.user ? $options.simpan() : $options.cekUser();
+        }, ["prevent"])),
+        autocomplete: "off"
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_cache[20] || (_cache[20] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+        "for": "oto_resep_username"
+      }, "Username", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+        id: "oto_resep_username",
+        modelValue: $data.otorisasi.username,
+        "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+          return $data.otorisasi.username = $event;
+        }),
+        "class": "w-100",
+        autocomplete: "off",
+        autofocus: "",
+        onInput: _cache[4] || (_cache[4] = function ($event) {
+          return $data.otorisasi.user = null;
+        })
+      }, null, 8 /* PROPS */, ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [_cache[21] || (_cache[21] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+        "for": "oto_resep_password"
+      }, "Password", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+        id: "oto_resep_password",
+        modelValue: $data.otorisasi.password,
+        "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+          return $data.otorisasi.password = $event;
+        }),
+        type: "password",
+        "class": "w-100",
+        autocomplete: "new-password",
+        onInput: _cache[6] || (_cache[6] = function ($event) {
+          return $data.otorisasi.user = null;
+        })
+      }, null, 8 /* PROPS */, ["modelValue"])]), _cache[22] || (_cache[22] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+        type: "submit",
+        "class": "d-none"
+      }, null, -1 /* CACHED */))], 32 /* NEED_HYDRATION */), $data.otorisasi.user ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_24, [_cache[27] || (_cache[27] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+        "class": "text-muted small mb-1"
+      }, "Pastikan data user berikut benar sebelum konfirmasi:", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_cache[23] || (_cache[23] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+        style: {
+          "width": "35%"
+        }
+      }, "Nama", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.otorisasi.user.nama), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_cache[24] || (_cache[24] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Username", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.otorisasi.user.username), 1 /* TEXT */)]), $data.otorisasi.user.jabatan ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_26, [_cache[25] || (_cache[25] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Jabatan", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.otorisasi.user.jabatan), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.otorisasi.user.lokasi ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_27, [_cache[26] || (_cache[26] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Lokasi", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.otorisasi.user.lokasi), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])];
+    }),
+    _: 1 /* STABLE */
+  }, 8 /* PROPS */, ["visible"])]);
 }
 
 /***/ }),
@@ -3208,7 +3710,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.obat-table thead th[data-v-02bb8d7b] {\n    background: #f8f9fa;\n    font-weight: 700;\n    text-transform: uppercase;\n    letter-spacing: .04em;\n    color: #444;\n    white-space: nowrap;\n    vertical-align: middle;\n    border-color: #dee2e6 !important;\n}\n.obat-table tbody tr[data-v-02bb8d7b]:hover {\n    background: #e3f2fd !important;\n}\n.obat-table td[data-v-02bb8d7b] {\n    vertical-align: middle;\n    border-color: #dee2e6 !important;\n}\n.tgl-col[data-v-02bb8d7b] {\n    min-width: 90px;\n}\n.row-number[data-v-02bb8d7b] {\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    width: 24px;\n    height: 24px;\n    border-radius: 50%;\n    background: #e3f2fd;\n    color: #1565c0;\n    font-weight: 700;\n}\n.barcode-text[data-v-02bb8d7b] {\n    font-family: monospace;\n    color: #555;\n}\n.obat-nama[data-v-02bb8d7b] {\n    font-weight: 600;\n    color: #1a1a2e;\n}\n.satuan-badge[data-v-02bb8d7b] {\n    display: inline-block;\n    padding: 2px 8px;\n    background: #e8f5e9;\n    color: #2e7d32;\n    border-radius: 12px;\n    font-weight: 600;\n}\n.qty-cell[data-v-02bb8d7b] {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    flex-wrap: wrap;\n    gap: 2px;\n}\n.remark-pill[data-v-02bb8d7b] {\n    width: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 4px;\n    margin-top: 4px;\n    padding: 2px 7px;\n    background: #fff3e0;\n    border: 1px solid #ffcc80;\n    border-left: 3px solid #ef6c00;\n    border-radius: 4px;\n    color: #bf360c;\n    font-size: .85rem;\n    font-weight: 600;\n    line-height: 1.4;\n    text-align: left;\n    word-break: break-word;\n}\n.remark-icon[data-v-02bb8d7b] {\n    font-size: 1rem;\n    color: #ef6c00;\n    flex-shrink: 0;\n}\n.qty-req[data-v-02bb8d7b] {\n    color: #1565c0;\n    font-weight: 700;\n}\n.qty-sep[data-v-02bb8d7b] {\n    color: #aaa;\n    margin: 0 1px;\n}\n.qty-given[data-v-02bb8d7b] {\n    color: #2e7d32;\n    font-weight: 700;\n}\n.qty-copy[data-v-02bb8d7b] {\n    color: #e65100;\n}\n.qty-ket[data-v-02bb8d7b] {\n    width: 100%;\n    color: #888;\n    text-align: center;\n}\n.total-badge[data-v-02bb8d7b] {\n    display: inline-block;\n    padding: 3px 10px;\n    background: #1565c0;\n    color: #fff;\n    border-radius: 12px;\n    font-weight: 700;\n}\n.empty-state[data-v-02bb8d7b] {\n    text-align: center;\n    padding: 48px 16px;\n    color: #aaa;\n}\n.empty-state .pi[data-v-02bb8d7b] {\n    font-size: 2.5rem;\n    opacity: .35;\n}\n.legend-box[data-v-02bb8d7b] {\n    display: flex;\n    align-items: center;\n    flex-wrap: wrap;\n    gap: 6px;\n    background: #f8f9fa;\n    border: 1px solid #dee2e6;\n    border-radius: 6px;\n    padding: 6px 12px;\n    font-size: .82rem;\n    color: #444;\n}\n.legend-title[data-v-02bb8d7b] {\n    font-weight: 600;\n    color: #555;\n    margin-right: 4px;\n}\n.legend-item[data-v-02bb8d7b] {\n    display: inline-flex;\n    align-items: center;\n    gap: 4px;\n}\n.legend-sep[data-v-02bb8d7b] {\n    color: #aaa;\n    font-weight: 700;\n    margin: 0 2px;\n}\n.legend-dot[data-v-02bb8d7b] {\n    display: inline-block;\n    width: 10px;\n    height: 10px;\n    border-radius: 50%;\n    flex-shrink: 0;\n}\n.legend-req[data-v-02bb8d7b]  { background: #1565c0;\n}\n.legend-given[data-v-02bb8d7b] { background: #2e7d32;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.obat-table thead th[data-v-02bb8d7b] {\r\n    background: #f8f9fa;\r\n    font-weight: 700;\r\n    text-transform: uppercase;\r\n    letter-spacing: .04em;\r\n    color: #444;\r\n    white-space: nowrap;\r\n    vertical-align: middle;\r\n    border-color: #dee2e6 !important;\n}\n.obat-table tbody tr[data-v-02bb8d7b]:hover {\r\n    background: #e3f2fd !important;\n}\n.obat-table td[data-v-02bb8d7b] {\r\n    vertical-align: middle;\r\n    border-color: #dee2e6 !important;\n}\n.tgl-col[data-v-02bb8d7b] {\r\n    min-width: 90px;\n}\n.row-number[data-v-02bb8d7b] {\r\n    display: inline-flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    width: 24px;\r\n    height: 24px;\r\n    border-radius: 50%;\r\n    background: #e3f2fd;\r\n    color: #1565c0;\r\n    font-weight: 700;\n}\n.barcode-text[data-v-02bb8d7b] {\r\n    font-family: monospace;\r\n    color: #555;\n}\n.obat-nama[data-v-02bb8d7b] {\r\n    font-weight: 600;\r\n    color: #1a1a2e;\n}\n.satuan-badge[data-v-02bb8d7b] {\r\n    display: inline-block;\r\n    padding: 2px 8px;\r\n    background: #e8f5e9;\r\n    color: #2e7d32;\r\n    border-radius: 12px;\r\n    font-weight: 600;\n}\n.qty-cell[data-v-02bb8d7b] {\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-wrap: wrap;\r\n    gap: 2px;\n}\n.remark-pill[data-v-02bb8d7b] {\r\n    width: 100%;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    gap: 4px;\r\n    margin-top: 4px;\r\n    padding: 2px 7px;\r\n    background: #fff3e0;\r\n    border: 1px solid #ffcc80;\r\n    border-left: 3px solid #ef6c00;\r\n    border-radius: 4px;\r\n    color: #bf360c;\r\n    font-size: .85rem;\r\n    font-weight: 600;\r\n    line-height: 1.4;\r\n    text-align: left;\r\n    word-break: break-word;\n}\n.remark-icon[data-v-02bb8d7b] {\r\n    font-size: 1rem;\r\n    color: #ef6c00;\r\n    flex-shrink: 0;\n}\n.qty-req[data-v-02bb8d7b] {\r\n    color: #1565c0;\r\n    font-weight: 700;\n}\n.qty-sep[data-v-02bb8d7b] {\r\n    color: #aaa;\r\n    margin: 0 1px;\n}\n.qty-given[data-v-02bb8d7b] {\r\n    color: #2e7d32;\r\n    font-weight: 700;\n}\n.qty-copy[data-v-02bb8d7b] {\r\n    color: #e65100;\n}\n.qty-ket[data-v-02bb8d7b] {\r\n    width: 100%;\r\n    color: #888;\r\n    text-align: center;\n}\n.total-badge[data-v-02bb8d7b] {\r\n    display: inline-block;\r\n    padding: 3px 10px;\r\n    background: #1565c0;\r\n    color: #fff;\r\n    border-radius: 12px;\r\n    font-weight: 700;\n}\n.empty-state[data-v-02bb8d7b] {\r\n    text-align: center;\r\n    padding: 48px 16px;\r\n    color: #aaa;\n}\n.empty-state .pi[data-v-02bb8d7b] {\r\n    font-size: 2.5rem;\r\n    opacity: .35;\n}\n.legend-box[data-v-02bb8d7b] {\r\n    display: flex;\r\n    align-items: center;\r\n    flex-wrap: wrap;\r\n    gap: 6px;\r\n    background: #f8f9fa;\r\n    border: 1px solid #dee2e6;\r\n    border-radius: 6px;\r\n    padding: 6px 12px;\r\n    font-size: .82rem;\r\n    color: #444;\n}\n.legend-title[data-v-02bb8d7b] {\r\n    font-weight: 600;\r\n    color: #555;\r\n    margin-right: 4px;\n}\n.legend-item[data-v-02bb8d7b] {\r\n    display: inline-flex;\r\n    align-items: center;\r\n    gap: 4px;\n}\n.legend-sep[data-v-02bb8d7b] {\r\n    color: #aaa;\r\n    font-weight: 700;\r\n    margin: 0 2px;\n}\n.legend-dot[data-v-02bb8d7b] {\r\n    display: inline-block;\r\n    width: 10px;\r\n    height: 10px;\r\n    border-radius: 50%;\r\n    flex-shrink: 0;\n}\n.legend-req[data-v-02bb8d7b]  { background: #1565c0;\n}\n.legend-given[data-v-02bb8d7b] { background: #2e7d32;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -3231,7 +3733,30 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n/* Paksa dialog template obat selalu center terhadap full viewport,\n   mengabaikan margin-left sidebar AdminLTE */\n[data-v-e0714dac] .p-dialog-mask {\n    position: fixed !important;\n    top: 0 !important;\n    left: 0 !important;\n    width: 100vw !important;\n    height: 100vh !important;\n    display: flex !important;\n    align-items: center !important;\n    justify-content: center !important;\n}\n[data-v-e0714dac] .obat-dialog.p-dialog {\n    width: 60vw !important;\n    max-width: 60vw !important;\n}\n[data-v-e0714dac] .obat-dialog .p-dialog-content {\n    overflow-x: hidden;\n}\n.recent-obat-section[data-v-e0714dac] {\n    margin-bottom: 14px;\n    padding: 12px 14px;\n    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);\n    border: 1px solid #fde68a;\n    border-radius: 8px;\n}\n.recent-obat-hdr[data-v-e0714dac] {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    margin-bottom: 10px;\n    width: 100%;\n}\n.recent-obat-hdr-left[data-v-e0714dac] {\n    display: flex;\n    align-items: center;\n    gap: 6px;\n    font-size: 12px;\n    font-weight: 700;\n    color: #92400e;\n    text-transform: uppercase;\n    letter-spacing: 0.4px;\n}\n.recent-obat-hdr-left .pi-star-fill[data-v-e0714dac] { color: #f59e0b; font-size: 13px;\n}\n.recent-loading[data-v-e0714dac] {\n    font-size: 11px;\n    color: #92400e;\n    display: flex;\n    align-items: center;\n    gap: 4px;\n}\n.recent-obat-empty[data-v-e0714dac] {\n    font-size: 12px;\n    color: #a16207;\n    display: flex;\n    align-items: center;\n    gap: 6px;\n    padding: 6px 0;\n}\n.recent-obat-grid[data-v-e0714dac] {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 7px;\n}\n.recent-chip[data-v-e0714dac] {\n    display: flex;\n    flex-direction: column;\n    gap: 3px;\n    padding: 6px 10px;\n    background: #fff;\n    border: 1px solid #fcd34d;\n    border-radius: 8px;\n    cursor: pointer;\n    min-width: 130px;\n    max-width: 200px;\n    transition: all 0.15s ease;\n    box-shadow: 0 1px 3px rgba(0,0,0,0.04);\n}\n.recent-chip[data-v-e0714dac]:hover {\n    background: #fef9c3;\n    border-color: #f59e0b;\n    box-shadow: 0 2px 8px rgba(245,158,11,0.2);\n    transform: translateY(-1px);\n}\n.recent-chip[data-v-e0714dac]:active { transform: translateY(0);\n}\n.recent-chip-name[data-v-e0714dac] {\n    font-size: 11px;\n    font-weight: 600;\n    color: #1e293b;\n    line-height: 1.35;\n    word-break: break-word;\n}\n.recent-chip-price[data-v-e0714dac] {\n    font-size: 11px;\n    font-weight: 700;\n    color: #16a34a;\n    margin-top: 2px;\n}\n@media (max-width: 768px) {\n[data-v-e0714dac] .obat-dialog.p-dialog {\n        width: 100vw !important;\n        max-width: 100vw !important;\n        height: 100dvh !important;\n        max-height: 100dvh !important;\n        margin: 0 !important;\n        border-radius: 0 !important;\n}\n[data-v-e0714dac] .obat-dialog .p-dialog-content {\n        flex: 1;\n        overflow-y: auto;\n        overflow-x: hidden;\n        border-radius: 0 !important;\n}\n[data-v-e0714dac] .obat-dialog .p-dialog-header {\n        border-radius: 0 !important;\n}\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* Paksa dialog template obat selalu center terhadap full viewport,\r\n   mengabaikan margin-left sidebar AdminLTE */\n[data-v-e0714dac] .p-dialog-mask {\r\n    position: fixed !important;\r\n    top: 0 !important;\r\n    left: 0 !important;\r\n    width: 100vw !important;\r\n    height: 100vh !important;\r\n    display: flex !important;\r\n    align-items: center !important;\r\n    justify-content: center !important;\n}\n[data-v-e0714dac] .obat-dialog.p-dialog {\r\n    width: 60vw !important;\r\n    max-width: 60vw !important;\n}\n[data-v-e0714dac] .obat-dialog .p-dialog-content {\r\n    overflow-x: hidden;\n}\n.recent-obat-section[data-v-e0714dac] {\r\n    margin-bottom: 14px;\r\n    padding: 12px 14px;\r\n    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);\r\n    border: 1px solid #fde68a;\r\n    border-radius: 8px;\n}\n.recent-obat-hdr[data-v-e0714dac] {\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    margin-bottom: 10px;\r\n    width: 100%;\n}\n.recent-obat-hdr-left[data-v-e0714dac] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 6px;\r\n    font-size: 12px;\r\n    font-weight: 700;\r\n    color: #92400e;\r\n    text-transform: uppercase;\r\n    letter-spacing: 0.4px;\n}\n.recent-obat-hdr-left .pi-star-fill[data-v-e0714dac] { color: #f59e0b; font-size: 13px;\n}\n.recent-loading[data-v-e0714dac] {\r\n    font-size: 11px;\r\n    color: #92400e;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 4px;\n}\n.recent-obat-empty[data-v-e0714dac] {\r\n    font-size: 12px;\r\n    color: #a16207;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 6px;\r\n    padding: 6px 0;\n}\n.recent-obat-grid[data-v-e0714dac] {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    gap: 7px;\n}\n.recent-chip[data-v-e0714dac] {\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 3px;\r\n    padding: 6px 10px;\r\n    background: #fff;\r\n    border: 1px solid #fcd34d;\r\n    border-radius: 8px;\r\n    cursor: pointer;\r\n    min-width: 130px;\r\n    max-width: 200px;\r\n    transition: all 0.15s ease;\r\n    box-shadow: 0 1px 3px rgba(0,0,0,0.04);\n}\n.recent-chip[data-v-e0714dac]:hover {\r\n    background: #fef9c3;\r\n    border-color: #f59e0b;\r\n    box-shadow: 0 2px 8px rgba(245,158,11,0.2);\r\n    transform: translateY(-1px);\n}\n.recent-chip[data-v-e0714dac]:active { transform: translateY(0);\n}\n.recent-chip-name[data-v-e0714dac] {\r\n    font-size: 11px;\r\n    font-weight: 600;\r\n    color: #1e293b;\r\n    line-height: 1.35;\r\n    word-break: break-word;\n}\n.recent-chip-price[data-v-e0714dac] {\r\n    font-size: 11px;\r\n    font-weight: 700;\r\n    color: #16a34a;\r\n    margin-top: 2px;\n}\n@media (max-width: 768px) {\n[data-v-e0714dac] .obat-dialog.p-dialog {\r\n        width: 100vw !important;\r\n        max-width: 100vw !important;\r\n        height: 100dvh !important;\r\n        max-height: 100dvh !important;\r\n        margin: 0 !important;\r\n        border-radius: 0 !important;\n}\n[data-v-e0714dac] .obat-dialog .p-dialog-content {\r\n        flex: 1;\r\n        overflow-y: auto;\r\n        overflow-x: hidden;\r\n        border-radius: 0 !important;\n}\n[data-v-e0714dac] .obat-dialog .p-dialog-header {\r\n        border-radius: 0 !important;\n}\n}\r\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=style&index=0&id=747ed988&scoped=true&lang=css":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=style&index=0&id=747ed988&scoped=true&lang=css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.form-serah-terima[data-v-747ed988] {\n        font-size: 1.05rem;\n}\n.form-serah-terima .table td[data-v-747ed988],\n    .form-serah-terima .table th[data-v-747ed988] {\n        vertical-align: middle;\n}\n.form-serah-terima .badge[data-v-747ed988] {\n        font-size: 0.9rem;\n        padding: 0.4em 0.7em;\n}\n.status-terima-user[data-v-747ed988] {\n        font-weight: 600;\n        font-size: 0.95rem;\n        margin-top: 0.3rem;\n}\n.status-terima-waktu[data-v-747ed988] {\n        font-size: 0.85rem;\n        color: #6b7280;\n}\n.status-selisih[data-v-747ed988] {\n        font-size: 0.9rem;\n        font-weight: 600;\n}\n.text-warning-dark[data-v-747ed988] {\n        color: #b45309;\n}\n.alert-diterima[data-v-747ed988] {\n        background: #ecfdf5;\n        border: 1px solid #a7f3d0;\n        border-radius: 8px;\n        padding: 0.6rem 1rem;\n}\n.oto-user-info[data-v-747ed988] {\n        background: #ecfdf5;\n        border: 1px solid #a7f3d0;\n        border-radius: 8px;\n        padding: 0.75rem 1rem;\n}\n.oto-user-info td[data-v-747ed988] {\n        padding: 0.15rem 0;\n}\n.form-serah-terima[data-v-747ed988] .p-inputnumber-input {\n        font-size: 1.05rem;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -3254,7 +3779,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n/* Scroll area item obat dalam card template */\n.template-item-scroll[data-v-06f3b660] {\n    max-height: 180px;\n    overflow-y: auto;\n}\n.template-item-scroll[data-v-06f3b660]::-webkit-scrollbar {\n    width: 4px;\n}\n.template-item-scroll[data-v-06f3b660]::-webkit-scrollbar-track {\n    background: #f1f1f1;\n}\n.template-item-scroll[data-v-06f3b660]::-webkit-scrollbar-thumb {\n    background: #c1c1c1;\n    border-radius: 4px;\n}\n.template-item-scroll[data-v-06f3b660]::-webkit-scrollbar-thumb:hover {\n    background: #3c8dbc;\n}\n\n/* Minimal overrides — mengikuti AdminLTE bawaan */\n.list-group-item[data-v-06f3b660]:hover {\n    background-color: #f8f9fa;\n}\n\n/* Item dengan arsipkan = 1: sudah non aktif, tidak bisa dipilih saat template dipakai */\n.item-nonaktif[data-v-06f3b660] {\n    opacity: .55;\n}\n.item-nonaktif .item-nama[data-v-06f3b660],\n.item-nonaktif small[data-v-06f3b660] {\n    text-decoration: line-through;\n}\n[data-v-06f3b660] .p-dialog .p-dialog-header {\n    background-color: #3c8dbc;\n    padding: 12px 16px;\n}\n[data-v-06f3b660] .p-dialog .p-dialog-title {\n    font-weight: 600;\n    font-size: 15px;\n    color: #fff;\n}\n[data-v-06f3b660] .p-dialog .p-dialog-header-close {\n    color: rgba(255,255,255,0.8) !important;\n}\n[data-v-06f3b660] .p-dialog .p-dialog-header-close:hover {\n    background: rgba(255,255,255,0.15) !important;\n    color: #fff !important;\n}\n[data-v-06f3b660] .p-dialog .p-dialog-content {\n    padding: 16px;\n}\n[data-v-06f3b660] .p-dialog .p-dialog-footer {\n    padding: 10px 16px;\n    border-top: 1px solid #dee2e6;\n    text-align: right;\n}\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* Scroll area item obat dalam card template */\n.template-item-scroll[data-v-06f3b660] {\r\n    max-height: 180px;\r\n    overflow-y: auto;\n}\n.template-item-scroll[data-v-06f3b660]::-webkit-scrollbar {\r\n    width: 4px;\n}\n.template-item-scroll[data-v-06f3b660]::-webkit-scrollbar-track {\r\n    background: #f1f1f1;\n}\n.template-item-scroll[data-v-06f3b660]::-webkit-scrollbar-thumb {\r\n    background: #c1c1c1;\r\n    border-radius: 4px;\n}\n.template-item-scroll[data-v-06f3b660]::-webkit-scrollbar-thumb:hover {\r\n    background: #3c8dbc;\n}\r\n\r\n/* Minimal overrides — mengikuti AdminLTE bawaan */\n.list-group-item[data-v-06f3b660]:hover {\r\n    background-color: #f8f9fa;\n}\r\n\r\n/* Item dengan arsipkan = 1: sudah non aktif, tidak bisa dipilih saat template dipakai */\n.item-nonaktif[data-v-06f3b660] {\r\n    opacity: .55;\n}\n.item-nonaktif .item-nama[data-v-06f3b660],\r\n.item-nonaktif small[data-v-06f3b660] {\r\n    text-decoration: line-through;\n}\n[data-v-06f3b660] .p-dialog .p-dialog-header {\r\n    background-color: #3c8dbc;\r\n    padding: 12px 16px;\n}\n[data-v-06f3b660] .p-dialog .p-dialog-title {\r\n    font-weight: 600;\r\n    font-size: 15px;\r\n    color: #fff;\n}\n[data-v-06f3b660] .p-dialog .p-dialog-header-close {\r\n    color: rgba(255,255,255,0.8) !important;\n}\n[data-v-06f3b660] .p-dialog .p-dialog-header-close:hover {\r\n    background: rgba(255,255,255,0.15) !important;\r\n    color: #fff !important;\n}\n[data-v-06f3b660] .p-dialog .p-dialog-content {\r\n    padding: 16px;\n}\n[data-v-06f3b660] .p-dialog .p-dialog-footer {\r\n    padding: 10px 16px;\r\n    border-top: 1px solid #dee2e6;\r\n    text-align: right;\n}\r\n\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -3316,6 +3841,35 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ObatComponent_vue_vue_type_style_index_0_id_e0714dac_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=style&index=0&id=747ed988&scoped=true&lang=css":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=style&index=0&id=747ed988&scoped=true&lang=css ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SerahTerimaResepComponent_vue_vue_type_style_index_0_id_747ed988_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./SerahTerimaResepComponent.vue?vue&type=style&index=0&id=747ed988&scoped=true&lang=css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=style&index=0&id=747ed988&scoped=true&lang=css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SerahTerimaResepComponent_vue_vue_type_style_index_0_id_747ed988_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SerahTerimaResepComponent_vue_vue_type_style_index_0_id_747ed988_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -3435,6 +3989,36 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _SerahTerimaResepComponent_vue_vue_type_template_id_747ed988_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SerahTerimaResepComponent.vue?vue&type=template&id=747ed988&scoped=true */ "./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=template&id=747ed988&scoped=true");
+/* harmony import */ var _SerahTerimaResepComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SerahTerimaResepComponent.vue?vue&type=script&lang=js */ "./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _SerahTerimaResepComponent_vue_vue_type_style_index_0_id_747ed988_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SerahTerimaResepComponent.vue?vue&type=style&index=0&id=747ed988&scoped=true&lang=css */ "./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=style&index=0&id=747ed988&scoped=true&lang=css");
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+
+
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_SerahTerimaResepComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_SerahTerimaResepComponent_vue_vue_type_template_id_747ed988_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-747ed988"],['__file',"resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/js/components/obatdanpenunjang/TemplateObatComponent.vue":
 /*!****************************************************************************!*\
   !*** ./resources/js/components/obatdanpenunjang/TemplateObatComponent.vue ***!
@@ -3510,6 +4094,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=script&lang=js":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=script&lang=js ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SerahTerimaResepComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SerahTerimaResepComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./SerahTerimaResepComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/components/obatdanpenunjang/TemplateObatComponent.vue?vue&type=script&lang=js":
 /*!****************************************************************************************************!*\
   !*** ./resources/js/components/obatdanpenunjang/TemplateObatComponent.vue?vue&type=script&lang=js ***!
@@ -3570,6 +4169,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=template&id=747ed988&scoped=true":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=template&id=747ed988&scoped=true ***!
+  \**************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SerahTerimaResepComponent_vue_vue_type_template_id_747ed988_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SerahTerimaResepComponent_vue_vue_type_template_id_747ed988_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./SerahTerimaResepComponent.vue?vue&type=template&id=747ed988&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=template&id=747ed988&scoped=true");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/obatdanpenunjang/TemplateObatComponent.vue?vue&type=template&id=06f3b660&scoped=true":
 /*!**********************************************************************************************************************!*\
   !*** ./resources/js/components/obatdanpenunjang/TemplateObatComponent.vue?vue&type=template&id=06f3b660&scoped=true ***!
@@ -3605,6 +4219,18 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ObatComponent_vue_vue_type_style_index_0_id_e0714dac_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ObatComponent.vue?vue&type=style&index=0&id=e0714dac&scoped=true&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/obatdanpenunjang/ObatComponent.vue?vue&type=style&index=0&id=e0714dac&scoped=true&lang=css");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=style&index=0&id=747ed988&scoped=true&lang=css":
+/*!****************************************************************************************************************************************!*\
+  !*** ./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=style&index=0&id=747ed988&scoped=true&lang=css ***!
+  \****************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SerahTerimaResepComponent_vue_vue_type_style_index_0_id_747ed988_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./SerahTerimaResepComponent.vue?vue&type=style&index=0&id=747ed988&scoped=true&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/obatdanpenunjang/SerahTerimaResepComponent.vue?vue&type=style&index=0&id=747ed988&scoped=true&lang=css");
 
 
 /***/ }),

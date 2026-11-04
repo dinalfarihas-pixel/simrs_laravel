@@ -257,7 +257,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-7">
-                            <label class="form-label-custom mb-2">Status Psikologi</label>
+                            <label class="form-label-custom mb-2">Status Psikologi <span class="text-danger">*</span></label>
                             <div class="radio-grid">
                                 <div class="field-radiobutton" v-for="opt in ['Marah','Takut','Cemas','Depresi','Kecendrungan Bunuh Diri','Gelisah','Lain-lain','Tidak-masalah']" :key="opt">
                                     <RadioButton :id="'psi-'+opt" name="status_psikologi" :value="opt" v-model="form.status_psikologi" />
@@ -266,7 +266,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 border-left">
-                            <label class="form-label-custom mb-2">Risiko Jatuh</label>
+                            <label class="form-label-custom mb-2">Risiko Jatuh <span class="text-danger">*</span></label>
                             <div class="d-flex" style="gap:16px">
                                 <div class="field-radiobutton">
                                     <RadioButton id="rj-ya" name="resiko_jatuh" value="YA" v-model="form.resiko_jatuh" />
@@ -333,6 +333,10 @@
                     </h3>
                 </div>
                 <div class="card-body pb-2">
+                    <div v-if="isDoa" class="alert alert-secondary py-2 mb-2" style="font-size:.85rem">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        Triase <b>Death on Arrival</b> dipilih — suhu, tekanan darah, nadi, SpO₂ dan respirasi boleh diisi <b>0</b>.
+                    </div>
                     <div class="vital-grid">
 
                         <!-- Suhu -->
@@ -342,7 +346,7 @@
                                 v-model="form.suhu"
                                 label="Suhu" unit="℃"
                                 :minFractionDigits="1"
-                                :min="30" :max="42"
+                                :min="isDoa ? 0 : 30" :max="42"
                                 :quickValues="[36, 36.2, 36.5, 36.6, 36.7, 36.8, 36.9, 37, 37.5, 38, 38.5, 39]"
                             />
                             <small class="vital-hint">36 – 37.5 ℃</small>
@@ -356,7 +360,7 @@
                                     <VitalQuickPickInput
                                         v-model="form.tensi_sistol"
                                         label="Sistolik" unit="mmHg"
-                                        :min="40" :max="260"
+                                        :min="isDoa ? 0 : 40" :max="260"
                                         :quickValues="[60, 65, 70, 80, 90, 100, 110, 112, 120, 125, 130, 140]"
                                     />
                                 </div>
@@ -365,7 +369,7 @@
                                     <VitalQuickPickInput
                                         v-model="form.tensi_distol"
                                         label="Diastolik" unit="mmHg"
-                                        :min="20" :max="150"
+                                        :min="isDoa ? 0 : 20" :max="150"
                                         :quickValues="[40, 45, 50, 60, 70, 72, 75, 78, 80, 81, 89, 90]"
                                     />
                                 </div>
@@ -379,7 +383,7 @@
                             <VitalQuickPickInput
                                 v-model="form.nadipermenit"
                                 label="Nadi" unit="x/mnt"
-                                :min="30" :max="220"
+                                :min="isDoa ? 0 : 30" :max="220"
                                 :quickValues="[70, 80, 82, 88, 89, 90, 98, 101, 110,117,130, 134, 140]"
                             />
                             <small class="vital-hint">60 – 100 x/mnt</small>
@@ -403,7 +407,7 @@
                             <VitalQuickPickInput
                                 v-model="form.respirasi"
                                 label="Respirasi" unit="/mnt"
-                                :min="5" :max="70"
+                                :min="isDoa ? 0 : 5" :max="70"
                                 :quickValues="[20, 22, 24, 26, 42, 43, 44, 45, 46, 48, 50, 60]"
                             />
                             <small class="vital-hint">12 – 20 /mnt</small>
@@ -779,7 +783,7 @@
                 <div class="card-header">
                     <h3 class="card-title font-weight-bold mb-0">
                         <i class="fas fa-eye mr-2 text-primary"></i>
-                        Kesadaran
+                        Kesadaran <span class="text-danger">*</span>
                     </h3>
                 </div>
                 <div class="card-body">
@@ -963,7 +967,7 @@
             </div>
 
             <!-- ===== ACTION BAR ===== -->
-            <div class="card card-outline card-primary shadow-sm mb-3">
+            <div class="card card-outline card-primary shadow-sm mb-0 triase-action-bar">
                 <div class="card-body d-flex align-items-center flex-wrap" style="gap:10px">
                     <Button label="Simpan Triase" v-if="datapasien?.JENISRAWAT=='JALAN'" icon="pi pi-save" class="p-button-success" @click="simpan()" :disabled="isLoading" />
                     <Button label="Otorisasi" v-if="datapasien?.JENISRAWAT=='JALAN'" icon="pi pi-lock" class="p-button-warning" @click="call_oto()" />
@@ -1279,10 +1283,11 @@
                     saturasi: 0,
                     respirasi: 0,
                     catatanpenting: '',
-                    resiko_jatuh: 'TIDAK',
-                    status_psikologi: 'Tidak-masalah',
+                    // Status psikologi, risiko jatuh & kesadaran sengaja kosong: wajib dipilih petugas
+                    resiko_jatuh: '',
+                    status_psikologi: '',
                     dpjpSelected:{NAMADOKTER:'',KDDOKTER:''},
-                    kesadaran: 'Composmetis',
+                    kesadaran: '',
                     rencana_tindak_lanjut:'',
                     survey:[],
                     data_gizi:'',
@@ -1608,6 +1613,10 @@
                 else if (nonUrgent > 0)  { kategori = 'NON URGENT';       warna = 'triase-hasil-nonurgent'; }
 
                 return { emergensi, urgent, nonUrgent, doa, total, kategori, warna };
+            },
+            // Pasien DOA: tanda vital boleh bernilai 0
+            isDoa() {
+                return this.skorTriase.doa > 0;
             },
             ringkasanFisik() {
                 const lines = this.secondary_surver_list.map(item => {
@@ -2129,20 +2138,25 @@
                 if (this.$refs.keluhanRef && !this.$refs.keluhanRef.validate())
                     return fail('Anamnese Singkat', 'Keluhan Utama tidak valid (terlalu pendek atau data uji coba).');
 
-                if (!this.form.suhu || this.form.suhu <= 0)
+                // DOA: tanda vital boleh 0, tetapi tetap harus diisi (tidak kosong)
+                const vitalKosong = (v) => this.isDoa
+                    ? (v === null || v === undefined || v === '' || v < 0)
+                    : (!v || v <= 0);
+
+                if (vitalKosong(this.form.suhu))
                     return fail('Tanda Vital', 'Suhu tubuh wajib diisi.');
 
                 const usiaTahun = this.datapasien?.USIA_PASIEN?.tahun ?? 99;
-                if (usiaTahun >= 17 && (!this.form.tensi_sistol || this.form.tensi_sistol <= 0))
+                if (usiaTahun >= 17 && vitalKosong(this.form.tensi_sistol))
                     return fail('Tanda Vital', 'Tekanan darah sistolik wajib diisi.');
 
-                if (!this.form.nadipermenit || this.form.nadipermenit <= 0)
+                if (vitalKosong(this.form.nadipermenit))
                     return fail('Tanda Vital', 'Nadi per menit wajib diisi.');
 
-                if (!this.form.saturasi || this.form.saturasi <= 0)
+                if (vitalKosong(this.form.saturasi))
                     return fail('Tanda Vital', 'Saturasi O₂ wajib diisi.');
 
-                if (!this.form.respirasi || this.form.respirasi <= 0)
+                if (vitalKosong(this.form.respirasi))
                     return fail('Tanda Vital', 'Respirasi wajib diisi.');
 
                 if (!this.form.tb || this.form.tb <= 0)
@@ -2156,6 +2170,9 @@
 
                 if (!this.form.resiko_jatuh)
                     return fail('Risiko Jatuh', 'Risiko jatuh wajib dipilih.');
+
+                if (!this.form.kesadaran)
+                    return fail('Kesadaran', 'Tingkat kesadaran wajib dipilih.');
 
                 if (!this.form.check_triase || this.form.check_triase.length === 0)
                     return fail('Penilaian Triase', 'Minimal satu pilihan triase harus dipilih.');
@@ -3135,6 +3152,15 @@
 .th-urgent    { background: #f57c00; color: #fff; }
 .th-nonurgent { background: #2e7d32; color: #fff; }
 .th-doa       { background: #212121; color: #fff; }
+
+/* Action bar Simpan/Otorisasi tetap terlihat di bawah saat konten di-scroll */
+.triase-action-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 20;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, .12) !important;
+}
+.triase-action-bar .card-body { padding-top: .6rem; padding-bottom: .6rem; }
 
 .triase-table td { vertical-align: top; padding: 10px; }
 .td-grouping { background: #f8f9fa; font-weight: 700; vertical-align: middle !important; }

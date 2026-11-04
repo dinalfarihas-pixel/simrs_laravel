@@ -23,6 +23,7 @@ use App\Http\Controllers\PurchasingController;
 
 use App\Http\Controllers\BpjsApiController;
 use App\Http\Controllers\RekamMedisElektronik;
+use App\Http\Controllers\ReturObatRuanganController;
 
 use App\Http\Controllers\KlaimManajemenController;
 
@@ -55,6 +56,8 @@ Route::get('/', function () {
 Route::get('/logout', [LoginController::class, 'logout']);
 
 Route::post('/dologin', [LoginController::class, 'authentication']);
+Route::get('/dologin', function () {
+    return redirect('login'); });
 
 Route::get('/logout', [LoginController::class, 'logout']);
 
@@ -315,6 +318,12 @@ Route::group(['middleware'=>['oto']], function(){
         Route::post('/getdetail_permintaan', [PersediaanController::class, 'getdata_detailbarang_permintaan']); //api  get lokasi
 
         Route::post('/hapus_permintaan', [PersediaanController::class, 'hapus_permintaan']); //api  get lokasi
+
+        Route::post('/get_detail_serah_terima', [PersediaanController::class, 'get_detail_serah_terima']); //api konfirmasi serah terima permintaan
+        Route::post('/simpan_serah_terima', [PersediaanController::class, 'simpan_serah_terima']); //api
+        Route::post('/cek_otorisasi_serah_terima', [PersediaanController::class, 'cek_otorisasi_serah_terima']); //api
+        Route::post('/get_detail_serah_terima_resep', [PersediaanController::class, 'get_detail_serah_terima_resep']); //api serah terima obat resep
+        Route::post('/simpan_serah_terima_resep', [PersediaanController::class, 'simpan_serah_terima_resep']); //api
 //perencanaan
         Route::post('/save_header_perencanaan', [PerencanaanController::class, 'save_header_perencanaan']);
 
@@ -991,6 +1000,22 @@ Route::group(['middleware'=>['oto']], function(){
     Route::post('/getpemberian_obat', [RekamMedisElektronik::class, 'getpemberian_obat']); //api
 
     Route::post('/hapus_pemberian_obat', [RekamMedisElektronik::class, 'hapus_pemberian_obat']); //api
+    Route::post('/get_stok_obat_pasien', [RekamMedisElektronik::class, 'get_stok_obat_pasien']); //api
+    Route::post('/retur_obat_pasien', [RekamMedisElektronik::class, 'retur_obat_pasien']); //api
+    Route::post('/batal_retur_obat_pasien', [RekamMedisElektronik::class, 'batal_retur_obat_pasien']); //api
+
+    // Depo: konfirmasi retur obat pasien dari ruangan
+    Route::get('/persediaan/konfirmasi-retur-ruangan', function () {
+        return view('persediaan.retur.konfirmasi_retur_ruangan'); });
+    Route::post('/retur_ruangan_list', [ReturObatRuanganController::class, 'list']); //api
+    Route::post('/retur_ruangan_detail', [ReturObatRuanganController::class, 'detail']); //api
+    Route::post('/retur_ruangan_terima', [ReturObatRuanganController::class, 'terima']); //api
+    Route::post('/retur_ruangan_tolak', [ReturObatRuanganController::class, 'tolak']); //api
+
+    // Depo: monitoring obat pasien yang tidak diberikan (sisa stok obat resep di ruangan)
+    Route::get('/persediaan/monitoring-obat-tidak-diberikan', function () {
+        return view('persediaan.retur.monitoring_obat_tidak_diberikan'); });
+    Route::post('/monitoring_obat_tidak_diberikan', [ReturObatRuanganController::class, 'monitoring_obat_tidak_diberikan']); //api
 
     Route::post('/simpan_rekonsiliasi_obat', [RekamMedisElektronik::class, 'simpan_rekonsiliasi_obat']); //api
     Route::post('/update_rekonsiliasi_obat', [RekamMedisElektronik::class, 'update_rekonsiliasi_obat']); //api

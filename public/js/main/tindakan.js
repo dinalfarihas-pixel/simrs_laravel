@@ -437,7 +437,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "is-full-page": $data.fullPage
   }, null, 8 /* PROPS */, ["active", "is-full-page"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "card-header"
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Select v-model=\"form.jenisTindakan\" :options=\"opsiJenisTindakan\"\n                    optionLabel=\"label\" optionValue=\"value\"\n                    placeholder=\"Pilih jenis tindakan\" style=\"width: 100%; max-width: 320px;\"\n                    @change=\"onJenisTindakanChange\" /> ")], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select, {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Select v-model=\"form.jenisTindakan\" :options=\"opsiJenisTindakan\"\r\n                    optionLabel=\"label\" optionValue=\"value\"\r\n                    placeholder=\"Pilih jenis tindakan\" style=\"width: 100%; max-width: 320px;\"\r\n                    @change=\"onJenisTindakanChange\" /> ")], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Select, {
     style: {
       "width": "100%"
     },

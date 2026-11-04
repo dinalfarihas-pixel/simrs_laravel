@@ -594,7 +594,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "background-color": "green"
     },
     "class": "p-button-raised p-button-sm p-button-rounded"
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <export-excel class=\"p-button\" style=\"height: 1.5em; background-color: green;\" :data=\"fact\"\n                        :fields=\"json_fields\" worksheet=\"My Worksheet\" name=\"DATA PENGGUNAAN OBAT.xls\">\n                        Download Excel\n                    </export-excel> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <export-excel class=\"p-button\" style=\"height: 1.5em; background-color: green;\" :data=\"fact\"\r\n                        :fields=\"json_fields\" worksheet=\"My Worksheet\" name=\"DATA PENGGUNAAN OBAT.xls\">\r\n                        Download Excel\r\n                    </export-excel> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     name: "table_search",
     "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
@@ -647,7 +647,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.vt-sort:before {\n        font-family: FontAwesome;\n        padding-right: 0.5em;\n        width: 1.28571429em;\n        display: inline-block;\n        text-align: center;\n}\n.vt-sortable:before {\n        content: \"\\f0dc\";\n}\n.vt-asc:before {\n        content: \"\\f160\";\n}\n.vt-desc:before {\n        content: \"\\f161\";\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.vt-sort:before {\r\n        font-family: FontAwesome;\r\n        padding-right: 0.5em;\r\n        width: 1.28571429em;\r\n        display: inline-block;\r\n        text-align: center;\n}\n.vt-sortable:before {\r\n        content: \"\\f0dc\";\n}\n.vt-asc:before {\r\n        content: \"\\f160\";\n}\n.vt-desc:before {\r\n        content: \"\\f161\";\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

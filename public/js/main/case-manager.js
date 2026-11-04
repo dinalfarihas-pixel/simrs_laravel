@@ -600,7 +600,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.cm-title-bar[data-v-a2c2f454] {\n    background: #1f2937;\n    color: #fff;\n    font-weight: 700;\n    text-align: center;\n    padding: 10px 12px;\n    border-radius: 4px 4px 0 0;\n    letter-spacing: .3px;\n}\n.form-label-custom[data-v-a2c2f454] {\n    font-weight: 600;\n    font-size: .85rem;\n    color: #333;\n    margin-bottom: 6px;\n}\n.cm-keterangan-title[data-v-a2c2f454] {\n    font-weight: 700;\n    margin-bottom: 8px;\n}\n.cm-keterangan-grid[data-v-a2c2f454] {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 4px 24px;\n    font-size: .9rem;\n}\n.cm-keterangan-col > div[data-v-a2c2f454] {\n    padding: 2px 0;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.cm-title-bar[data-v-a2c2f454] {\r\n    background: #1f2937;\r\n    color: #fff;\r\n    font-weight: 700;\r\n    text-align: center;\r\n    padding: 10px 12px;\r\n    border-radius: 4px 4px 0 0;\r\n    letter-spacing: .3px;\n}\n.form-label-custom[data-v-a2c2f454] {\r\n    font-weight: 600;\r\n    font-size: .85rem;\r\n    color: #333;\r\n    margin-bottom: 6px;\n}\n.cm-keterangan-title[data-v-a2c2f454] {\r\n    font-weight: 700;\r\n    margin-bottom: 8px;\n}\n.cm-keterangan-grid[data-v-a2c2f454] {\r\n    display: grid;\r\n    grid-template-columns: 1fr 1fr;\r\n    gap: 4px 24px;\r\n    font-size: .9rem;\n}\n.cm-keterangan-col > div[data-v-a2c2f454] {\r\n    padding: 2px 0;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

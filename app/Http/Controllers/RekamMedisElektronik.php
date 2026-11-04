@@ -487,8 +487,12 @@ class RekamMedisElektronik extends Controller
             
             $json= [            
                 "id_client"=>Session::get('id_client'),  
-                "nama_obat"=>$request->nama_obat,  
-                "dosis"=>$request->dosis,  
+                "nama_obat"=>$request->nama_obat,
+                "barcode"=>$request->barcode,
+                "qty"=>$request->qty,
+                "satuan"=>$request->satuan,
+                "username"=>Session::get('user_id'),
+                "dosis"=>$request->dosis,
                 "frekwensi"=>$request->frekwensi,  
                 "rute"=>$request->ruteselected,  
                 "waktu"=>$startdate,  
@@ -557,12 +561,37 @@ class RekamMedisElektronik extends Controller
         try
         {    
             date_default_timezone_set("Asia/Jakarta");
-            $startdate = date('Y-m-d H:i:s', strtotime($request->startdate)); 
-            
-            $json= [            
-                "id_client"=>Session::get('id_client'),    
-                "id"=>$request->id,      
-            ];     
+
+            // Otorisasi user yang menghapus: username & password dicek ke API login, harus user RS yang sama
+            if (!$request->username || !$request->password) {
+                return response()->json(['metadata' => ['code' => 201, 'message' => 'Username dan password otorisasi wajib diisi']]);
+            }
+            if (!trim((string) $request->alasan)) {
+                return response()->json(['metadata' => ['code' => 201, 'message' => 'Alasan pembatalan wajib diisi']]);
+            }
+            $client = new Client();
+            $login = $client->post($this->ws_simrs.'index.php/api/data_referensi/userloginv3', [
+                'json'    => ['pass' => $request->password, 'username' => $request->username],
+                'headers' => ['Content-Type' => 'application/json', 'Authorization' => ''],
+                'timeout' => 30,
+                'connect_timeout' => 10,
+            ]);
+            $user = json_decode($login->getBody()->getContents(), true);
+            if (!isset($user['metadata']['code']) || (int) $user['metadata']['code'] != 200) {
+                return response()->json(['metadata' => ['code' => 201, 'message' => 'Otorisasi gagal, username atau password salah']]);
+            }
+            if ($user['response']['ID_CLIENT'] != Session::get('id_client')) {
+                return response()->json(['metadata' => ['code' => 201, 'message' => 'User '.$request->username.' bukan user rumah sakit ini']]);
+            }
+
+            $json= [
+                "id_client"=>Session::get('id_client'),
+                "id"=>$request->id,
+                "username"=>$request->username,
+                "nama_user"=>isset($user['response']['NAMA_USER']) ? $user['response']['NAMA_USER'] : null,
+                "alasan"=>trim((string) $request->alasan),
+                "login_user"=>Session::get('user_id'),
+            ];
 
             $url_simrs =  $this->ws_simrs.'index.php/api/Resumepulang/hapus_pemberian_obat'; // Replace this with the API endpoint URL
             $client = new Client();
@@ -583,6 +612,56 @@ class RekamMedisElektronik extends Controller
                 $json
             ]);
         }
+    }
+
+    // ===== Stok obat resep pasien di ruangan (kartu stok pasien) =====
+    private function post_stok_obat_pasien($method, array $json)
+    {
+        try {
+            date_default_timezone_set("Asia/Jakarta");
+            $json['id_client'] = Session::get('id_client');
+            $json['username'] = Session::get('user_id');
+
+            $url = $this->ws_simrs . 'index.php/api/Resumepulang/' . $method;
+            $client = new Client();
+            $response = $client->post($url, [
+                'json'    => $json,
+                'headers' => ['Content-Type' => 'application/json', 'Authorization' => ''],
+                'timeout' => 30,
+                'connect_timeout' => 10,
+            ]);
+            return $response->getBody()->getContents();
+        } catch (\Throwable $e) {
+            return response()->json(['metadata' => ['code' => 500, 'message' => $e->getMessage()]]);
+        }
+    }
+
+    public function get_stok_obat_pasien(Request $request)
+    {
+        return $this->post_stok_obat_pasien('get_stok_obat_pasien', [
+            'noregister' => $request->noregister,
+        ]);
+    }
+
+
+    public function retur_obat_pasien(Request $request)
+    {
+        return $this->post_stok_obat_pasien('retur_obat_pasien', [
+            'noregister'   => $request->noregister,
+            'nama_ruangan' => $request->nama_ruangan,
+            'barcode'      => $request->barcode,
+            'nama_obat'    => $request->nama_obat,
+            'satuan'       => $request->satuan,
+            'qty'          => $request->qty,
+            'keterangan'   => $request->keterangan,
+        ]);
+    }
+
+    public function batal_retur_obat_pasien(Request $request)
+    {
+        return $this->post_stok_obat_pasien('batal_retur_obat_pasien', [
+            'id_retur' => $request->id_retur,
+        ]);
     }
 
     public function simpan_rekonsiliasi_obat(Request $request)

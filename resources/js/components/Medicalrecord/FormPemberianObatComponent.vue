@@ -1,6 +1,7 @@
 ﻿<template>
     <section class="content">
         <loading v-model:active="isLoading" :is-full-page="fullPage"></loading>
+        <ConfirmDialog group="pemberian_obat" />
 
         <!-- ===== TABEL PEMBERIAN OBAT ===== -->
         <div class="card card-outline card-primary shadow-sm">
@@ -36,6 +37,12 @@
                         </div>
                     </template>
                     <Column field="nama_obat" :sortable="true" header="Nama Obat" :styles="{'min-width':'140px'}"></Column>
+                    <Column field="qty"       :sortable="true" header="Jumlah">
+                        <template #body="slotProps">
+                            <span v-if="slotProps.data.barcode">{{ $numeral(slotProps.data.qty, '0,0.[00]') }} {{ slotProps.data.satuan }}</span>
+                            <span v-else class="text-muted">-</span>
+                        </template>
+                    </Column>
                     <Column field="dosis"     :sortable="true" header="Dosis"></Column>
                     <Column field="frekwensi" :sortable="true" header="Frekuensi"></Column>
                     <Column field="rute"      :sortable="true" header="Rute"></Column>
@@ -67,6 +74,125 @@
                         </template>
                     </Column>
                 </DataTable>
+            </div>
+
+            <!-- ===== STOK OBAT RESEP DI RUANGAN ===== -->
+            <div class="card-body p-0" v-else-if="viewMode === 'stok'">
+                <!-- Obat resep yang sudah dikirim farmasi, belum dikonfirmasi lewat Serah Terima Obat -->
+                <div v-if="belum_diterima.length > 0" class="p-2 border-bottom terima-box">
+                    <div class="mb-2">
+                        <span class="font-weight-bold text-warning">
+                            <i class="fas fa-truck mr-1"></i>
+                            Obat dari farmasi menunggu diterima ({{ belum_diterima.length }})
+                        </span>
+                        <div class="text-sm text-muted">
+                            Belum masuk stok pasien. Konfirmasi lewat tab <b>Permintaan Obat</b> &rarr;
+                            <b>Konfirmasi Terima Obat</b> pada resep terkait.
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-sm mb-0 stok-table bg-white">
+                        <thead>
+                            <tr>
+                                <th>No. Resep</th>
+                                <th>Tanggal</th>
+                                <th style="min-width:180px">Nama Obat</th>
+                                <th class="text-center">Jumlah</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in belum_diterima" :key="item.RECEIPT_NO + '|' + item.BARCODE">
+                                <td>{{ item.RECEIPT_NO }}</td>
+                                <td>{{ item.TANGGAL }}</td>
+                                <td>{{ item.NAMABARANG }}</td>
+                                <td class="text-center">{{ $numeral(item.QTY, '0,0.[00]') }} {{ item.SATUAN }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm mb-0 stok-table">
+                        <thead>
+                            <tr>
+                                <th style="min-width:180px">Nama Obat</th>
+                                <th class="text-center">Satuan</th>
+                                <th class="text-center">Diterima</th>
+                                <th class="text-center">Diberikan</th>
+                                <th class="text-center">Diretur</th>
+                                <th class="text-center">Sisa Stok</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center" style="width:90px">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-if="stok_obat.length === 0">
+                                <td colspan="8" class="text-center text-muted py-4">
+                                    <i class="fas fa-inbox fa-2x mb-2 d-block"></i>
+                                    Belum ada obat resep yang diterima ruangan.
+                                </td>
+                            </tr>
+                            <tr v-for="item in stok_obat" :key="item.barcode">
+                                <td class="font-weight-bold">{{ item.nama_obat }}</td>
+                                <td class="text-center">{{ item.satuan }}</td>
+                                <td class="text-center">{{ $numeral(item.diterima, '0,0.[00]') }}</td>
+                                <td class="text-center">{{ $numeral(item.diberikan, '0,0.[00]') }}</td>
+                                <td class="text-center">{{ $numeral(item.diretur, '0,0.[00]') }}</td>
+                                <td class="text-center font-weight-bold" :class="item.sisa > 0 ? 'text-primary' : 'text-muted'">
+                                    {{ $numeral(item.sisa, '0,0.[00]') }}
+                                </td>
+                                <td class="text-center">
+                                    <span v-if="item.sisa > 0" class="badge badge-warning">Tersedia / dapat diretur</span>
+                                    <span v-else class="badge badge-success">Habis</span>
+                                </td>
+                                <td class="text-center">
+                                    <Button icon="pi pi-replay" class="p-button-text p-button-warning p-button-sm" v-tooltip.top="'Retur ke farmasi'"
+                                        :disabled="item.sisa <= 0" @click="call_retur(item)" />
+                                    <Button icon="pi pi-book" class="p-button-text p-button-info p-button-sm" v-tooltip.top="'Kartu stok'"
+                                        @click="buka_kartu_stok(item)" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Riwayat retur ke farmasi -->
+                <div v-if="retur_list.length > 0" class="p-2 border-top">
+                    <div class="font-weight-bold mb-2"><i class="fas fa-undo mr-1"></i> Retur ke Farmasi</div>
+                    <table class="table table-bordered table-sm mb-0 stok-table">
+                        <thead>
+                            <tr>
+                                <th>No. Retur</th>
+                                <th>Tanggal</th>
+                                <th style="min-width:180px">Nama Obat</th>
+                                <th class="text-center">Jumlah</th>
+                                <th>Keterangan</th>
+                                <th class="text-center">Status</th>
+                                <th>Diproses</th>
+                                <th class="text-center" style="width:60px">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="r in retur_list" :key="r.ID">
+                                <td>{{ r.NO_RETUR }}</td>
+                                <td>{{ r.REQUEST_AT }}</td>
+                                <td>{{ r.NAMABARANG }}</td>
+                                <td class="text-center">{{ $numeral(r.QTY, '0,0.[00]') }} {{ r.SATUAN }}</td>
+                                <td>{{ r.KETERANGAN }}</td>
+                                <td class="text-center">
+                                    <span class="badge" :class="status_retur_class(r.STATUS)">{{ status_retur_label(r) }}</span>
+                                    <div v-if="r.STATUS === 'DITOLAK'" class="text-xs text-muted">{{ r.ALASAN_TOLAK }}</div>
+                                </td>
+                                <td class="text-xs">
+                                    <span v-if="r.PROSES_AT">{{ r.PROSES_BY }}<br>{{ r.PROSES_AT }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <Button v-if="r.STATUS === 'MENUNGGU'" icon="pi pi-times" class="p-button-text p-button-danger p-button-sm"
+                                        v-tooltip.top="'Batalkan retur'" @click="batal_retur(r)" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <!-- ===== CROSSTAB VIEW: OBAT x TANGGAL ===== -->
@@ -170,6 +296,81 @@
             </template>
         </Dialog>
 
+        <!-- ===== DIALOG: OTORISASI PEMBATALAN PEMBERIAN ===== -->
+        <Dialog header="Otorisasi Pembatalan Pemberian Obat" v-model:visible="showHapusOto"
+            :style="{ width: '420px' }" :breakpoints="{ '576px': '100vw' }" :modal="true" :draggable="false">
+            <div class="mb-3 text-sm">
+                Pembatalan <b>{{ hapus_oto.label }}</b> harus diotorisasi oleh user yang melakukan penghapusan.
+            </div>
+            <label class="form-label-custom">Username <span class="text-danger">*</span></label>
+            <InputText class="w-100 mb-3" v-model="hapus_oto.username" autocomplete="off" placeholder="Username" />
+            <label class="form-label-custom">Password <span class="text-danger">*</span></label>
+            <InputText class="w-100 mb-3" type="password" v-model="hapus_oto.password" autocomplete="new-password"
+                placeholder="Password" @keyup.enter="simpan_hapus_oto()" />
+            <label class="form-label-custom">Alasan Pembatalan <span class="text-danger">*</span></label>
+            <Textarea class="w-100" v-model="hapus_oto.alasan" rows="2" autoResize placeholder="Contoh: salah input jumlah / salah pasien" />
+            <template #footer>
+                <Button label="Batal" icon="pi pi-times" class="p-button-text" @click="showHapusOto=false" />
+                <Button label="Hapus" icon="pi pi-trash" class="p-button-danger" :loading="isLoading" @click="simpan_hapus_oto()" />
+            </template>
+        </Dialog>
+
+        <!-- ===== DIALOG: RETUR OBAT KE FARMASI ===== -->
+        <Dialog header="Retur Obat ke Farmasi" v-model:visible="showRetur" :style="{ width: '35vw' }"
+            :breakpoints="{ '768px': '100vw' }" :modal="true">
+            <div v-if="retur.item" class="p-2">
+                <div class="mb-2"><b>{{ retur.item.nama_obat }}</b></div>
+                <div class="mb-3 text-muted">Sisa stok: {{ $numeral(retur.item.sisa, '0,0.[00]') }} {{ retur.item.satuan }}</div>
+                <label class="form-label-custom">Jumlah Retur <span class="text-danger">*</span></label>
+                <InputNumber class="w-100 mb-3" inputClass="w-100" v-model="retur.qty" :min="0" :max="retur.item.sisa"
+                    :minFractionDigits="0" :maxFractionDigits="2" :suffix="retur.item.satuan ? ' ' + retur.item.satuan : ''" />
+                <label class="form-label-custom">Keterangan</label>
+                <InputText class="w-100" v-model="retur.keterangan" placeholder="Contoh: pasien pulang / obat dihentikan" />
+            </div>
+            <template #footer>
+                <Button label="Batal" icon="pi pi-times" class="p-button-text p-button-secondary" @click="showRetur=false" />
+                <Button label="Simpan Retur" icon="pi pi-save" class="p-button-warning" @click="simpan_retur()" />
+            </template>
+        </Dialog>
+
+        <!-- ===== DIALOG: KARTU STOK OBAT PASIEN ===== -->
+        <Dialog :header="'Kartu Stok: ' + kartu_label" v-model:visible="showKartu" :style="{ width: '70vw' }"
+            :breakpoints="{ '768px': '100vw' }" :modal="true">
+            <table class="table table-bordered table-sm stok-table">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Transaksi</th>
+                        <th>Batch</th>
+                        <th class="text-center">Masuk</th>
+                        <th class="text-center">Keluar</th>
+                        <th class="text-center">Saldo</th>
+                        <th>Referensi</th>
+                        <th>Ruangan</th>
+                        <th>User</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="row in kartu_rows" :key="row.ID">
+                        <td>{{ row.TANGGAL_TRANS }}</td>
+                        <td>{{ row.CAPTION }}</td>
+                        <td>{{ row.SUB_BARCODE }}</td>
+                        <td class="text-center text-success">{{ row.JENIS_TRANS === 'IN' ? $numeral(row.QTY, '0,0.[00]') : '' }}</td>
+                        <td class="text-center text-danger">{{ row.JENIS_TRANS === 'OUT' ? $numeral(row.QTY, '0,0.[00]') : '' }}</td>
+                        <td class="text-center font-weight-bold">{{ $numeral(row.SALDO, '0,0.[00]') }}</td>
+                        <td>{{ row.REFF_NUMBER }}</td>
+                        <td>{{ row.RUANGAN }}</td>
+                        <td>{{ row.USER_ID }}</td>
+                        <td>{{ row.KETERANGAN }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <template #footer>
+                <Button label="Tutup" icon="pi pi-times" class="p-button-text" @click="showKartu=false" />
+            </template>
+        </Dialog>
+
         <!-- ===== DIALOG: INPUT PEMBERIAN OBAT ===== -->
         <Dialog header="Input Catatan Pemberian Obat" v-model:visible="showInputCairan"
             :style="{ width: '60vw' }" :breakpoints="{ '768px': '100vw' }"
@@ -199,6 +400,24 @@
                             :editable="true"
                             :filter="true"
                         />
+                    </div>
+
+                    <!-- Jumlah diberikan (mengurangi stok resep) -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label-custom">
+                            Jumlah Diberikan <span v-if="form.barcode" class="text-danger">*</span>
+                        </label>
+                        <InputNumber class="w-100" inputClass="w-100" v-model="form.qty" :min="0"
+                            :minFractionDigits="0" :maxFractionDigits="2" :disabled="!form.barcode"
+                            :suffix="form.satuan ? ' ' + form.satuan : ''" placeholder="0" />
+                        <small v-if="selected_stok" :class="selected_stok.sisa > 0 ? 'text-muted' : 'text-danger'">
+                            Sisa stok: {{ $numeral(selected_stok.sisa, '0,0.[00]') }} {{ selected_stok.satuan }}
+                            (diterima {{ $numeral(selected_stok.diterima, '0,0.[00]') }})
+                        </small>
+                        <small v-else-if="form.nama_obat" class="text-muted">Obat di luar stok resep ruangan, stok tidak dihitung.</small>
+                        <small v-if="belum_diterima.length > 0" class="d-block text-warning">
+                            Ada {{ belum_diterima.length }} obat dari farmasi yang belum diterima (menu Stok Obat).
+                        </small>
                     </div>
 
                     <!-- Frekuensi -->
@@ -234,6 +453,7 @@
 <script>
     import Loading from 'vue-loading-overlay';
     import InputMask from 'primevue/inputmask';
+    import { EventBus } from '../bus';
         import QrcodeVue from 'qrcode.vue';
         import {
         FilterMatchMode
@@ -255,6 +475,9 @@
                     keterangan: '',
                     dosis: '',
                     nama_obat: '',
+                    barcode: '',
+                    qty: null,
+                    satuan: '',
                     nama_ruangan: '',
                     frekwensi: ''
                 },
@@ -285,16 +508,26 @@
                 filters1: {},
                 filters2: {},
                 showOtorisasi:false,
+                showHapusOto: false,
+                hapus_oto: { id: null, label: '', username: '', password: '', alasan: '' },
                 id_inputan:0,
                 riwayat_obat: [],
                 viewMode: 'list',
                 viewModeOptions: [
                     { label: 'List', value: 'list', icon: 'pi pi-list' },
                     { label: 'Crosstab', value: 'crosstab', icon: 'pi pi-table' },
+                    { label: 'Stok Obat', value: 'stok', icon: 'pi pi-box' },
                 ],
                 showCellDetail: false,
                 selectedCellEntries: [],
-                selectedCellLabel: ''
+                selectedCellLabel: '',
+                // Stok obat resep pasien di ruangan (t_stock_card_pasien)
+                stok_pasien: { stok: [], belum_diterima: [], kartu: [] },
+                showRetur: false,
+                retur: { item: null, qty: null, keterangan: '' },
+                showKartu: false,
+                kartu_barcode: '',
+                kartu_label: ''
 
             };
         },
@@ -311,25 +544,36 @@
             this.get_data_kco()
         },
         computed: {
+            // Stok obat resep pasien di ruangan per BARCODE (dari kartu stok pasien)
+            stok_obat() {
+                return (this.stok_pasien.stok || []).map(x => ({
+                    barcode: x.BARCODE,
+                    nama_obat: x.NAMABARANG,
+                    satuan: x.SATUAN,
+                    diterima: parseFloat(x.DITERIMA) || 0,
+                    diberikan: parseFloat(x.DIBERIKAN) || 0,
+                    diretur: parseFloat(x.DIRETUR) || 0,
+                    sisa: parseFloat(x.SALDO) || 0
+                }));
+            },
+            belum_diterima() {
+                return this.stok_pasien.belum_diterima || [];
+            },
+            retur_list() {
+                return this.stok_pasien.retur || [];
+            },
+            kartu_rows() {
+                return (this.stok_pasien.kartu || []).filter(x => x.BARCODE === this.kartu_barcode);
+            },
+            selected_stok() {
+                if (!this.form.barcode) return null;
+                return this.stok_obat.find(x => x.barcode === this.form.barcode) || null;
+            },
+            // Hanya obat resep yang masih punya sisa stok
             obat_options() {
-                const items = (this.riwayat_obat && this.riwayat_obat.sub_item) ? this.riwayat_obat.sub_item : [];
-
-                let selectedDate = null;
-                if (this.form.startdate) {
-                    const d = new Date(this.form.startdate);
-                    selectedDate = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-                }
-
-                const filtered = selectedDate ? items.filter(x => x.DT_ONLY === selectedDate) : items;
-
-                const seen = new Set();
-                return filtered
-                    .filter(x => {
-                        if (seen.has(x.NAMABARANG)) return false;
-                        seen.add(x.NAMABARANG);
-                        return true;
-                    })
-                    .map(x => x.NAMABARANG);
+                return this.stok_obat
+                    .filter(x => x.sisa > 0 || x.nama_obat === this.form.nama_obat)
+                    .map(x => x.nama_obat);
             },
             crosstabDates() {
                 const set = new Set();
@@ -351,6 +595,83 @@
             }
         },
         methods: {
+            async get_stok_obat_pasien() {
+                await axios.post('/get_stok_obat_pasien', { noregister: this.datapasien.NOPENDAFTARAN })
+                    .then(response => {
+                        const res = response.data && response.data.response;
+                        this.stok_pasien = res ? res : { stok: [], belum_diterima: [], kartu: [] };
+                    })
+                    .catch(error => console.log(error));
+            },
+            call_retur(item) {
+                this.retur = { item: item, qty: item.sisa, keterangan: '' };
+                this.showRetur = true;
+            },
+            async simpan_retur() {
+                const item = this.retur.item;
+                const qty = parseFloat(this.retur.qty) || 0;
+                if (qty <= 0 || qty > item.sisa) {
+                    this.open('warning', `Jumlah retur harus antara 0 dan sisa stok (${item.sisa})`);
+                    return;
+                }
+                this.isLoading = true;
+                await axios.post('/retur_obat_pasien', {
+                    noregister: this.datapasien.NOPENDAFTARAN,
+                    nama_ruangan: this.datapasien.POLI,
+                    barcode: item.barcode,
+                    nama_obat: item.nama_obat,
+                    satuan: item.satuan,
+                    qty: qty,
+                    keterangan: this.retur.keterangan
+                })
+                    .then(response => {
+                        const meta = response.data.metadata || {};
+                        this.open(meta.code == 200 ? 'success' : 'warning', meta.message);
+                        if (meta.code == 200) this.showRetur = false;
+                    })
+                    .catch(error => console.log(error))
+                    .finally(() => this.isLoading = false);
+                this.get_stok_obat_pasien();
+            },
+            status_retur_label(r) {
+                if (r.STATUS === 'MENUNGGU') return 'Menunggu diproses farmasi';
+                if (r.STATUS === 'DITERIMA') return 'Diterima farmasi';
+                if (r.STATUS === 'DITOLAK') return r.TINDAK_LANJUT === 'RUSAK' ? 'Ditolak (obat rusak)' : 'Ditolak, kembali ke ruangan';
+                if (r.STATUS === 'BATAL') return 'Dibatalkan';
+                return r.STATUS;
+            },
+            status_retur_class(status) {
+                return {
+                    MENUNGGU: 'badge-warning',
+                    DITERIMA: 'badge-success',
+                    DITOLAK: 'badge-danger',
+                    BATAL: 'badge-secondary'
+                }[status] || 'badge-secondary';
+            },
+            batal_retur(r) {
+                this.$confirm.require({
+                    group: 'pemberian_obat',
+                    message: `Batalkan retur ${r.NO_RETUR} (${r.NAMABARANG})? Obat kembali ke stok pasien di ruangan.`,
+                    header: 'Batalkan Retur',
+                    icon: 'pi pi-exclamation-triangle',
+                    accept: async () => {
+                        this.isLoading = true;
+                        await axios.post('/batal_retur_obat_pasien', { id_retur: r.ID })
+                            .then(response => {
+                                const meta = response.data.metadata || {};
+                                this.open(meta.code == 200 ? 'success' : 'warning', meta.message);
+                            })
+                            .catch(error => console.log(error))
+                            .finally(() => this.isLoading = false);
+                        this.get_stok_obat_pasien();
+                    }
+                });
+            },
+            buka_kartu_stok(item) {
+                this.kartu_barcode = item.barcode;
+                this.kartu_label = item.nama_obat;
+                this.showKartu = true;
+            },
             dateOnly(waktu) {
                 return waktu ? String(waktu).substring(0, 10) : '';
             },
@@ -405,27 +726,60 @@
                 this.mode_otto = mode_otto
                 this.showOtorisasi = true;
             },
-            async hapus_line(id)
+            // Hapus pemberian: konfirmasi dulu, lalu otorisasi user yang menghapus (username + password)
+            hapus_line(id)
             {
+                const item = (this.fact || []).find(x => x.id === id) || {};
+                const jumlah = item.barcode ? ` (${this.$numeral(item.qty, '0,0.[00]')} ${item.satuan || ''})` : '';
+                this.$confirm.require({
+                    group: 'pemberian_obat',
+                    message: `Batalkan pemberian ${item.nama_obat || 'obat'}${jumlah} pada ${item.waktu || '-'}?` +
+                        (item.barcode ? ' Jumlah obat kembali ke stok pasien di ruangan.' : ''),
+                    header: 'Batalkan Pemberian Obat',
+                    icon: 'pi pi-exclamation-triangle',
+                    acceptLabel: 'Ya',
+                    rejectLabel: 'Tidak',
+                    acceptClass: 'p-button-danger',
+                    accept: () => {
+                        this.hapus_oto = { id: id, label: `${item.nama_obat || ''}${jumlah}`, username: '', password: '', alasan: '' };
+                        this.showHapusOto = true;
+                    }
+                });
+            },
+            async simpan_hapus_oto()
+            {
+                const o = this.hapus_oto;
+                if (!o.username || !o.password) {
+                    this.open('warning', 'Username dan password otorisasi wajib diisi');
+                    return;
+                }
+                if (!o.alasan || !o.alasan.trim()) {
+                    this.open('warning', 'Alasan pembatalan wajib diisi');
+                    return;
+                }
                 this.isLoading = true
-                this.form.noregister = this.datapasien.NOPENDAFTARAN
-                this.form.id = id;
-                await axios.post('/hapus_pemberian_obat', this.form)
+                await axios.post('/hapus_pemberian_obat', {
+                    id: o.id,
+                    noregister: this.datapasien.NOPENDAFTARAN,
+                    username: o.username,
+                    password: o.password,
+                    alasan: o.alasan.trim()
+                })
                     .then(response => {
-                        console.log(response.data);
-                        if (response.data.metadata.code == 200) {
-                            this.open('success', response.data.metadata.message);
+                        const meta = response.data.metadata || {};
+                        if (meta.code == 200) {
+                            this.open('success', meta.message);
+                            this.showHapusOto = false;
                             this.clear_data();
                             this.getpemberian_obat();
                         } else {
-                            this.open('warning', response.data.metadata.message);
+                            this.hapus_oto.password = '';
+                            this.open('warning', meta.message || 'Gagal menghapus');
                         }
-
-                        this.isLoading = false
                     })
                     .catch(error => {
                         console.log(error)
-                        this.isLoading = false
+                        this.open('error', error.message)
                     })
                     .finally(() => this.isLoading = false)
             },
@@ -435,6 +789,9 @@
                 this.form.dosis ="";
                 this.form.frekwensi ="";
                 this.form.nama_obat ="";
+                this.form.barcode ="";
+                this.form.qty = null;
+                this.form.satuan ="";
                 this.form.keterangan ="";
             },
             handleValue(value) {
@@ -446,16 +803,22 @@
                     this.getpemberian_obat();
                 }
             },
-            open(type, message) {
-                this.$toast.open({
-                    message: message,
-                    position: 'top-right',
-                    type: type,
-                    duration: 5000,
-                    dismissible: true
-                })
+            open(type, message, title = '') {
+                EventBus.$emit('show-alert', { type, title, message });
             },
             async simpan_pemberian_obat() {
+                this.sync_stok_obat();
+                if (this.form.barcode) {
+                    const qty = parseFloat(this.form.qty) || 0;
+                    if (qty <= 0) {
+                        this.open('warning', 'Jumlah obat yang diberikan wajib diisi');
+                        return;
+                    }
+                    if (this.selected_stok && qty > this.selected_stok.sisa) {
+                        this.open('warning', `Jumlah melebihi sisa stok ${this.form.nama_obat} (sisa ${this.selected_stok.sisa} ${this.selected_stok.satuan || ''})`);
+                        return;
+                    }
+                }
                 this.isLoading = true
                 this.form.noregister = this.datapasien.NOPENDAFTARAN
                 this.form.nama_ruangan = this.datapasien.POLI;
@@ -464,6 +827,7 @@
                         if (response.data.metadata.code == 200) {
                             this.showInputCairan = false;
                             this.open('success', response.data.metadata.message);
+                            this.form.qty = null;
                             this.getpemberian_obat();
 
                         } else {
@@ -493,12 +857,23 @@
                     this.form.dosis= data_filter[0].dosis;
                     this.form.nama_obat= data_filter[0].nama_obat;
                     this.form.frekwensi= data_filter[0].frekwensi;
+                    this.sync_stok_obat();
+                    this.form.qty = this.form.barcode ? (parseFloat(data_filter[0].qty) || null) : null;
                 }
 
+            },
+            // Cocokkan nama obat di form dengan item resep (barcode & satuan) untuk perhitungan stok
+            sync_stok_obat(nama_obat) {
+                const nama = nama_obat !== undefined ? nama_obat : this.form.nama_obat;
+                const stok = this.stok_obat.find(x => x.nama_obat === nama);
+                this.form.barcode = stok ? stok.barcode : '';
+                this.form.satuan = stok ? stok.satuan : '';
+                if (!stok) this.form.qty = null;
             },
             onObatSelect(event) {
                 const items = (this.riwayat_obat && this.riwayat_obat.sub_item) ? this.riwayat_obat.sub_item : [];
                 const name = event.value;
+                this.sync_stok_obat(name);
 
                 // Format tanggal dari form.startdate ke "YYYY-MM-DD"
                 let selectedDate = null;
@@ -521,6 +896,7 @@
             },
             async getpemberian_obat() {
                 this.isLoading = true
+                this.get_stok_obat_pasien();
                 this.form.noregister = this.datapasien.NOPENDAFTARAN
                 await axios.post('/getpemberian_obat', this.form)
                     .then(response => {
@@ -540,10 +916,14 @@
 </script>
 
 <style scoped>
-.crosstab-table thead th {
+.crosstab-table thead th,
+.stok-table thead th {
     background: #f8f9fa;
     text-align: center;
     vertical-align: middle;
+}
+.terima-box {
+    background: #fff8e1;
 }
 .crosstab-cell {
     vertical-align: middle;

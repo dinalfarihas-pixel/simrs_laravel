@@ -894,7 +894,7 @@ class PersediaanController extends Controller
         $startdate = date('Y-m-d', strtotime($startdate));
         $enddate = date('Y-m-d', strtotime($enddate));
 
-        $url_simrs = 'https://ws-simrs.net/ws_posindo_v2.1'; // Replace this with the API endpoint URL
+        //$url_simrs = 'https://ws-simrs.net/ws_posindo_v2.1'; // Replace this with the API endpoint URL
 
         $client = new Client();
 
@@ -1485,6 +1485,148 @@ class PersediaanController extends Controller
         $body = $response->getBody()->getContents();
 
         return $body;
+    }
+
+    public function get_detail_serah_terima(Request $request)
+    {
+        try {
+            $json = [
+                'id_client'     => (int)Session::get('id_client'),
+                'id_lokasi'     => Session::get('lokasi_inv'),
+                'no_permintaan' => $request->no_permintaan,
+            ];
+            $client = new Client();
+            $response = $client->post($this->ws_inv . 'index.php/api/barang/get_detail_serah_terima', [
+                'json'    => $json,
+                'headers' => ['Content-Type' => 'application/json', 'Authorization' => ''],
+                'timeout' => 30,
+                'connect_timeout' => 10,
+            ]);
+            return $response->getBody()->getContents();
+        } catch (\Throwable $e) {
+            return response()->json(['metadata' => ['code' => 500, 'message' => $e->getMessage()]]);
+        }
+    }
+
+    // Otorisasi serah terima: cek user & password ke API login, harus user RS yang sama.
+    // Return ['user' => data user] jika valid, atau ['error' => pesan].
+    private function cek_user_otorisasi(Request $request)
+    {
+        if (!$request->username || !$request->password) {
+            return ['error' => 'Username dan password otorisasi wajib diisi'];
+        }
+        $client = new Client();
+        $login = $client->post($this->ws_simrs . 'index.php/api/data_referensi/userloginv3', [
+            'json'    => ['pass' => $request->password, 'username' => $request->username],
+            'headers' => ['Content-Type' => 'application/json', 'Authorization' => ''],
+            'timeout' => 30,
+            'connect_timeout' => 10,
+        ]);
+        $user = json_decode($login->getBody()->getContents(), true);
+        if (!isset($user['metadata']['code']) || (int)$user['metadata']['code'] != 200) {
+            return ['error' => 'Otorisasi gagal, username atau password salah'];
+        }
+        if ($user['response']['ID_CLIENT'] != Session::get('id_client')) {
+            return ['error' => 'User ' . $request->username . ' bukan user rumah sakit ini'];
+        }
+        return ['user' => $user['response']];
+    }
+
+    public function cek_otorisasi_serah_terima(Request $request)
+    {
+        try {
+            $oto = $this->cek_user_otorisasi($request);
+            if (isset($oto['error'])) {
+                return response()->json(['metadata' => ['code' => 201, 'message' => $oto['error']]]);
+            }
+            return response()->json([
+                'metadata' => ['code' => 200, 'message' => 'Sukses'],
+                'response' => [
+                    'username' => $request->username,
+                    'nama'     => $oto['user']['NAMA_USER'],
+                    'jabatan'  => $oto['user']['JABATAN'],
+                    'lokasi'   => $oto['user']['LOK_CAPTION'],
+                ],
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json(['metadata' => ['code' => 500, 'message' => $e->getMessage()]]);
+        }
+    }
+
+    public function simpan_serah_terima(Request $request)
+    {
+        try {
+            $oto = $this->cek_user_otorisasi($request);
+            if (isset($oto['error'])) {
+                return response()->json(['metadata' => ['code' => 201, 'message' => $oto['error']]]);
+            }
+
+            $client = new Client();
+            $json = [
+                'id_client'     => (int)Session::get('id_client'),
+                'id_lokasi'     => Session::get('lokasi_inv'),
+                'no_permintaan' => $request->no_permintaan,
+                'items'         => $request->items,
+                'user_id'       => $request->username,
+            ];
+            $response = $client->post($this->ws_inv . 'index.php/api/barang/simpan_serah_terima', [
+                'json'    => $json,
+                'headers' => ['Content-Type' => 'application/json', 'Authorization' => ''],
+                'timeout' => 30,
+                'connect_timeout' => 10,
+            ]);
+            return $response->getBody()->getContents();
+        } catch (\Throwable $e) {
+            return response()->json(['metadata' => ['code' => 500, 'message' => $e->getMessage()]]);
+        }
+    }
+
+    // Serah terima obat resep (apotek -> ruangan), per item t_details_trans
+    public function get_detail_serah_terima_resep(Request $request)
+    {
+        try {
+            $json = [
+                'id_client'  => (int)Session::get('id_client'),
+                'receipt_no' => $request->receipt_no,
+            ];
+            $client = new Client();
+            $response = $client->post($this->ws_inv . 'index.php/api/barang/get_detail_serah_terima_resep', [
+                'json'    => $json,
+                'headers' => ['Content-Type' => 'application/json', 'Authorization' => ''],
+                'timeout' => 30,
+                'connect_timeout' => 10,
+            ]);
+            return $response->getBody()->getContents();
+        } catch (\Throwable $e) {
+            return response()->json(['metadata' => ['code' => 500, 'message' => $e->getMessage()]]);
+        }
+    }
+
+    public function simpan_serah_terima_resep(Request $request)
+    {
+        try {
+            $oto = $this->cek_user_otorisasi($request);
+            if (isset($oto['error'])) {
+                return response()->json(['metadata' => ['code' => 201, 'message' => $oto['error']]]);
+            }
+
+            $json = [
+                'id_client'  => (int)Session::get('id_client'),
+                'receipt_no' => $request->receipt_no,
+                'items'      => $request->items,
+                'user_id'    => $request->username,
+            ];
+            $client = new Client();
+            $response = $client->post($this->ws_inv . 'index.php/api/barang/simpan_serah_terima_resep', [
+                'json'    => $json,
+                'headers' => ['Content-Type' => 'application/json', 'Authorization' => ''],
+                'timeout' => 30,
+                'connect_timeout' => 10,
+            ]);
+            return $response->getBody()->getContents();
+        } catch (\Throwable $e) {
+            return response()->json(['metadata' => ['code' => 500, 'message' => $e->getMessage()]]);
+        }
     }
 
 

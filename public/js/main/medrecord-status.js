@@ -1340,7 +1340,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.field-radiobutton[data-v-7645c40f] {\n        display: flex;\n        align-items: center;\n        margin-bottom: 0.75rem;\n}\n.field-radiobutton label[data-v-7645c40f] {\n        margin-left: 0.5rem;\n        margin-bottom: 0;\n        line-height: 1.3;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.field-radiobutton[data-v-7645c40f] {\r\n        display: flex;\r\n        align-items: center;\r\n        margin-bottom: 0.75rem;\n}\n.field-radiobutton label[data-v-7645c40f] {\r\n        margin-left: 0.5rem;\r\n        margin-bottom: 0;\r\n        line-height: 1.3;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

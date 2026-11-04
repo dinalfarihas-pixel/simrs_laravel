@@ -45,7 +45,7 @@
 
                 <p class="login-box-msg">SISTEM INFORMASI MANAJEMEN RUMAH SAKIT</p>
 
-                <form action="dologin" method="POST">
+                <form action="{{ url('/dologin') }}" method="POST">
 
                     @csrf
                     <div class="input-group mb-3">

@@ -658,7 +658,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_loading = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("loading");
   var _component_browse_kfa_bycode = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("browse_kfa_bycode");
   var _component_Dialog = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Dialog");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Select v-model=\"form.barangSelected\" :filter=\"true\" :options=\"fact\" optionLabel=\"BARCODE_NAMA\"\n        keys=\"id_kategori\" @change=\"getdetails_barang($event)\" placeholder=\"\" style=\"width: 100%;\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Select v-model=\"form.barangSelected\" :filter=\"true\" :options=\"fact\" optionLabel=\"BARCODE_NAMA\"\r\n        keys=\"id_kategori\" @change=\"getdetails_barang($event)\" placeholder=\"\" style=\"width: 100%;\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
     style: {
       "width": "100%"
     },
@@ -762,7 +762,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.table[data-v-88a25cf0] {\n  font-size: 0.9rem;\n}\n.table td[data-v-88a25cf0] {\n  vertical-align: middle;\n}\n.badge[data-v-88a25cf0] {\n  font-size: 0.8rem;\n  font-weight: normal;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.table[data-v-88a25cf0] {\r\n  font-size: 0.9rem;\n}\n.table td[data-v-88a25cf0] {\r\n  vertical-align: middle;\n}\n.badge[data-v-88a25cf0] {\r\n  font-size: 0.8rem;\r\n  font-weight: normal;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -428,15 +428,9 @@
 
 
 
-            <Dialog header="Otorisasi" v-model:visible="showOtorisasi" :containerStyle="{width: '40vw'}"
-                class="container_modal" :modal="true">
-                <!-- <otorisasi-form @getvalue="handleValue" :mode=2 :noregister="soapId"></otorisasi-form>  -->
-                <otorisasi-form @getvalue="responsOtorisasi" :mode=11 :noregister="soapId"></otorisasi-form>
-                <template #footer>
-                    <Button label="No" icon="pi pi-times" @click="showOtorisasi=false" class="p-button-text" />
-                    <Button label="Tutup" icon="pi pi-check" @click="showOtorisasi=false" autofocus />
-                </template>
-            </Dialog>
+            <!-- Serah terima obat per item (menggantikan otorisasi mode 11) -->
+            <serah-terima-resep v-model:visible="showSerahTerima" :receiptNo="soapId"
+                @loading="isLoading = $event" @saved="get_riwayat()"></serah-terima-resep>
 
             <Dialog header="Obat Pulvis" v-model:visible="modalracik" :containerStyle="{width: '60vw'}" :modal="true">
 
@@ -477,6 +471,7 @@
     import Checkbox from 'primevue/checkbox';
     import InputText from 'primevue/inputtext';
     import AutoComplete from 'primevue/autocomplete';
+    import SerahTerimaResep from './SerahTerimaResepComponent.vue';
     import {
         toPlainObject
     } from 'lodash';
@@ -488,13 +483,14 @@
             ConfirmDialog,
             Tag,
             Checkbox,
-            AutoComplete
+            AutoComplete,
+            SerahTerimaResep
         },
         props: ['isInput', 'datapasien'],
         data() {
             return {
                 loadinngItem: false,
-                showOtorisasi: false,
+                showSerahTerima: false,
                 responvalue: 0,
                 soapId: "0",
                 fact: [],
@@ -617,34 +613,9 @@
                 //console.log(this.form.startdate);
             },
             confirmTerimaObat(data) {
-
-                if (data.WAKTU_DITERIMA != 0) {
-                    this.open("success", "Obat sudah di terima pada " + data.WAKTU_DITERIMA);
-                    return;
-                }
-
-                this.$confirm.require({
-                    group: 'terimaObat',
-                    message: 'Apakah anda akan konfirmasi obat telah di terima?',
-                    header: 'Konfirmasi',
-                    icon: 'pi pi-exclamation-triangle',
-                    accept: () => {
-                        //this.konfirmasiTerimaObat(data)
-                        this.soapId = data.RECEIPT_NO,
-                            this.showOtorisasi = true;
-                    },
-                    reject: () => {
-                        this.open("warning", "Gagal tersimpan, Data Quantity untuk jumlah item");
-                    }
-                });
-            },
-            responsOtorisasi(value) {
-                this.responvalue = value; // Update the parent data with the value from the child
-                // console.log("respon otorisasi : " + this.responvalue);
-                if (this.responvalue == 200) {
-                    this.showOtorisasi = false;
-                    this.get_riwayat();
-                }
+                // Buka form serah terima per item; jika sudah diterima, form tampil read-only
+                this.soapId = data.RECEIPT_NO;
+                this.showSerahTerima = true;
             },
             set_jenisresep(e) {
                 console.log(e.value)

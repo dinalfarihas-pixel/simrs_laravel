@@ -186,6 +186,8 @@ app.component('kartu_stock', defineAsyncComponent(() => import(/* webpackChunkNa
 
 // Persediaan - Retur & Opname & Transfer
 app.component('retur-kedepo', defineAsyncComponent(() => import(/* webpackChunkName: "returbarang" */ './components/persediaan/retur/ReturdariUnitKedepo.vue')));
+app.component('monitoring-obat-tidak-diberikan', defineAsyncComponent(() => import(/* webpackChunkName: "returbarang" */ './components/persediaan/retur/MonitoringObatTidakDiberikanComponent.vue')));
+app.component('konfirmasi-retur-ruangan',defineAsyncComponent(() => import(/* webpackChunkName: "returbarang" */ './components/persediaan/retur/KonfirmasiReturRuanganComponent.vue')));
 app.component('stock-opname', defineAsyncComponent(() => import(/* webpackChunkName: "stock-opname" */ './components/persediaan/stockopname/StockOpnameComponent.vue')));
 app.component('laporan-opname', defineAsyncComponent(() => import(/* webpackChunkName: "stock-opname" */ './components/persediaan/stockopname/LaporanStockOpnameComponent.vue')));
 app.component('print-format-opname', defineAsyncComponent(() => import(/* webpackChunkName: "stock-opname" */ './components/persediaan/stockopname/CetakformatOpnameComponent.vue')));

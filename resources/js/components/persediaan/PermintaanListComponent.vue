@@ -10,8 +10,7 @@
                         <tr>
                             <th style="width: 7%">
                                 NO
-                            </th>
-                           
+                            </th> 
                             <th style="width: 7%">
                                 Barcode
                             </th>
@@ -59,8 +58,110 @@
                     <Button label="Yes" icon="pi pi-check" @click="closeModal" autofocus />
                 </template>
             </Dialog>
-           
-            </div> 
+
+            <Dialog :header="'Konfirmasi Serah Terima: '+serahTerima.no_permintaan" v-model:visible="displaySerahTerima"
+                :style="{width: '85%'}" :modal="true">
+                <div class="form-serah-terima">
+                <p class="mb-2 text-muted">
+                    Centang item yang sudah diterima dan isi jumlah yang benar-benar diterima ruangan.
+                </p>
+                <table class="table table-striped projects">
+                    <thead>
+                        <tr>
+                            <th style="width: 4%" class="text-center">
+                                <Checkbox v-model="pilihSemua" :binary="true" :disabled="itemBelumDiterima.length==0"
+                                    @change="togglePilihSemua" />
+                            </th>
+                            <th style="width: 4%">NO</th>
+                            <th style="width: 10%">Barcode</th>
+                            <th style="width: 28%">Nama Barang</th>
+                            <th>Satuan</th>
+                            <th class="text-center">Diminta</th>
+                            <th class="text-center">Dikirim</th>
+                            <th class="text-center" style="width: 14%">Jumlah Diterima</th>
+                            <th class="text-center">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item,k) in serahTerima.items" :key="item.BARCODE+'-'+item.ITEMSEQNO">
+                            <td class="text-center">
+                                <Checkbox v-model="item.checked" :binary="true" :disabled="item.sudah_diterima" />
+                            </td>
+                            <td>{{ k+1 }}</td>
+                            <td>{{ item.BARCODE }}</td>
+                            <td>{{ item.NAMA }}</td>
+                            <td>{{ item.SATUAN }}</td>
+                            <td class="text-center">{{ $numeral(item.QTY_ORDER, '0,0.[00]') }}</td>
+                            <td class="text-center">{{ $numeral(item.QTY_KIRIM, '0,0.[00]') }}</td>
+                            <td class="text-center">
+                                <span v-if="item.sudah_diterima">{{ $numeral(item.QTY_TERIMA, '0,0.[00]') }}</span>
+                                <InputNumber v-else v-model="item.qty_input" :min="0" :max="Number(item.QTY_KIRIM)"
+                                    :maxFractionDigits="2" :disabled="!item.checked" inputClass="text-center"
+                                    :inputStyle="{width: '6em'}" />
+                            </td>
+                            <td class="text-center">
+                                <div v-if="item.sudah_diterima" class="status-terima">
+                                    <span class="badge badge-primary">Diterima</span>
+                                    <div class="status-terima-user">{{ item.DITERIMA_OLEH }}</div>
+                                    <div class="status-terima-waktu">{{ item.TANGGAL_TERIMA }}</div>
+                                </div>
+                                <span v-else class="badge badge-warning">Belum diterima</span>
+                                <div v-if="selisih(item) != 0" class="text-danger status-selisih">
+                                    Selisih {{ $numeral(selisih(item), '0,0.[00]') }}
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                <template #footer>
+                    <Button label="Tutup" icon="pi pi-times" @click="displaySerahTerima = false" class="p-button-text" />
+                    <Button v-if="itemBelumDiterima.length > 0" label="Konfirmasi Terima" icon="pi pi-check"
+                        :disabled="itemDipilih.length==0" @click="konfirmasiSerahTerima" />
+                </template>
+            </Dialog>
+
+            <Dialog header="Otorisasi Serah Terima" v-model:visible="displayOtorisasi" :style="{width: '450px'}" :modal="true">
+                <div class="form-serah-terima">
+                    <p class="mb-3 text-muted">
+                        Konfirmasi terima {{ itemDipilih.length }} item untuk permintaan {{ serahTerima.no_permintaan }}.
+                        Masukkan user dan password petugas ruangan. Data yang sudah dikonfirmasi tidak dapat diubah.
+                    </p>
+                    <form @submit.prevent="otorisasi.user ? simpanSerahTerima() : cekUserOtorisasi()" autocomplete="off">
+                        <div class="form-group">
+                            <label for="oto_username">Username</label>
+                            <InputText id="oto_username" v-model="otorisasi.username" class="w-100" autocomplete="off"
+                                autofocus @input="otorisasi.user = null" />
+                        </div>
+                        <div class="form-group">
+                            <label for="oto_password">Password</label>
+                            <InputText id="oto_password" v-model="otorisasi.password" type="password" class="w-100"
+                                autocomplete="new-password" @input="otorisasi.user = null" />
+                        </div>
+                        <button type="submit" class="d-none"></button>
+                    </form>
+                    <div v-if="otorisasi.user" class="oto-user-info">
+                        <div class="text-muted small mb-1">Pastikan data user berikut benar sebelum konfirmasi:</div>
+                        <table class="w-100">
+                            <tbody>
+                                <tr><td style="width: 35%">Nama</td><td><b>{{ otorisasi.user.nama }}</b></td></tr>
+                                <tr><td>Username</td><td>{{ otorisasi.user.username }}</td></tr>
+                                <tr v-if="otorisasi.user.jabatan"><td>Jabatan</td><td>{{ otorisasi.user.jabatan }}</td></tr>
+                                <tr v-if="otorisasi.user.lokasi"><td>Lokasi</td><td>{{ otorisasi.user.lokasi }}</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <template #footer>
+                    <Button label="Batal" icon="pi pi-times" @click="displayOtorisasi = false" class="p-button-text" />
+                    <Button v-if="!otorisasi.user" label="Cek User" icon="pi pi-user"
+                        :disabled="!otorisasi.username || !otorisasi.password" @click="cekUserOtorisasi" />
+                    <Button v-else label="Konfirmasi & Simpan" icon="pi pi-lock-open" class="p-button-success"
+                        @click="simpanSerahTerima" />
+                </template>
+            </Dialog>
+
+            </div>
  
          
 
@@ -184,6 +285,11 @@
                                             <span class="badge badge-success">
                                                 Sudah diproses </span>
                                         </span>
+                                        <br v-if="data.TELAH_DIPROSES==1" />
+                                        <span v-if="data.TELAH_DIPROSES==1 && sudahDiterima(data)" class="badge badge-primary">
+                                            Sudah diterima </span>
+                                        <span v-else-if="data.TELAH_DIPROSES==1 && data.JML_DITERIMA > 0" class="badge badge-info">
+                                            Diterima {{ data.JML_DITERIMA }}/{{ data.JML_ITEM }} item </span>
                                     </td>
                                     <td>
                                         {{ data.CATATAN }}
@@ -191,10 +297,14 @@
                                     <td class="project-actions text-center">
                                         <Button icon="pi pi-search" @click="openModal(data.NO_PERMINTAAN)"
                                             class="p-button-rounded p-button-success" />
-                                            <Button icon="pi pi-times"@click="confirm1(data.NO_PERMINTAAN)"
-                                            class="p-button-rounded p-button-danger" /> 
-                                            
-                                        <!-- <Button icon="pi pi-remove" class="p-button-rounded p-button-warning" /> -->
+                                        <Button v-if="data.TELAH_DIPROSES==0" icon="pi pi-times" @click="confirm1(data.NO_PERMINTAAN)"
+                                            class="p-button-rounded p-button-danger" />
+                                        <Button v-else-if="!sudahDiterima(data)" icon="pi pi-inbox" label="Konfirmasi terima"
+                                            @click="openSerahTerima(data.NO_PERMINTAAN)"
+                                            class="p-button-rounded p-button-warning ml-1" />
+                                        <Button v-else icon="pi pi-check-circle" label="Lihat serah terima"
+                                            @click="openSerahTerima(data.NO_PERMINTAAN)"
+                                            class="p-button-rounded p-button-outlined p-button-secondary ml-1" />
                                     </td>
                                 </tr>
                             </tbody>
@@ -239,8 +349,28 @@
                     this_week_total:0,
                     this_month_total:0,
                     this_year_total:0
+                },
+                displaySerahTerima: false,
+                displayOtorisasi: false,
+                otorisasi: {
+                    username: '',
+                    password: '',
+                    user: null
+                },
+                pilihSemua: false,
+                serahTerima: {
+                    no_permintaan: '',
+                    items: []
                 }
             };
+        },
+        computed: {
+            itemBelumDiterima() {
+                return this.serahTerima.items.filter(item => !item.sudah_diterima);
+            },
+            itemDipilih() {
+                return this.itemBelumDiterima.filter(item => item.checked);
+            }
         },
         mounted() {
             var currentDate = new Date();
@@ -281,6 +411,109 @@
                         console.log(error)
                     })
                     .finally(() => this.isLoading = false)
+            },
+            sudahDiterima(data) {
+                return Number(data.JML_ITEM) > 0 && Number(data.JML_DITERIMA) >= Number(data.JML_ITEM);
+            },
+            selisih(item) {
+                const terima = item.sudah_diterima ? item.QTY_TERIMA : (item.checked ? item.qty_input : null);
+                if (terima === null || terima === undefined) return 0;
+                return Number(terima) - Number(item.QTY_KIRIM);
+            },
+            togglePilihSemua() {
+                this.itemBelumDiterima.forEach(item => item.checked = this.pilihSemua);
+            },
+            async openSerahTerima(no_permintaan) {
+                this.serahTerima = { no_permintaan: no_permintaan, items: [] };
+                this.pilihSemua = false;
+                this.isLoading = true;
+                try {
+                    const response = await axios.post('/get_detail_serah_terima', { no_permintaan: no_permintaan });
+                    if (response.data.metadata.code != 200) {
+                        this.open('warning', response.data.metadata.message);
+                        return;
+                    }
+                    this.serahTerima.items = response.data.response.map(item => ({
+                        ...item,
+                        sudah_diterima: item.QTY_TERIMA !== null,
+                        checked: false,
+                        qty_input: Number(item.QTY_KIRIM)
+                    }));
+                    this.displaySerahTerima = true;
+                } catch (error) {
+                    console.log(error);
+                    this.open('error', 'Gagal memuat detail serah terima');
+                } finally {
+                    this.isLoading = false;
+                }
+            },
+            konfirmasiSerahTerima() {
+                const kosong = this.itemDipilih.find(item => item.qty_input === null || item.qty_input === undefined);
+                if (kosong) {
+                    this.open('warning', 'Jumlah diterima ' + kosong.NAMA + ' belum diisi');
+                    return;
+                }
+                this.otorisasi = { username: '', password: '', user: null };
+                this.displayOtorisasi = true;
+            },
+            async cekUserOtorisasi() {
+                if (!this.otorisasi.username || !this.otorisasi.password) {
+                    this.open('warning', 'Username dan password otorisasi wajib diisi');
+                    return;
+                }
+                this.isLoading = true;
+                try {
+                    const response = await axios.post('/cek_otorisasi_serah_terima', {
+                        username: this.otorisasi.username,
+                        password: this.otorisasi.password
+                    });
+                    if (response.data.metadata.code == 200) {
+                        this.otorisasi.user = response.data.response;
+                    } else {
+                        this.otorisasi.user = null;
+                        this.open('warning', response.data.metadata.message);
+                    }
+                } catch (error) {
+                    console.log(error);
+                    this.open('error', 'Gagal memeriksa user otorisasi');
+                } finally {
+                    this.isLoading = false;
+                }
+            },
+            async simpanSerahTerima() {
+                if (!this.otorisasi.user) {
+                    this.cekUserOtorisasi();
+                    return;
+                }
+                const payload = {
+                    username: this.otorisasi.username,
+                    password: this.otorisasi.password,
+                    no_permintaan: this.serahTerima.no_permintaan,
+                    items: this.itemDipilih.map(item => ({
+                        BARCODE: item.BARCODE,
+                        ITEMSEQNO: item.ITEMSEQNO,
+                        QTY_TERIMA: item.qty_input
+                    }))
+                };
+                this.isLoading = true;
+                try {
+                    const response = await axios.post('/simpan_serah_terima', payload);
+                    if (response.data.metadata.code == 200) {
+                        this.open('success', response.data.metadata.message);
+                        this.displayOtorisasi = false;
+                        this.displaySerahTerima = false;
+                        this.getlist_permintaan();
+                    } else {
+                        this.open('warning', response.data.metadata.message);
+                    }
+                } catch (error) {
+                    console.log(error);
+                    this.open('error', 'Gagal menyimpan serah terima');
+                } finally {
+                    this.otorisasi.password = '';
+                    this.otorisasi.user = null;
+                    this.isLoading = false;
+                }
             },
             formatCurrency(value) {
                  if (value === 0 || value === null || value === undefined) return '0';
@@ -345,7 +578,10 @@
                 this.isLoading = true;
                 await axios.post('/getlist_permintaan_baselokasi', this.form)
                     .then(response => {
-                        this.fact = response.data.response 
+                        if (response.data.metadata && response.data.metadata.code != 200) {
+                            this.open('warning', response.data.metadata.message)
+                        }
+                        this.fact = response.data.response
                         this.isLoading = false
                         this.getTransferSummary()
                     })
@@ -608,6 +844,52 @@
              gap: 0.5rem;
              text-align: center;
          }
+     }
+
+     /* Form konfirmasi serah terima */
+     .form-serah-terima {
+         font-size: 1.05rem;
+     }
+
+     .form-serah-terima .table td,
+     .form-serah-terima .table th {
+         vertical-align: middle;
+     }
+
+     .form-serah-terima .badge {
+         font-size: 0.9rem;
+         padding: 0.4em 0.7em;
+     }
+
+     .form-serah-terima .status-terima-user {
+         font-weight: 600;
+         font-size: 0.95rem;
+         margin-top: 0.3rem;
+     }
+
+     .form-serah-terima .status-terima-waktu {
+         font-size: 0.85rem;
+         color: #6b7280;
+     }
+
+     .form-serah-terima .status-selisih {
+         font-size: 0.9rem;
+         font-weight: 600;
+     }
+
+     .oto-user-info {
+         background: #ecfdf5;
+         border: 1px solid #a7f3d0;
+         border-radius: 8px;
+         padding: 0.75rem 1rem;
+     }
+
+     .oto-user-info td {
+         padding: 0.15rem 0;
+     }
+
+     .form-serah-terima :deep(.p-inputnumber-input) {
+         font-size: 1.05rem;
      }
 
      /* PrimeVue DataTable customizations */
