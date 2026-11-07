@@ -73,7 +73,7 @@
                     </Select>
                 </div>
             </div>
-            <ConfirmDialog></ConfirmDialog>
+            <ConfirmDialog :group="confirmGroup"></ConfirmDialog>
             <div class="row">
                 <div class="col-12 col-sm-9 col-md-7">
                     <div class="card card-warning card-outline">
@@ -194,6 +194,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay';
     import Timeline from 'primevue/timeline';
     import Sidebar from 'primevue/sidebar'; 
@@ -210,6 +211,7 @@
         },
         data() {
             return {
+                confirmGroup: 'InputDetailPerencanaanComponent-' + Math.random().toString(36).slice(2, 11),
                 fact: [],
                 lokasi_arr: [],
                 item_barang: '',
@@ -260,6 +262,7 @@
             },
             confirm2(row) {
                 this.$confirm.require({
+                    group: this.confirmGroup,
                     message: 'Yakin akan menghapus '+ row.NAMA +' ?',
                     header: 'Konfirmasi Hapus',
                     icon: 'pi pi-info-circle',
@@ -306,7 +309,7 @@
                 console.log(form.QTY[i]);
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

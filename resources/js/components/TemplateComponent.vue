@@ -24,7 +24,7 @@
 
  <script>
     import Loading from 'vue-loading-overlay';
-    import { EventBus } from '../bus';
+    import { EventBus } from './bus';
      export default {
          components: {
              Loading,
@@ -63,7 +63,7 @@
                 EventBus.$emit('show-alert', { type, title, message });
             },
              open(type, message) {
-                 this.$toast.open({
+                 EventBus.$emit('show-alert', {
                      message: message,
                      position: 'top-right',
                      type: type,

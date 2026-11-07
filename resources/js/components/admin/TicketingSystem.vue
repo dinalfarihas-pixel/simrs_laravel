@@ -153,6 +153,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import InputText from 'primevue/inputtext';
 
     export default {
@@ -265,7 +266,7 @@
             handleDrop(event) {
                 event.preventDefault();
                 if (this.attachedImages.length >= this.maxImages) {
-                    alert(`Maximum ${this.maxImages} images allowed`);
+                    EventBus.$emit('show-alert', { type: 'warning', title: '', message: `Maximum ${this.maxImages} images allowed` });
                     return;
                 }
                 const files = Array.from(event.dataTransfer.files);
@@ -338,7 +339,7 @@
 
             triggerFileUpload() {
                 if (this.attachedImages.length >= this.maxImages) {
-                    alert(`Maximum ${this.maxImages} images allowed`);
+                    EventBus.$emit('show-alert', { type: 'warning', title: '', message: `Maximum ${this.maxImages} images allowed` });
                     return;
                 }
                 this.$refs.fileInput.click();
@@ -401,7 +402,7 @@
                 };
 
                 localStorage.setItem('ticket-draft', JSON.stringify(draft));
-                alert('Draft saved!');
+                EventBus.$emit('show-alert', { type: 'success', title: '', message: 'Draft saved!' });
             },
 
             loadDrafts() {

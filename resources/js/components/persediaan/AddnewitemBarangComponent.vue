@@ -301,6 +301,7 @@
 </template>
 
 <script>
+import { EventBus } from '../bus';
 import Loading from 'vue-loading-overlay';
 import InputText from 'primevue/inputtext';
 import InputNumber from 'primevue/inputnumber';
@@ -494,7 +495,7 @@ export default {
                 'info': 'info'
             };
 
-            this.$toast.open({
+            EventBus.$emit('show-alert', {
                 message: message,
                 position: 'top-right',
                 type: typeMap[type] || 'info',

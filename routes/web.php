@@ -75,6 +75,7 @@ Route::group(['middleware'=>['oto']], function(){
         return view('rubahpassword'); });
 
     Route::post('/changepassword-api', [LoginController::class, 'chagepassword']);
+    Route::post('/rubah-password-v2', [LoginController::class, 'rubah_password_v2']); //api
 
     Route::get('/add-new-item', function () {
         return view('persediaan.add_newitem'); });
@@ -938,6 +939,8 @@ Route::group(['middleware'=>['oto']], function(){
     Route::post('/get_dokter_live', [DatareferensiController::class, 'getDokterLive']); //api
     Route::get('/get_riwayat_kontrolulang/{norm}', [DatareferensiController::class, 'getRiwayatKontrolUlang']); //api
     Route::post('/hapus_surat_kontrol', [DatareferensiController::class, 'hapusSuratKontrol']); //api
+    Route::post('/list_rencana_kontrol_bpjs', [DatareferensiController::class, 'listRencanaKontrolBpjs']); //api
+    Route::post('/sync_no_kontrol_ulang', [DatareferensiController::class, 'syncNoKontrolUlang']); //api
 
 
     Route::get('/addcaraBayar', [DatareferensiController::class, 'addcaraBayar']); //api
@@ -1003,6 +1006,8 @@ Route::group(['middleware'=>['oto']], function(){
     Route::post('/get_stok_obat_pasien', [RekamMedisElektronik::class, 'get_stok_obat_pasien']); //api
     Route::post('/retur_obat_pasien', [RekamMedisElektronik::class, 'retur_obat_pasien']); //api
     Route::post('/batal_retur_obat_pasien', [RekamMedisElektronik::class, 'batal_retur_obat_pasien']); //api
+    Route::post('/habis_pakai_obat_pasien', [RekamMedisElektronik::class, 'habis_pakai_obat_pasien']); //api obat multi-dosis
+    Route::post('/batal_habis_pakai_obat_pasien', [RekamMedisElektronik::class, 'batal_habis_pakai_obat_pasien']); //api
 
     // Depo: konfirmasi retur obat pasien dari ruangan
     Route::get('/persediaan/konfirmasi-retur-ruangan', function () {

@@ -1385,6 +1385,73 @@ class DatareferensiController extends Controller
         }
     }
 
+    // Riwayat rencana kontrol langsung dari server BPJS (per bulan, per no. kartu)
+    public function listRencanaKontrolBpjs(Request $request)
+    {
+        try {
+            $json = [
+                "no_kartu"      => $request->no_kartu,
+                "tanggal"       => $request->tanggal,
+                "tanggal_akhir" => $request->tanggal,
+                "id_client"     => Session::get('id_client'),
+            ];
+
+            $client = new Client();
+            $response = $client->post($this->ws_simrs . "index.php/api/bpjs_api/ListRencanaKontrol", [
+                'json'    => $json,
+                'headers' => [
+                    'Content-Type'  => 'application/json',
+                    'Authorization' => '',
+                ],
+                'timeout'         => 30,
+                'connect_timeout' => 10,
+            ]);
+
+            return $response->getBody()->getContents();
+        } catch (\Throwable $e) {
+            return response()->json([
+                'metaData' => ['code' => 500, 'message' => $e->getMessage()],
+            ]);
+        }
+    }
+
+    // Simpan/timpa satu surat kontrol dari server BPJS ke tabel pm_kontrol_ulang SIMRS
+    public function syncNoKontrolUlang(Request $request)
+    {
+        try {
+            $json = [
+                "no_kontrol_ulang"  => $request->no_kontrol_ulang,
+                "noregister"        => $request->noregister,
+                "noSepAsalKontrol"  => $request->noSepAsalKontrol,
+                "noKartu"           => $request->noKartu,
+                "norm"              => $request->norm,
+                "kodeDokter"        => $request->kodeDokter,
+                "poliTujuan"        => $request->poliTujuan,
+                "tglRencanaKontrol" => $request->tglRencanaKontrol,
+                "tglSEP"            => $request->tglSEP,
+                "terbitSEP"         => $request->terbitSEP,
+                "kodeDiagnosa"      => '',
+                "user_id"           => Session::get('user_id'),
+                "id_client"         => Session::get('id_client'),
+            ];
+
+            $client = new Client();
+            $response = $client->post($this->ws_simrs . "index.php/api/bpjs_api/sync_no_kontrol_ulang", [
+                'json'    => $json,
+                'headers' => [
+                    'Content-Type'  => 'application/json',
+                    'Authorization' => '',
+                ],
+                'timeout'         => 30,
+                'connect_timeout' => 10,
+            ]);
+
+            return $response->getBody()->getContents();
+        } catch (\Throwable $e) {
+            return response()->json(['code' => 500, 'message' => $e->getMessage()]);
+        }
+    }
+
     public function hapusSuratKontrol(Request $request)
     {
         try {

@@ -36,6 +36,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   props: ['datapasien'],
   data: function data() {
     return {
+      confirmGroup: 'CaseManagerComponent-' + Math.random().toString(36).slice(2, 11),
       isLoading: false,
       fullPage: false,
       isLoadingForm: false,
@@ -191,7 +192,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     konfirmasi_hapus: function konfirmasi_hapus(row) {
       var _this3 = this;
       this.$confirm.require({
-        group: 'caseManagerNotes',
+        group: this.confirmGroup,
         message: "Hapus kegiatan tanggal ".concat(this.formatDisplay(row.tanggal_jam), "? Tindakan ini tidak dapat dibatalkan."),
         header: 'Konfirmasi Hapus',
         icon: 'pi pi-exclamation-triangle',
@@ -388,8 +389,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     "is-full-page": $data.fullPage
   }, null, 8 /* PROPS */, ["active", "is-full-page"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ConfirmDialog, {
-    group: "caseManagerNotes"
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Dialog Otorisasi / TTE per baris "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
+    group: $data.confirmGroup
+  }, null, 8 /* PROPS */, ["group"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Dialog Otorisasi / TTE per baris "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
     header: "TTE Kegiatan Case Manager",
     visible: $data.showOtorisasi,
     "onUpdate:visible": _cache[2] || (_cache[2] = function ($event) {

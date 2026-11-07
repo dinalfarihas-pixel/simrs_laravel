@@ -2,7 +2,7 @@
     <section class="content">
         <div class="container-fluid">
             <loading v-model:active="isLoading" :is-full-page="fullPage"></loading>
-            <ConfirmDialog></ConfirmDialog> 
+            <ConfirmDialog :group="confirmGroup"></ConfirmDialog> 
             <!-- Date Selection Card -->
             <div class="card elevation-0 mb-4">
                 <div class="card-header">
@@ -333,6 +333,7 @@
 </template>
 
 <script>
+import { EventBus } from '../bus';
 import { FilterMatchMode } from 'primevue/api';
 import Loading from 'vue-loading-overlay';
 import ConfirmDialog from 'primevue/confirmdialog'; 
@@ -349,6 +350,7 @@ export default {
     },
     data() {
         return {
+                confirmGroup: 'BatalAntreanComponent-' + Math.random().toString(36).slice(2, 11),
             searchTerm: '',
             selectedDepartment: '',
             selectedStatus: '',
@@ -477,7 +479,7 @@ export default {
             };
         },
          open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,
@@ -487,6 +489,7 @@ export default {
             },
          confirmCancelBooking(patient) {
             this.$confirm.require({
+                group: this.confirmGroup,
                 message: `Apakah Anda yakin ingin membatalkan booking untuk pasien "${patient.NAMAPASIEN}"?\n\nKode Booking: ${patient.KODE_BOOKING}\nDokter: ${patient.NAMADOKTER}`,
                  header: 'Hapus konfirmasi',
                 icon: 'pi pi-exclamation-triangle',

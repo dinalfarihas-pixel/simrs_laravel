@@ -1,7 +1,7 @@
 <template>
     <div class="content-wrapper">
         <loading v-model:active="isLoading" :is-full-page="fullPage"></loading>
-        <ConfirmDialog></ConfirmDialog>
+        <ConfirmDialog :group="confirmGroup"></ConfirmDialog>
 
         <!-- Content Header -->
         <div class="content-header">
@@ -352,6 +352,7 @@
 </template>
 
 <script>
+import { EventBus } from '../bus';
 import Loading from 'vue-loading-overlay';
 import ConfirmDialog from 'primevue/confirmdialog';
 
@@ -362,6 +363,7 @@ export default {
     },
     data() {
         return {
+                confirmGroup: 'TemplateObatComponent-' + Math.random().toString(36).slice(2, 11),
             fact: [],
             isLoading: false,
             showAddnewtemplate: false,
@@ -497,6 +499,7 @@ export default {
         },
         async hapustemplate(notemplate) {
             this.$confirm.require({
+                group: this.confirmGroup,
                 message: 'Apakah Anda yakin ingin menghapus template ini?',
                 header: 'Konfirmasi Hapus',
                 icon: 'pi pi-exclamation-triangle',
@@ -568,7 +571,7 @@ export default {
             }
         },
         open(type, message) {
-            this.$toast.open({
+            EventBus.$emit('show-alert', {
                 message,
                 position: 'top-right',
                 type,

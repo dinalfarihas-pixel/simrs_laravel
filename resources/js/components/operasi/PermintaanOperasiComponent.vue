@@ -2,6 +2,7 @@
   <section class="content">
     <div class="container-fluid">
       <loading v-model:active="isLoading" :is-full-page="fullPage"></loading>
+      <ConfirmDialog :group="confirmGroup" />
 
       <!-- FORM PERMINTAAN OPERASI -->
       <div class="card elevation-0">
@@ -322,6 +323,7 @@ export default {
   props: ['datapasien'],
   data() {
     return {
+                confirmGroup: 'PermintaanOperasiComponent-' + Math.random().toString(36).slice(2, 11),
       isLoading: false,
       isLoadingTable: false,
       fullPage: true,
@@ -426,6 +428,7 @@ export default {
 
     konfirmasiBatal(data) {
       this.$confirm.require({
+        group: this.confirmGroup,
         message: `Batalkan jadwal operasi untuk pasien ${data.nama}?`,
         header: 'Konfirmasi Pembatalan',
         icon: 'pi pi-exclamation-triangle',

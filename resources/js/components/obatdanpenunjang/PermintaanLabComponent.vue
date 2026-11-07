@@ -4,7 +4,7 @@
             <loading v-model:active="isLoading" :is-full-page="fullPage"></loading>
 
 
-            <ConfirmDialog></ConfirmDialog>
+            <ConfirmDialog :group="confirmGroup"></ConfirmDialog>
             <Dialog header="Daftar laboratorium" v-model:visible="form_kco" :containerStyle="{width: '70vw'}" :modal="true">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
@@ -463,6 +463,7 @@
     </section>
 </template>
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay';
     import Dialog from 'primevue/dialog';
     import InputNumber from 'primevue/inputnumber';
@@ -486,6 +487,7 @@
         props: ['isInput', 'datapasien'],
         data() {
             return {
+                confirmGroup: 'PermintaanLabComponent-' + Math.random().toString(36).slice(2, 11),
                 fact: [],
                 jenisresep: '',
                 openGrup: {},
@@ -897,7 +899,7 @@
                     .finally(() => this.isLoading = false)
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

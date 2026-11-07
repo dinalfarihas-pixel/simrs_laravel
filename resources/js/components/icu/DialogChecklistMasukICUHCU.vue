@@ -608,7 +608,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
-import { useToast } from 'vue-toast-notification'
+import { EventBus } from '../bus'
 
 // =======================================================
 // PROPS & EMITS
@@ -626,7 +626,6 @@ const emit = defineEmits(['update:visible', 'submitted'])
 // COMPOSABLES
 // =======================================================
 
-const $toast    = useToast()
 const isLoading = ref(false)
 
 // =======================================================
@@ -782,7 +781,7 @@ const resetForm = () => {
 }
 
 const showToast = (type, message) =>
-  $toast.open({ message, type, position: 'top-right', duration: 3000, dismissible: true })
+  EventBus.$emit('show-alert', { type, title: '', message, duration: 3000 })
 
 const onSubmit = () => {
   if (!form.value.ruangan_asal) {

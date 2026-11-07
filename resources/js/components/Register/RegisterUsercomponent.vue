@@ -153,6 +153,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import { data } from 'jquery';
 import Loading from 'vue-loading-overlay';
     export default {
@@ -347,7 +348,7 @@ import Loading from 'vue-loading-overlay';
                     });
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

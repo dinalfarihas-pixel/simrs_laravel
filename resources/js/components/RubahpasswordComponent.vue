@@ -1,16 +1,30 @@
 <template>
     <section class="content">
         <div class="container-fluid">
+            <loading :active="isLoading" :is-full-page="fullPage"></loading>
 
             <div class="login-box">
 
-                <div class="card card-outline card-primary">  
+                <div class="card card-outline card-primary">
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Password Lama</label>
+                            <label for="rp_username">Username</label>
                             <div class="input-group mb-3">
-                                <input type="password" v-model="form.passwordlama" class="form-control" name="password"
-                                    id="password" placeholder="Password lama">
+                                <input type="text" v-model="form.username" class="form-control"
+                                    id="rp_username" placeholder="Username" autocomplete="username">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-user"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rp_passwordlama">Password Lama</label>
+                            <div class="input-group mb-3">
+                                <input type="password" v-model="form.passwordlama" class="form-control"
+                                    id="rp_passwordlama" placeholder="Password lama" autocomplete="current-password">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-lock"></span>
@@ -20,10 +34,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Password Baru</label>
+                            <label for="rp_passwordbaru">Password Baru</label>
                             <div class="input-group mb-3">
-                                <input type="password" v-model="form.passwordbaru" class="form-control" name="password"
-                                    id="password" placeholder="Password Baru">
+                                <input type="password" v-model="form.passwordbaru" class="form-control"
+                                    id="rp_passwordbaru" placeholder="Password baru (min. 6 karakter)" autocomplete="new-password">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-lock"></span>
@@ -31,36 +45,36 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Ulangi Password Baru</label>
+                            <label for="rp_ulangipasswordbaru">Konfirmasi Password Baru</label>
                             <div class="input-group mb-3">
-                                <input type="password" v-model="form.ulangipasswordbaru" class="form-control" name="password"
-                                    id="password" placeholder="Ulangi Password word baru">
+                                <input type="password" v-model="form.ulangipasswordbaru" class="form-control"
+                                    id="rp_ulangipasswordbaru" placeholder="Ulangi password baru" autocomplete="new-password"
+                                    @keyup.enter="rubahpassword()">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-lock"></span>
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
+
                         <div class="col-12">
-                            <button type="submit" @click="rubahpassword()"
+                            <button type="button" @click="rubahpassword()" :disabled="isLoading"
                                 class="btn btn-primary btn-block">Simpan</button>
                         </div>
-                        <!-- /.col -->
                     </div>
-                    <!-- /.social-auth-links -->
-
                 </div>
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
         </div>
     </section>
 </template>
 
 <script>
     import Loading from 'vue-loading-overlay';
+    import { EventBus } from './bus';
+
     export default {
         components: {
             Loading
@@ -70,76 +84,58 @@
         },
         data() {
             return {
-                fact: [],
-                passwordlama: '',
-                passwordbaru: '',
-                ulangipasswordbaru: '',
                 form: {
+                    username: '',
                     passwordlama: '',
-                    passwordbaru: '', 
-                    ulangipasswordbaru: '', 
+                    passwordbaru: '',
+                    ulangipasswordbaru: '',
                 },
                 isLoading: false,
                 fullPage: true,
             };
         },
-        mounted() {
-            var currentDate = new Date();
-            this.form.startdate = currentDate;
-            console.log(currentDate);
-        },
-        created() {
-            //this.fetchData();
-
-        },
         methods: {
-            open(type, message, posisi) {
-                this.$toast.open({
-                    message: message,
-                    position: posisi, //'top-right'
+            alert(type, message) {
+                EventBus.$emit('show-alert', {
                     type: type,
-                    duration: 2500,
-                    dismissible: true
-                })
-            },
-
-            fetchData() {
-                var currentDate = new Date();
-                console.log(this.form.startdate);
+                    title: type == 'success' ? 'Berhasil' : 'Perhatian',
+                    message: message,
+                });
             },
 
             async rubahpassword() {
-                if (this.form.passwordlama == "") {
-                    this.open("info", "Password lama harus di isi", 'top');
+                if (!this.form.username || !this.form.passwordlama || !this.form.passwordbaru || !this.form.ulangipasswordbaru) {
+                    this.alert('warning', 'Username, password lama, password baru dan konfirmasi wajib diisi');
                     return;
                 }
-
+                if (this.form.passwordbaru.length < 6) {
+                    this.alert('warning', 'Password baru minimal 6 karakter');
+                    return;
+                }
                 if (this.form.passwordbaru != this.form.ulangipasswordbaru) {
-                    this.open("info", "Password baru tidak sama", 'top');
+                    this.alert('warning', 'Konfirmasi password baru tidak sama');
                     return;
                 }
 
-                const dataform = new FormData();
-                this.isLoading = true; 
-                await axios.post('/changepassword-api', this.form)
-                    .then(response => {
-                        this.fact = response.data;
-                        console.log(this.fact);
-                        if(this.fact==200)
-                        {
-                            this.open("info", "Password berhasil di rubah", 'top');
-                        }
-                      
-                        this.isLoading = false 
-                         this.displayMaximizable = true; 
-                    })
-                    .catch(error => {
-                        console.log(error)
-                        this.isLoading = false
-                    })
-                    .finally(() => this.isLoading = false) 
+                this.isLoading = true;
+                try {
+                    const res = await axios.post('/rubah-password-v2', this.form);
+                    const meta = (res.data && res.data.metadata) || {};
+                    if (parseInt(meta.code) == 200) {
+                        this.alert('success', meta.message || 'Password berhasil diubah');
+                        this.form.passwordlama = '';
+                        this.form.passwordbaru = '';
+                        this.form.ulangipasswordbaru = '';
+                    } else {
+                        this.alert('error', meta.message || 'Gagal mengubah password');
+                    }
+                } catch (error) {
+                    console.log(error);
+                    this.alert('error', 'Gagal menghubungi server');
+                } finally {
+                    this.isLoading = false;
+                }
             }
         },
     }
-
 </script>

@@ -96,7 +96,7 @@
                                     <!-- @click="hapusheader(data.planning_number)" -->
                                    
                                     <td class="project-actions text-center">
-                                        <ConfirmDialog></ConfirmDialog>
+                                        <ConfirmDialog :group="confirmGroup"></ConfirmDialog>
                                         <Button icon="pi pi-trash" class="p-button-rounded p-button" @click='hapusheader_confirm(data.planning_number)' />
                                         <!-- <Button icon="pi pi-remove" class="p-button-rounded p-button-warning" /> -->
                                     </td>
@@ -112,6 +112,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay'; 
     import ConfirmDialog from 'primevue/confirmdialog';
 
@@ -125,6 +126,7 @@
         },
         data() {
             return {
+                confirmGroup: 'RencanaKebutuhanComponent-' + Math.random().toString(36).slice(2, 11),
                 fact: [],
                 data_planning: [],
                 displayBasic: false,
@@ -156,6 +158,7 @@
         methods: {
             hapusheader_confirm(header) {
                 this.$confirm.require({
+                    group: this.confirmGroup,
                     message: 'Yakin perencanaan ini akan di hapus '+header+' ?',
                     header: 'Konfirmasi',
                     icon: 'pi pi-exclamation-triangle danger',
@@ -174,7 +177,7 @@
                 this.displayBasic = false;
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

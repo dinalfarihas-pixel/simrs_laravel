@@ -186,11 +186,12 @@
                 </div>
             </div>
         </div>
-        <ConfirmDialog></ConfirmDialog>
+        <ConfirmDialog :group="confirmGroup"></ConfirmDialog>
     </section>
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import {
         data
     } from 'jquery';
@@ -206,6 +207,7 @@
         },
         data() {
             return {
+                confirmGroup: 'KonsultasiDokterComponent-' + Math.random().toString(36).slice(2, 11),
                 fact: [],
                 data_pasien: [],
                 list_dokter: [],
@@ -249,7 +251,7 @@
 
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,
@@ -274,6 +276,7 @@
             confirmHapusBalasan(id) {
  
                 this.$confirm.require({
+                    group: this.confirmGroup,
                     message: 'Apakah Anda yakin ingin menghapus balasan ini?',
                     header: 'Konfirmasi Hapus',
                     icon: 'pi pi-exclamation-triangle',

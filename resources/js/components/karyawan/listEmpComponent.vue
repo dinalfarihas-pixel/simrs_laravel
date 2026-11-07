@@ -148,6 +148,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay';
     import Badge from 'primevue/badge';
     import {
@@ -217,7 +218,7 @@
                 }
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,
@@ -275,7 +276,7 @@
 
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

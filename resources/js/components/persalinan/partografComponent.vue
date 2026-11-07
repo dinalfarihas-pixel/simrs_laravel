@@ -166,7 +166,7 @@
 
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
-import { useToast } from 'primevue/usetoast'
+import { EventBus } from '../bus'
 import Fieldset from 'primevue/fieldset'
 
 import { use } from 'echarts/core'
@@ -187,7 +187,6 @@ const props = defineProps({
     readonly:   { type: Boolean, default: false },
 })
 
-const toast         = useToast()
 const loading       = ref(false)
 const highlightCol  = ref(-1)
 const colWidth      = ref(68)
@@ -606,29 +605,29 @@ const chartTensiOption = computed(() => {
 // ── Jam mulai change ──────────────────────────────────────────────────────
 const onJamMulaiChange = () => {
     if (observations.value.length > 0)
-        toast.add({ severity: 'warn', summary: 'Perhatian',
-            detail: 'Mengubah jam mulai akan menggeser posisi seluruh data grafik', life: 4000 })
+        EventBus.$emit('show-alert', { type: 'warning', title: 'Perhatian',
+            message: 'Mengubah jam mulai akan menggeser posisi seluruh data grafik', duration: 4000 })
 }
 
 // ── Save & Reset ──────────────────────────────────────────────────────────
 const savePartograf = async () => {
     if (!form.value.jamMulai) {
-        toast.add({ severity: 'error', summary: 'Error', detail: 'Masukkan jam mulai persalinan', life: 3000 })
+        EventBus.$emit('show-alert', { type: 'error', title: 'Error', message: 'Masukkan jam mulai persalinan', duration: 3000 })
         return
     }
     try {
         loading.value = true
         persist()
-        toast.add({ severity: 'success', summary: 'Berhasil', detail: 'Partograf berhasil disimpan', life: 3000 })
+        EventBus.$emit('show-alert', { type: 'success', title: 'Berhasil', message: 'Partograf berhasil disimpan', duration: 3000 })
     } catch (err) {
-        toast.add({ severity: 'error', summary: 'Error', detail: 'Gagal menyimpan partograf', life: 3000 })
+        EventBus.$emit('show-alert', { type: 'error', title: 'Error', message: 'Gagal menyimpan partograf', duration: 3000 })
     } finally { loading.value = false }
 }
 
 const resetData = () => {
     observations.value = []
     localStorage.removeItem(storageKey.value)
-    toast.add({ severity: 'info', summary: 'Reset', detail: 'Data observasi telah direset', life: 2000 })
+    EventBus.$emit('show-alert', { type: 'info', title: 'Reset', message: 'Data observasi telah direset', duration: 2000 })
 }
 
 // ── Lifecycle ─────────────────────────────────────────────────────────────

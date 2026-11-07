@@ -42,7 +42,10 @@ export default {
     EventBus.$on('show-alert', (payload) => {
       const id = Date.now();
       const duration = payload.duration || 5000;
-      this.alerts.push({ id, duration, ...payload });
+      // Normalisasi alias tipe (warn/danger/default) ke tipe yang didukung
+      const typeAlias = { warn: 'warning', danger: 'error', default: 'info' };
+      const type = typeAlias[payload.type] || payload.type || 'info';
+      this.alerts.push({ id, duration, ...payload, type });
       setTimeout(() => this.remove(id), duration);
     });
   },

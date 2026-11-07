@@ -1,6 +1,6 @@
 <template>
     <section>
-        <ConfirmDialog group="kajianResikoJatuh" />
+        <ConfirmDialog :group="confirmGroup" />
         <!-- ===== DIALOG: FORM PENGKAJIAN ===== -->
         <Dialog v-model:visible="showForm" :header="formTitle" :modal="true" :style="{ width: '700px' }"
             :closable="!isSaving">
@@ -316,6 +316,7 @@
         },
         data() {
             return {
+                confirmGroup: 'KajianResikoJatuhComponent-' + Math.random().toString(36).slice(2, 11),
                 noregister: '',
                 dataPasien: {},
                 isLoadingPasien: false,
@@ -661,7 +662,7 @@
             // ===== HAPUS =====
             konfirmasiHapus(row) {
                 this.$confirm.require({
-                    group: 'kajianResikoJatuh',
+                    group: this.confirmGroup,
                     message: `Hapus pengkajian tanggal ${this.formatWaktu(row.waktu_kajian)}? Tindakan ini tidak dapat dibatalkan.`,
                     header: 'Konfirmasi Hapus',
                     icon: 'pi pi-exclamation-triangle',

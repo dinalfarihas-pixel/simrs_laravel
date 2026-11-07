@@ -105,6 +105,7 @@
      </section>
  </template>
  <script>
+     import { EventBus } from '../bus';
      import Loading from 'vue-loading-overlay';
           import Tag from 'primevue/tag'
      export default {
@@ -198,7 +199,7 @@
                 this.form.alamat = this.form.desaselected['nama_desa'];
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

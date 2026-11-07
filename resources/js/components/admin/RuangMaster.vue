@@ -1,6 +1,6 @@
 <template>
   <section class="content">
-    <ConfirmDialog></ConfirmDialog>
+    <ConfirmDialog :group="confirmGroup"></ConfirmDialog>
     <div class="container-fluid">
       <loading v-model:active="isLoading" :is-full-page="fullPage"></loading>
       <!-- Summary Cards -->
@@ -267,6 +267,7 @@
 </template>
 
 <script>
+import { EventBus } from '../bus';
 import Loading from 'vue-loading-overlay';
 import Badge from 'primevue/badge';
 import ConfirmDialog from 'primevue/confirmdialog';
@@ -284,6 +285,7 @@ export default {
   },
   data() {
     return {
+                confirmGroup: 'RuangMaster-' + Math.random().toString(36).slice(2, 11),
       fact: [],
       form: {
         startdate: '',
@@ -497,6 +499,7 @@ export default {
 
     confirm1(id, namaruangan) {
       this.$confirm.require({
+        group: this.confirmGroup,
         message: 'Anda ingin menghapus Ruangan ' + namaruangan + ' ?',
         header: 'Konfirmasi Hapus',
         icon: 'pi pi-exclamation-triangle',
@@ -586,7 +589,7 @@ export default {
     },
 
     open(type, message) {
-      this.$toast.open({
+      EventBus.$emit('show-alert', {
         message: message,
         position: 'top-right',
         type: type,

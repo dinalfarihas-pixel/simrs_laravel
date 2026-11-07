@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <loading v-model:active="isLoading" :is-full-page="fullPage"></loading>
 
-            <ConfirmDialog group="terimaObat"></ConfirmDialog>
+            <ConfirmDialog :group="confirmGroup"></ConfirmDialog>
             <Dialog header="Daftar" v-model:visible="form_kco"
            :modal="true" :style="{ margin: '0', borderRadius: '0', width: '70vw', height: '70vh' }">
                 <div class="card card-primary card-outline">
@@ -489,6 +489,7 @@
         props: ['isInput', 'datapasien'],
         data() {
             return {
+                confirmGroup: 'ObatComponent-' + Math.random().toString(36).slice(2, 11),
                 loadinngItem: false,
                 showSerahTerima: false,
                 responvalue: 0,

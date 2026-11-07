@@ -664,6 +664,27 @@ class RekamMedisElektronik extends Controller
         ]);
     }
 
+    // Obat multi-dosis (sirup, salep, tetes, ...): kemasan selesai dipakai -> keluar dari stok pasien
+    public function habis_pakai_obat_pasien(Request $request)
+    {
+        return $this->post_stok_obat_pasien('habis_pakai_obat_pasien', [
+            'noregister'   => $request->noregister,
+            'nama_ruangan' => $request->nama_ruangan,
+            'barcode'      => $request->barcode,
+            'nama_obat'    => $request->nama_obat,
+            'satuan'       => $request->satuan,
+            'qty'          => $request->qty,
+            'keterangan'   => $request->keterangan,
+        ]);
+    }
+
+    public function batal_habis_pakai_obat_pasien(Request $request)
+    {
+        return $this->post_stok_obat_pasien('batal_habis_pakai_obat_pasien', [
+            'reff_number' => $request->reff_number,
+        ]);
+    }
+
     public function simpan_rekonsiliasi_obat(Request $request)
     {
         try

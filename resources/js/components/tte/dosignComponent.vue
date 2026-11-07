@@ -156,6 +156,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import sha256 from 'crypto-js/sha256';
     import Loading from 'vue-loading-overlay';
     import InputNumber from 'primevue/inputnumber';
@@ -369,7 +370,7 @@
                     .finally(() => this.isLoading = false)
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

@@ -313,6 +313,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay';
     import ProgressBar from 'primevue/progressbar';
     export default {
@@ -352,7 +353,7 @@
         },
         methods: {
             open(type, message) {
-                this.$toast.open({ message, position: 'top-right', type, duration: 5000, dismissible: true });
+                EventBus.$emit('show-alert', { message, position: 'top-right', type, duration: 5000, dismissible: true });
             },
             async getdata_resume_pulang_pasien() {
                 this.isLoading = true;

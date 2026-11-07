@@ -2,7 +2,7 @@
     <section class="content">
         <div class="container-fluid">  
             <loading v-model:active="isLoading" :is-full-page="fullPage"></loading> 
-            <ConfirmDialog></ConfirmDialog> 
+            <ConfirmDialog :group="confirmGroup"></ConfirmDialog> 
             <Dialog :header="'No Permitaan: '+param.no_permintaan" v-model:visible="displayModal" :containerStyle="{width: '80%'}" :modal="true">
                 <p class="m-0"> </p>
                 <table class="table table-striped projects">
@@ -318,6 +318,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay';
     import Dialog from 'primevue/dialog';
     import ConfirmDialog from 'primevue/confirmdialog';
@@ -332,6 +333,7 @@
         },
         data() {
             return {
+                confirmGroup: 'PermintaanListComponent-' + Math.random().toString(36).slice(2, 11),
                 displayModal: false,
                 fact: [],
                 detail_perimtaan: [],
@@ -521,6 +523,7 @@
              },
             confirm1(x) { 
                 this.$confirm.require({
+                        group: this.confirmGroup,
                         message: 'Anda ingin menghapus permintaan '+x+' ?',
                         header: 'Hapus konfirmasi',
                         icon: 'pi pi-info-circle',
@@ -536,7 +539,7 @@
                     }); 
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

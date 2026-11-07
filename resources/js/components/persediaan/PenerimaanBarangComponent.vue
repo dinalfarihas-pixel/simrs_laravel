@@ -359,6 +359,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay'
     import { debounce } from 'lodash'
 
@@ -471,7 +472,7 @@
                 }
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,
@@ -745,36 +746,14 @@
             },
 
             showToast(severity, message) {
-                // Using a simple alert for PrimeVue 2 compatibility
-                // You can replace this with your preferred toast implementation
-                const prefix = severity === 'success' ? '✅' : severity === 'warn' ? '⚠️' : severity === 'error' ? '❌' :
-                    'ℹ️'
-                alert(`${prefix} ${message}`)
-
-                // Alternative: If you have vue-toasted or similar library
-                // this.$toast.show(message, { type: severity, duration: 3000 })
+                this.showMessage(severity, this.getToastSummary(severity), message)
             },
 
             showMessage(severity, summary, detail) {
-                // Using ConfirmDialog for notifications in PrimeVue 2
-                const icon = severity === 'success' ? 'pi pi-check-circle' :
-                    severity === 'warn' ? 'pi pi-exclamation-triangle' :
-                    severity === 'error' ? 'pi pi-times-circle' : 'pi pi-info-circle'
-
-                const acceptClass = severity === 'success' ? 'p-button-success' :
-                    severity === 'warn' ? 'p-button-warning' :
-                    severity === 'error' ? 'p-button-danger' : 'p-button-info'
-
-                this.$confirm.require({
-                    message: detail,
-                    header: summary,
-                    icon: icon,
-                    acceptLabel: 'OK',
-                    rejectLabel: null,
-                    acceptClass: acceptClass,
-                    accept: () => {
-                        // Do nothing, just close the dialog
-                    }
+                EventBus.$emit('show-alert', {
+                    type: severity === 'warn' ? 'warning' : severity,
+                    title: summary,
+                    message: detail
                 })
             },
 

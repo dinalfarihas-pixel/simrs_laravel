@@ -383,7 +383,6 @@
                     this.edit_acc[index] = true;
                 }
 
-                alert(this.edit_acc[index]);
 
             },
             async counting() {

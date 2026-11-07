@@ -38,6 +38,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   emits: ['checklist-saved'],
   data: function data() {
     return {
+      confirmGroup: 'ChecklistMasukICUHCUPage-' + Math.random().toString(36).slice(2, 11),
       noregister: '',
       dataPasien: {},
       isLoadingPasien: false,
@@ -215,7 +216,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     konfirmasiHapus: function konfirmasiHapus(row) {
       var _this3 = this;
       this.$confirm.require({
-        group: 'icuChecklist',
+        group: this.confirmGroup,
         message: "Hapus checklist tanggal ".concat(this.formatWaktu(row.created_at), "? Tindakan ini tidak dapat dibatalkan."),
         header: 'Konfirmasi Hapus',
         icon: 'pi pi-exclamation-triangle',
@@ -709,8 +710,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-toast-notification */ "./node_modules/vue-toast-notification/dist/index.js");
-/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../bus */ "./resources/js/components/bus.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -760,7 +760,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     // COMPOSABLES
     // =======================================================
 
-    var $toast = (0,vue_toast_notification__WEBPACK_IMPORTED_MODULE_1__.useToast)();
     var isLoading = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
 
     // =======================================================
@@ -888,12 +887,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       });
     };
     var showToast = function showToast(type, message) {
-      return $toast.open({
-        message: message,
+      return _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus.$emit('show-alert', {
         type: type,
-        position: 'top-right',
-        duration: 3000,
-        dismissible: true
+        title: '',
+        message: message,
+        duration: 3000
       });
     };
     var onSubmit = function onSubmit() {
@@ -958,7 +956,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     var __returned__ = {
       props: props,
       emit: emit,
-      $toast: $toast,
       isLoading: isLoading,
       optRuanganAsal: optRuanganAsal,
       optUnitAlternatif: optUnitAlternatif,
@@ -980,8 +977,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       watch: vue__WEBPACK_IMPORTED_MODULE_0__.watch,
-      get useToast() {
-        return vue_toast_notification__WEBPACK_IMPORTED_MODULE_1__.useToast;
+      get EventBus() {
+        return _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus;
       }
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
@@ -1699,8 +1696,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Select = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Select");
   var _directive_tooltip = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveDirective)("tooltip");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ConfirmDialog, {
-    group: "icuChecklist"
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" DIALOG: DETAIL RIWAYAT "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
+    group: $data.confirmGroup
+  }, null, 8 /* PROPS */, ["group"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" DIALOG: DETAIL RIWAYAT "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
     visible: $data.showDetail,
     "onUpdate:visible": _cache[1] || (_cache[1] = function ($event) {
       return $data.showDetail = $event;
@@ -3145,7 +3142,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return $setup.isLoading = $event;
         }),
         "is-full-page": false
-      }, null, 8 /* PROPS */, ["active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ==============================================\r\n           SECTION 1: IDENTITAS & DATA PENGAJUAN\r\n      =============================================== "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Card, {
+      }, null, 8 /* PROPS */, ["active"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ==============================================\n           SECTION 1: IDENTITAS & DATA PENGAJUAN\n      =============================================== "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Card, {
         "class": "mb-3"
       }, {
         title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -3239,7 +3236,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8 /* PROPS */, ["modelValue"])])])])];
         }),
         _: 1 /* STABLE */
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ==============================================\r\n           SECTION 2: PEMILIHAN UNIT TUJUAN\r\n      =============================================== "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Card, {
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ==============================================\n           SECTION 2: PEMILIHAN UNIT TUJUAN\n      =============================================== "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Card, {
         "class": "mb-3"
       }, {
         title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -3313,7 +3310,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }))];
         }),
         _: 1 /* STABLE */
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ==============================================\r\n           SECTION 3A: KRITERIA MASUK ICU\r\n      =============================================== "), $setup.form.unit_tujuan === 'ICU' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Card, {
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ==============================================\n           SECTION 3A: KRITERIA MASUK ICU\n      =============================================== "), $setup.form.unit_tujuan === 'ICU' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Card, {
         key: 0,
         "class": "mb-3"
       }, {
@@ -3434,7 +3431,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1 /* STABLE */
       })) : $setup.form.unit_tujuan === 'HCU' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
         key: 1
-      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ==============================================\r\n           SECTION 3B: KRITERIA MASUK HCU\r\n      =============================================== "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Card, {
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ==============================================\n           SECTION 3B: KRITERIA MASUK HCU\n      =============================================== "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Card, {
         "class": "mb-3"
       }, {
         title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -3480,7 +3477,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }), 64 /* STABLE_FRAGMENT */))];
         }),
         _: 1 /* STABLE */
-      })], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ==============================================\r\n           SECTION 4: KRITERIA EKSKLUSI\r\n      =============================================== "), $setup.form.unit_tujuan ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Card, {
+      })], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ==============================================\n           SECTION 4: KRITERIA EKSKLUSI\n      =============================================== "), $setup.form.unit_tujuan ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Card, {
         key: 2,
         "class": "mb-3"
       }, {
@@ -3542,7 +3539,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8 /* PROPS */, ["modelValue"])])];
         }),
         _: 1 /* STABLE */
-      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ==============================================\r\n           SECTION 5: KRITERIA FISIOLOGIS PENDUKUNG\r\n      =============================================== "), $setup.form.unit_tujuan ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Card, {
+      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ==============================================\n           SECTION 5: KRITERIA FISIOLOGIS PENDUKUNG\n      =============================================== "), $setup.form.unit_tujuan ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Card, {
         key: 3,
         "class": "mb-3"
       }, {
@@ -3716,7 +3713,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8 /* PROPS */, ["modelValue"])])])])];
         }),
         _: 1 /* STABLE */
-      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ==============================================\r\n           SECTION 6: KEPUTUSAN & PERSETUJUAN\r\n      =============================================== "), $setup.form.unit_tujuan ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Card, {
+      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ==============================================\n           SECTION 6: KEPUTUSAN & PERSETUJUAN\n      =============================================== "), $setup.form.unit_tujuan ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Card, {
         key: 4,
         "class": "mb-1"
       }, {
@@ -4459,7 +4456,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.checklist-body[data-v-e9d49256] {\r\n  max-height: 72vh;\r\n  overflow-y: auto;\r\n  padding: 0.5rem 0.75rem;\n}\n.section-header[data-v-e9d49256] {\r\n  font-size: 14px;\r\n  font-weight: 700;\r\n  color: #1e293b;\n}\n.field-label[data-v-e9d49256] {\r\n  display: block;\r\n  font-size: 11.5px;\r\n  font-weight: 600;\r\n  color: #6c757d;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.35px;\r\n  margin-bottom: 4px;\n}\n.gcs-total-display[data-v-e9d49256] {\r\n  background: #f8f9fa;\r\n  border: 1px solid #ced4da;\r\n  border-radius: 6px;\r\n  padding: 0.45rem 0.75rem;\r\n  font-weight: 700;\r\n  font-size: 1.15rem;\r\n  color: #212529;\r\n  text-align: center;\r\n  line-height: 1.9;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.checklist-body[data-v-e9d49256] {\n  max-height: 72vh;\n  overflow-y: auto;\n  padding: 0.5rem 0.75rem;\n}\n.section-header[data-v-e9d49256] {\n  font-size: 14px;\n  font-weight: 700;\n  color: #1e293b;\n}\n.field-label[data-v-e9d49256] {\n  display: block;\n  font-size: 11.5px;\n  font-weight: 600;\n  color: #6c757d;\n  text-transform: uppercase;\n  letter-spacing: 0.35px;\n  margin-bottom: 4px;\n}\n.gcs-total-display[data-v-e9d49256] {\n  background: #f8f9fa;\n  border: 1px solid #ced4da;\n  border-radius: 6px;\n  padding: 0.45rem 0.75rem;\n  font-weight: 700;\n  font-size: 1.15rem;\n  color: #212529;\n  text-align: center;\n  line-height: 1.9;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -12,7 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var primevue_usetoast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primevue/usetoast */ "./node_modules/primevue/usetoast/index.mjs");
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../bus */ "./resources/js/components/bus.js");
 /* harmony import */ var _TabRiwayatObstetri_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TabRiwayatObstetri.vue */ "./resources/js/components/persalinan/TabRiwayatObstetri.vue");
 /* harmony import */ var _TabProsesPersalinan_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TabProsesPersalinan.vue */ "./resources/js/components/persalinan/TabProsesPersalinan.vue");
 /* harmony import */ var _TabDataBayi_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TabDataBayi.vue */ "./resources/js/components/persalinan/TabDataBayi.vue");
@@ -57,7 +57,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   setup: function setup(__props, _ref) {
     var __expose = _ref.expose;
     __expose();
-    var toast = (0,primevue_usetoast__WEBPACK_IMPORTED_MODULE_1__.useToast)();
     var props = __props;
 
     // ── State UI ─────────────────────────────────────────────────────────────────
@@ -368,11 +367,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
       }
       var detail = debug ? "".concat(msg, " | errno ").concat(errno, ": ").concat(debug) : msg;
-      toast.add({
-        severity: 'error',
-        summary: 'Gagal Menyimpan',
-        detail: detail,
-        life: 6000
+      _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus.$emit('show-alert', {
+        type: 'error',
+        title: 'Gagal Menyimpan',
+        message: detail,
+        duration: 6000
       });
     }
 
@@ -393,11 +392,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 4:
               res = _context3.sent;
               if (((_res$data7 = res.data) === null || _res$data7 === void 0 ? void 0 : _res$data7.code) === 200) {
-                toast.add({
-                  severity: 'success',
-                  summary: 'Tersimpan',
-                  detail: 'Draft berhasil disimpan',
-                  life: 3000
+                _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus.$emit('show-alert', {
+                  type: 'success',
+                  title: 'Tersimpan',
+                  message: 'Draft berhasil disimpan',
+                  duration: 3000
                 });
               } else {
                 showError(res);
@@ -408,11 +407,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context3.prev = 8;
               _context3.t0 = _context3["catch"](1);
               console.error('[Persalinan] onSaveDraft:', _context3.t0);
-              toast.add({
-                severity: 'error',
-                summary: 'Error Koneksi',
-                detail: _context3.t0.message,
-                life: 4000
+              _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus.$emit('show-alert', {
+                type: 'error',
+                title: 'Error Koneksi',
+                message: _context3.t0.message,
+                duration: 4000
               });
             case 12:
               _context3.prev = 12;
@@ -447,11 +446,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               if (((_res$data8 = res.data) === null || _res$data8 === void 0 ? void 0 : _res$data8.code) === 200) {
                 form.is_final = true;
                 showFinalizeDialog.value = false;
-                toast.add({
-                  severity: 'success',
-                  summary: 'Difinalisasi',
-                  detail: 'Rekam medis dikunci',
-                  life: 3000
+                _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus.$emit('show-alert', {
+                  type: 'success',
+                  title: 'Difinalisasi',
+                  message: 'Rekam medis dikunci',
+                  duration: 3000
                 });
               } else {
                 showError(res);
@@ -462,11 +461,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context4.prev = 8;
               _context4.t0 = _context4["catch"](1);
               console.error('[Persalinan] doFinalize:', _context4.t0);
-              toast.add({
-                severity: 'error',
-                summary: 'Error Koneksi',
-                detail: _context4.t0.message,
-                life: 4000
+              _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus.$emit('show-alert', {
+                type: 'error',
+                title: 'Error Koneksi',
+                message: _context4.t0.message,
+                duration: 4000
               });
             case 12:
               _context4.prev = 12;
@@ -493,7 +492,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       fetchData();
     });
     var __returned__ = {
-      toast: toast,
       props: props,
       activeTab: activeTab,
       isLoadingPasien: isLoadingPasien,
@@ -517,8 +515,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
-      get useToast() {
-        return primevue_usetoast__WEBPACK_IMPORTED_MODULE_1__.useToast;
+      get EventBus() {
+        return _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus;
       },
       TabRiwayatObstetri: _TabRiwayatObstetri_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
       TabProsesPersalinan: _TabProsesPersalinan_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -1637,7 +1635,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var primevue_usetoast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primevue/usetoast */ "./node_modules/primevue/usetoast/index.mjs");
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../bus */ "./resources/js/components/bus.js");
 /* harmony import */ var primevue_fieldset__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! primevue/fieldset */ "./node_modules/primevue/fieldset/index.mjs");
 /* harmony import */ var echarts_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! echarts/core */ "./node_modules/echarts/lib/extension.js");
 /* harmony import */ var echarts_renderers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! echarts/renderers */ "./node_modules/echarts/lib/renderer/installCanvasRenderer.js");
@@ -1693,7 +1691,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     __expose();
     (0,echarts_core__WEBPACK_IMPORTED_MODULE_3__.use)([echarts_renderers__WEBPACK_IMPORTED_MODULE_4__.install, echarts_charts__WEBPACK_IMPORTED_MODULE_5__.install, echarts_charts__WEBPACK_IMPORTED_MODULE_6__.install, echarts_components__WEBPACK_IMPORTED_MODULE_7__.install, echarts_components__WEBPACK_IMPORTED_MODULE_8__.install, echarts_components__WEBPACK_IMPORTED_MODULE_9__.install, echarts_components__WEBPACK_IMPORTED_MODULE_10__.install, echarts_components__WEBPACK_IMPORTED_MODULE_11__.install]);
     var props = __props;
-    var toast = (0,primevue_usetoast__WEBPACK_IMPORTED_MODULE_1__.useToast)();
     var loading = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
     var highlightCol = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(-1);
     var colWidth = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(68);
@@ -2707,11 +2704,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
     // ── Jam mulai change ──────────────────────────────────────────────────────
     var onJamMulaiChange = function onJamMulaiChange() {
-      if (observations.value.length > 0) toast.add({
-        severity: 'warn',
-        summary: 'Perhatian',
-        detail: 'Mengubah jam mulai akan menggeser posisi seluruh data grafik',
-        life: 4000
+      if (observations.value.length > 0) _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus.$emit('show-alert', {
+        type: 'warning',
+        title: 'Perhatian',
+        message: 'Mengubah jam mulai akan menggeser posisi seluruh data grafik',
+        duration: 4000
       });
     };
 
@@ -2725,29 +2722,29 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
                 _context.next = 3;
                 break;
               }
-              toast.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: 'Masukkan jam mulai persalinan',
-                life: 3000
+              _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus.$emit('show-alert', {
+                type: 'error',
+                title: 'Error',
+                message: 'Masukkan jam mulai persalinan',
+                duration: 3000
               });
               return _context.abrupt("return");
             case 3:
               try {
                 loading.value = true;
                 persist();
-                toast.add({
-                  severity: 'success',
-                  summary: 'Berhasil',
-                  detail: 'Partograf berhasil disimpan',
-                  life: 3000
+                _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus.$emit('show-alert', {
+                  type: 'success',
+                  title: 'Berhasil',
+                  message: 'Partograf berhasil disimpan',
+                  duration: 3000
                 });
               } catch (err) {
-                toast.add({
-                  severity: 'error',
-                  summary: 'Error',
-                  detail: 'Gagal menyimpan partograf',
-                  life: 3000
+                _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus.$emit('show-alert', {
+                  type: 'error',
+                  title: 'Error',
+                  message: 'Gagal menyimpan partograf',
+                  duration: 3000
                 });
               } finally {
                 loading.value = false;
@@ -2765,11 +2762,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     var resetData = function resetData() {
       observations.value = [];
       localStorage.removeItem(storageKey.value);
-      toast.add({
-        severity: 'info',
-        summary: 'Reset',
-        detail: 'Data observasi telah direset',
-        life: 2000
+      _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus.$emit('show-alert', {
+        type: 'info',
+        title: 'Reset',
+        message: 'Data observasi telah direset',
+        duration: 2000
       });
     };
 
@@ -2789,7 +2786,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     });
     var __returned__ = {
       props: props,
-      toast: toast,
       loading: loading,
       highlightCol: highlightCol,
       colWidth: colWidth,
@@ -2829,8 +2825,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
       watch: vue__WEBPACK_IMPORTED_MODULE_0__.watch,
-      get useToast() {
-        return primevue_usetoast__WEBPACK_IMPORTED_MODULE_1__.useToast;
+      get EventBus() {
+        return _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus;
       },
       get Fieldset() {
         return primevue_fieldset__WEBPACK_IMPORTED_MODULE_12__["default"];
@@ -2949,7 +2945,6 @@ var _hoisted_17 = {
   "class": "d-flex gap-2 ms-auto"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_Toast = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Toast");
   var _component_ProgressBar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ProgressBar");
   var _component_Tag = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Tag");
   var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
@@ -2960,7 +2955,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_TabPanels = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TabPanels");
   var _component_Tabs = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Tabs");
   var _component_Dialog = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Dialog");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Toast), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ══ PATIENT BANNER (disembunyikan saat dipakai sebagai component) ══ "), !$props.embedded ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Card, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ══ PATIENT BANNER (disembunyikan saat dipakai sebagai component) ══ "), !$props.embedded ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Card, {
     key: 0,
     "class": "mb-3"
   }, {
@@ -3263,7 +3258,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Setelah difinalisasi, rekam medis persalinan ini akan "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "dikunci dan tidak dapat diubah lagi"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(". Lanjutkan? ")], -1 /* CACHED */))];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["visible"])])], 64 /* STABLE_FRAGMENT */);
+  }, 8 /* PROPS */, ["visible"])]);
 }
 
 /***/ }),

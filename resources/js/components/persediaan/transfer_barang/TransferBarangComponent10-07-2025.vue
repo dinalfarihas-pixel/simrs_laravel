@@ -322,6 +322,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../../bus';
     import Loading from 'vue-loading-overlay';
     import VueNumeric from 'vue-numeric'
     export default {
@@ -380,7 +381,7 @@
                 console.log(this.form.startdate);
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,
@@ -552,7 +553,7 @@
                     .finally(() => this.isLoading = false)
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

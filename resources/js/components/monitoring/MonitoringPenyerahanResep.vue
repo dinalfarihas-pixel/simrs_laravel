@@ -317,6 +317,7 @@
 </template>
 
 <script>
+import { EventBus } from '../bus';
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 import axios from 'axios'
@@ -542,7 +543,7 @@ export default {
             }
         },
         open(type, message) {
-            this.$toast.open({
+            EventBus.$emit('show-alert', {
                 message: message,
                 position: 'top-right',
                 type: type,

@@ -143,6 +143,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   props: ['datapasien'],
   data: function data() {
     return {
+      confirmGroup: 'PermintaanOperasiComponent-' + Math.random().toString(36).slice(2, 11),
       isLoading: false,
       isLoadingTable: false,
       fullPage: true,
@@ -247,6 +248,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     konfirmasiBatal: function konfirmasiBatal(data) {
       var _this = this;
       this.$confirm.require({
+        group: this.confirmGroup,
         message: "Batalkan jadwal operasi untuk pasien ".concat(data.nama, "?"),
         header: 'Konfirmasi Pembatalan',
         icon: 'pi pi-exclamation-triangle',
@@ -1099,6 +1101,7 @@ var _hoisted_66 = {
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_loading = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("loading");
+  var _component_ConfirmDialog = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ConfirmDialog");
   var _component_InputText = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputText");
   var _component_Select = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Select");
   var _component_Calendar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Calendar");
@@ -1114,7 +1117,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.isLoading = $event;
     }),
     "is-full-page": $data.fullPage
-  }, null, 8 /* PROPS */, ["active", "is-full-page"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" FORM PERMINTAAN OPERASI "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_5, [_cache[18] || (_cache[18] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  }, null, 8 /* PROPS */, ["active", "is-full-page"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ConfirmDialog, {
+    group: $data.confirmGroup
+  }, null, 8 /* PROPS */, ["group"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" FORM PERMINTAAN OPERASI "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_5, [_cache[18] || (_cache[18] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     "class": "fas fa-procedures mr-2"
   }, null, -1 /* CACHED */)), _cache[19] || (_cache[19] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Form Permintaan Operasi ", -1 /* CACHED */)), $data.editMode ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_6, "Mode Edit")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Data Pasien "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_cache[20] || (_cache[20] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("No. Rekam Medis "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "text-danger"
@@ -2028,7 +2033,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.w-100[data-v-779b2c34] { width: 100%;\n}\r\n\r\n/* Status Badge */\n.status-badge[data-v-779b2c34] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  padding: 3px 10px;\r\n  border-radius: 12px;\r\n  font-size: 12px;\r\n  font-weight: 600;\n}\n.status-scheduled[data-v-779b2c34] { background: #fff3cd; color: #856404;\n}\n.status-done[data-v-779b2c34]      { background: #d1e7dd; color: #0a5c36;\n}\n.status-cancel[data-v-779b2c34]    { background: #f8d7da; color: #842029;\n}\r\n\r\n/* JK Badge */\n.badge-jk-l[data-v-779b2c34] {\r\n  display: inline-block;\r\n  padding: 2px 8px;\r\n  background: #cfe2ff;\r\n  color: #084298;\r\n  border-radius: 10px;\r\n  font-size: 12px;\r\n  font-weight: 700;\n}\n.badge-jk-p[data-v-779b2c34] {\r\n  display: inline-block;\r\n  padding: 2px 8px;\r\n  background: #f8d7da;\r\n  color: #842029;\r\n  border-radius: 10px;\r\n  font-size: 12px;\r\n  font-weight: 700;\n}\r\n\r\n/* Poli Badge */\n.badge-poli[data-v-779b2c34] {\r\n  font-size: 11px;\r\n  padding: 2px 8px;\r\n  border-radius: 10px;\n}\r\n\r\n/* Detail Dialog Grid */\n.detail-grid[data-v-779b2c34] { display: flex; flex-direction: column; gap: 10px;\n}\n.detail-row[data-v-779b2c34]  { display: flex; align-items: flex-start; gap: 12px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px;\n}\n.detail-label[data-v-779b2c34] {\r\n  min-width: 140px;\r\n  font-weight: 600;\r\n  color: #6c757d;\r\n  font-size: 13px;\n}\n.detail-value[data-v-779b2c34] { font-size: 13px; color: #212529;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w-100[data-v-779b2c34] { width: 100%;\n}\n\n/* Status Badge */\n.status-badge[data-v-779b2c34] {\n  display: inline-flex;\n  align-items: center;\n  padding: 3px 10px;\n  border-radius: 12px;\n  font-size: 12px;\n  font-weight: 600;\n}\n.status-scheduled[data-v-779b2c34] { background: #fff3cd; color: #856404;\n}\n.status-done[data-v-779b2c34]      { background: #d1e7dd; color: #0a5c36;\n}\n.status-cancel[data-v-779b2c34]    { background: #f8d7da; color: #842029;\n}\n\n/* JK Badge */\n.badge-jk-l[data-v-779b2c34] {\n  display: inline-block;\n  padding: 2px 8px;\n  background: #cfe2ff;\n  color: #084298;\n  border-radius: 10px;\n  font-size: 12px;\n  font-weight: 700;\n}\n.badge-jk-p[data-v-779b2c34] {\n  display: inline-block;\n  padding: 2px 8px;\n  background: #f8d7da;\n  color: #842029;\n  border-radius: 10px;\n  font-size: 12px;\n  font-weight: 700;\n}\n\n/* Poli Badge */\n.badge-poli[data-v-779b2c34] {\n  font-size: 11px;\n  padding: 2px 8px;\n  border-radius: 10px;\n}\n\n/* Detail Dialog Grid */\n.detail-grid[data-v-779b2c34] { display: flex; flex-direction: column; gap: 10px;\n}\n.detail-row[data-v-779b2c34]  { display: flex; align-items: flex-start; gap: 12px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px;\n}\n.detail-label[data-v-779b2c34] {\n  min-width: 140px;\n  font-weight: 600;\n  color: #6c757d;\n  font-size: 13px;\n}\n.detail-value[data-v-779b2c34] { font-size: 13px; color: #212529;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

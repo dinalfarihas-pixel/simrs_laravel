@@ -1,6 +1,4 @@
-<template>
-    <Toast />
-    <div class="content">
+<template>    <div class="content">
 
         <!-- ══ PATIENT BANNER (disembunyikan saat dipakai sebagai component) ══ -->
         <Card v-if="!embedded" class="mb-3">
@@ -234,7 +232,7 @@
 
 <script setup>
 import { ref, reactive, computed, onMounted } from 'vue'
-import { useToast } from 'primevue/usetoast'
+import { EventBus } from '../bus'
 import TabRiwayatObstetri    from './TabRiwayatObstetri.vue'
 import TabProsesPersalinan   from './TabProsesPersalinan.vue'
 import TabDataBayi           from './TabDataBayi.vue'
@@ -242,7 +240,6 @@ import TabKondisiIbu         from './TabKondisiIbu.vue'
 import TabDiagnosaVerifikasi from './TabDiagnosaVerifikasi.vue'
 import PartografComponent    from './partografComponent.vue'
 
-const toast = useToast()
 
 const props = defineProps({
     noregister: { type: String, required: true },
@@ -479,7 +476,7 @@ function showError(res) {
         console.error('[Persalinan] DB Error', { errno, debug, last_query: query, full: res.data })
     }
     const detail = debug ? `${msg} | errno ${errno}: ${debug}` : msg
-    toast.add({ severity: 'error', summary: 'Gagal Menyimpan', detail, life: 6000 })
+    EventBus.$emit('show-alert', { type: 'error', title: 'Gagal Menyimpan', message: detail, duration: 6000 })
 }
 
 // ── Actions ───────────────────────────────────────────────────────────────────
@@ -488,13 +485,13 @@ async function onSaveDraft() {
     try {
         const res = await axios.post('/persalinan/save', buildPayload())
         if (res.data?.code === 200) {
-            toast.add({ severity: 'success', summary: 'Tersimpan', detail: 'Draft berhasil disimpan', life: 3000 })
+            EventBus.$emit('show-alert', { type: 'success', title: 'Tersimpan', message: 'Draft berhasil disimpan', duration: 3000 })
         } else {
             showError(res)
         }
     } catch (e) {
         console.error('[Persalinan] onSaveDraft:', e)
-        toast.add({ severity: 'error', summary: 'Error Koneksi', detail: e.message, life: 4000 })
+        EventBus.$emit('show-alert', { type: 'error', title: 'Error Koneksi', message: e.message, duration: 4000 })
     } finally {
         isSaving.value = false
     }
@@ -511,13 +508,13 @@ async function doFinalize() {
         if (res.data?.code === 200) {
             form.is_final = true
             showFinalizeDialog.value = false
-            toast.add({ severity: 'success', summary: 'Difinalisasi', detail: 'Rekam medis dikunci', life: 3000 })
+            EventBus.$emit('show-alert', { type: 'success', title: 'Difinalisasi', message: 'Rekam medis dikunci', duration: 3000 })
         } else {
             showError(res)
         }
     } catch (e) {
         console.error('[Persalinan] doFinalize:', e)
-        toast.add({ severity: 'error', summary: 'Error Koneksi', detail: e.message, life: 4000 })
+        EventBus.$emit('show-alert', { type: 'error', title: 'Error Koneksi', message: e.message, duration: 4000 })
     } finally {
         isSaving.value = false
     }

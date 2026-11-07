@@ -26,7 +26,7 @@
                         label="Tambahkan barang ke lokasi saya" class="p-button-success p-button-link"></Button />
                 </div>
             </div>
-            <ConfirmDialog></ConfirmDialog>
+            <ConfirmDialog :group="confirmGroup"></ConfirmDialog>
 
             <span v-if="show_detil==false">
                 <div class="card">
@@ -524,6 +524,7 @@
     </section>
 </template>
 <script>
+    import { EventBus } from './bus';
     import Button from 'primevue/button';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
@@ -578,6 +579,7 @@
         },
         data() {
             return {
+                confirmGroup: 'PersediaanComponent-' + Math.random().toString(36).slice(2, 11),
                 json_fields: {
                     'CAPTION': 'CAPTION',
                     'BARCODE': 'BARCODE',
@@ -829,6 +831,7 @@
                     msg ='Non Aktifkan ?';
                 }
                 this.$confirm.require({
+                    group: this.confirmGroup,
                     message: msg,
                     header: 'Confirmation',
                     icon: 'pi pi-exclamation-triangle',
@@ -1016,7 +1019,7 @@
                 this.getdata_master(6, 0)
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

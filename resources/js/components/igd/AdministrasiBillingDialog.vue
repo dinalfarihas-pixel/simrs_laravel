@@ -1,7 +1,7 @@
 <template>
     <Dialog :visible="visible" @update:visible="$emit('update:visible', $event)" header="Administrasi / Billing Pasien"
         :modal="true" :style="{ width: '70vw' }" :breakpoints="{ '991px': '95vw' }" @show="muat">
-        <ConfirmDialog group="adm" :style="{ width: '26rem', maxWidth: '94vw' }" />
+        <ConfirmDialog :group="confirmGroup" :style="{ width: '26rem', maxWidth: '94vw' }" />
 
         <div v-if="pasien" class="adm-info">
             <div><span class="adm-lbl">Pasien</span><strong>{{ pasien.NAMAPASIEN }}</strong></div>
@@ -135,6 +135,7 @@
         emits: ['update:visible'],
         data() {
             return {
+                confirmGroup: 'AdministrasiBillingDialog-' + Math.random().toString(36).slice(2, 11),
                 billing: null,
                 loading: false,
                 errorMsg: '',
@@ -267,7 +268,7 @@
             },
             konfirmasiHapus(item) {
                 this.$confirm.require({
-                    group: 'adm',
+                    group: this.confirmGroup,
                     header: 'Hapus Item Tagihan',
                     message: `Hapus "${item.ITEM}" (${this.rupiah(item.TOTALAMOUNT)}) dari tagihan pasien?`,
                     icon: 'pi pi-exclamation-triangle',
@@ -309,7 +310,7 @@
                 const sudahAda = this.jumlahSudahAda(this.jasaDipilih.NAMA);
                 if (sudahAda > 0) {
                     this.$confirm.require({
-                        group: 'adm',
+                        group: this.confirmGroup,
                         header: 'Jasa Sudah Ada',
                         message: `"${this.jasaDipilih.NAMA}" sudah tercatat ${sudahAda}x pada tagihan ini. Tetap tambahkan lagi?`,
                         icon: 'pi pi-question-circle',

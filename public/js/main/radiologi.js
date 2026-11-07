@@ -281,16 +281,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/index.js");
-/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var primevue_selectbutton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! primevue/selectbutton */ "./node_modules/primevue/selectbutton/index.mjs");
-/* harmony import */ var primevue_image__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primevue/image */ "./node_modules/primevue/image/index.mjs");
-/* harmony import */ var primevue_textarea__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primevue/textarea */ "./node_modules/primevue/textarea/index.mjs");
-/* harmony import */ var primevue_editor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primevue/editor */ "./node_modules/primevue/editor/index.mjs");
-/* harmony import */ var primevue_tag__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primevue/tag */ "./node_modules/primevue/tag/index.mjs");
-/* harmony import */ var primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primevue/confirmdialog */ "./node_modules/primevue/confirmdialog/index.mjs");
-/* harmony import */ var qrcode_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! qrcode.vue */ "./node_modules/qrcode.vue/dist/qrcode.vue.esm.js");
-/* harmony import */ var primevue_progressbar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primevue/progressbar */ "./node_modules/primevue/progressbar/index.mjs");
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../bus */ "./resources/js/components/bus.js");
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/index.js");
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var primevue_selectbutton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primevue/selectbutton */ "./node_modules/primevue/selectbutton/index.mjs");
+/* harmony import */ var primevue_image__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primevue/image */ "./node_modules/primevue/image/index.mjs");
+/* harmony import */ var primevue_textarea__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primevue/textarea */ "./node_modules/primevue/textarea/index.mjs");
+/* harmony import */ var primevue_editor__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primevue/editor */ "./node_modules/primevue/editor/index.mjs");
+/* harmony import */ var primevue_tag__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primevue/tag */ "./node_modules/primevue/tag/index.mjs");
+/* harmony import */ var primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primevue/confirmdialog */ "./node_modules/primevue/confirmdialog/index.mjs");
+/* harmony import */ var qrcode_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qrcode.vue */ "./node_modules/qrcode.vue/dist/qrcode.vue.esm.js");
+/* harmony import */ var primevue_progressbar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! primevue/progressbar */ "./node_modules/primevue/progressbar/index.mjs");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -310,20 +311,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    Loading: (vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default()),
-    SelectButton: primevue_selectbutton__WEBPACK_IMPORTED_MODULE_2__["default"],
-    ImagePreview: primevue_image__WEBPACK_IMPORTED_MODULE_3__["default"],
-    Textarea: primevue_textarea__WEBPACK_IMPORTED_MODULE_4__["default"],
-    Tag: primevue_tag__WEBPACK_IMPORTED_MODULE_5__["default"],
-    Editor: primevue_editor__WEBPACK_IMPORTED_MODULE_6__["default"],
-    QrcodeVue: qrcode_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    ConfirmDialog: primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_7__["default"],
-    ProgressBar: primevue_progressbar__WEBPACK_IMPORTED_MODULE_8__["default"]
+    Loading: (vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default()),
+    SelectButton: primevue_selectbutton__WEBPACK_IMPORTED_MODULE_3__["default"],
+    ImagePreview: primevue_image__WEBPACK_IMPORTED_MODULE_4__["default"],
+    Textarea: primevue_textarea__WEBPACK_IMPORTED_MODULE_5__["default"],
+    Tag: primevue_tag__WEBPACK_IMPORTED_MODULE_6__["default"],
+    Editor: primevue_editor__WEBPACK_IMPORTED_MODULE_7__["default"],
+    QrcodeVue: qrcode_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    ConfirmDialog: primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_8__["default"],
+    ProgressBar: primevue_progressbar__WEBPACK_IMPORTED_MODULE_9__["default"]
   },
   data: function data() {
     return {
+      confirmGroup: 'ListorderRadiologiComponent-' + Math.random().toString(36).slice(2, 11),
       form: {
         startdate: new Date(),
         enddate: new Date(),
@@ -399,7 +402,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return String(text).replace(/\n/g, '<br>');
     },
     showToast: function showToast(type, message) {
-      this.$toast.open({
+      _bus__WEBPACK_IMPORTED_MODULE_0__.EventBus.$emit('show-alert', {
         message: message,
         position: 'top-right',
         type: type,
@@ -438,6 +441,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     confirmResetOtorisasi: function confirmResetOtorisasi(data) {
       var _this = this;
       this.$confirm.require({
+        group: this.confirmGroup,
         message: 'Otorisasi akan direset dan harus dilakukan ulang. Lanjutkan?',
         header: 'Konfirmasi Reset Otorisasi',
         icon: 'pi pi-exclamation-triangle',
@@ -496,6 +500,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     confirmHapusLampiran: function confirmHapusLampiran(att) {
       var _this3 = this;
       this.$confirm.require({
+        group: this.confirmGroup,
         message: 'Anda ingin menghapus file lampiran ini?',
         header: 'Konfirmasi hapus',
         icon: 'pi pi-info-circle',
@@ -1463,7 +1468,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.isLoading = $event;
     }),
     "is-full-page": $data.fullPage
-  }, null, 8 /* PROPS */, ["active", "is-full-page"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ConfirmDialog), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ===== DIALOG: Detail & Hasil Baca ===== "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
+  }, null, 8 /* PROPS */, ["active", "is-full-page"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ConfirmDialog, {
+    group: $data.confirmGroup
+  }, null, 8 /* PROPS */, ["group"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ===== DIALOG: Detail & Hasil Baca ===== "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
     header: "Permintaan Radiologi",
     visible: $data.showdialog,
     "onUpdate:visible": _cache[4] || (_cache[4] = function ($event) {

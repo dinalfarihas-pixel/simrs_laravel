@@ -118,6 +118,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay';
     import Galleria from 'primevue/galleria';
     import ProgressBar from 'primevue/progressbar';
@@ -196,7 +197,7 @@
                     if (res.code == 200) {
                         this.list_lampiran.splice(index, 1);
                     } else {
-                        alert('Gagal menghapus lampiran');
+                        EventBus.$emit('show-alert', { type: 'error', title: '', message: 'Gagal menghapus lampiran' });
                     }
                 } catch (e) {
                     console.error(e);

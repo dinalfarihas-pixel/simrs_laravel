@@ -2,7 +2,7 @@
     <section class="content">
         <loading v-model:active="isLoading" :is-full-page="fullPage"></loading>
 
-        <ConfirmDialog group="caseManagerNotes" />
+        <ConfirmDialog :group="confirmGroup" />
 
         <!-- Dialog Otorisasi / TTE per baris -->
         <Dialog header="TTE Kegiatan Case Manager" v-model:visible="showOtorisasi"
@@ -136,6 +136,7 @@
         props: ['datapasien'],
         data() {
             return {
+                confirmGroup: 'CaseManagerComponent-' + Math.random().toString(36).slice(2, 11),
                 isLoading: false,
                 fullPage: false,
                 isLoadingForm: false,
@@ -218,7 +219,7 @@
             },
             konfirmasi_hapus(row) {
                 this.$confirm.require({
-                    group: 'caseManagerNotes',
+                    group: this.confirmGroup,
                     message: `Hapus kegiatan tanggal ${this.formatDisplay(row.tanggal_jam)}? Tindakan ini tidak dapat dibatalkan.`,
                     header: 'Konfirmasi Hapus',
                     icon: 'pi pi-exclamation-triangle',

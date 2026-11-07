@@ -1,7 +1,7 @@
 ﻿<template>
     <section class="content">
         <loading v-model:active="isLoading" :is-full-page="fullPage"></loading>
-        <ConfirmDialog group="pemberian_obat" />
+        <ConfirmDialog :group="confirmGroup" />
 
         <!-- ===== TABEL PEMBERIAN OBAT ===== -->
         <div class="card card-outline card-primary shadow-sm">
@@ -39,7 +39,8 @@
                     <Column field="nama_obat" :sortable="true" header="Nama Obat" :styles="{'min-width':'140px'}"></Column>
                     <Column field="qty"       :sortable="true" header="Jumlah">
                         <template #body="slotProps">
-                            <span v-if="slotProps.data.barcode">{{ $numeral(slotProps.data.qty, '0,0.[00]') }} {{ slotProps.data.satuan }}</span>
+                            <span v-if="slotProps.data.barcode && Number(slotProps.data.qty) > 0">{{ $numeral(slotProps.data.qty, '0,0.[00]') }} {{ slotProps.data.satuan }}</span>
+                            <span v-else-if="slotProps.data.barcode" class="text-info" v-tooltip.top="'Obat multi-dosis, stok dipotong saat kemasan habis pakai'">Dari kemasan</span>
                             <span v-else class="text-muted">-</span>
                         </template>
                     </Column>
@@ -132,19 +133,34 @@
                                 </td>
                             </tr>
                             <tr v-for="item in stok_obat" :key="item.barcode">
-                                <td class="font-weight-bold">{{ item.nama_obat }}</td>
+                                <td class="font-weight-bold">
+                                    {{ item.nama_obat }}
+                                    <span v-if="item.multi_dosis" class="badge badge-info ml-1"
+                                        v-tooltip.top="'Satu kemasan untuk banyak pemberian. Pemberian tidak memotong stok; tandai Habis pakai saat kemasan habis.'">Multi-dosis</span>
+                                </td>
                                 <td class="text-center">{{ item.satuan }}</td>
                                 <td class="text-center">{{ $numeral(item.diterima, '0,0.[00]') }}</td>
-                                <td class="text-center">{{ $numeral(item.diberikan, '0,0.[00]') }}</td>
+                                <td class="text-center">
+                                    <template v-if="item.multi_dosis">
+                                        <div>{{ item.jumlah_pemberian }}&times; pemberian</div>
+                                        <div v-if="item.habis_pakai > 0" class="text-xs text-muted">
+                                            habis pakai {{ $numeral(item.habis_pakai, '0,0.[00]') }} {{ item.satuan }}
+                                        </div>
+                                    </template>
+                                    <template v-else>{{ $numeral(item.diberikan, '0,0.[00]') }}</template>
+                                </td>
                                 <td class="text-center">{{ $numeral(item.diretur, '0,0.[00]') }}</td>
                                 <td class="text-center font-weight-bold" :class="item.sisa > 0 ? 'text-primary' : 'text-muted'">
                                     {{ $numeral(item.sisa, '0,0.[00]') }}
                                 </td>
                                 <td class="text-center">
-                                    <span v-if="item.sisa > 0" class="badge badge-warning">Tersedia / dapat diretur</span>
+                                    <span v-if="item.sisa > 0 && item.multi_dosis && item.jumlah_pemberian > 0" class="badge badge-info">Sedang dipakai</span>
+                                    <span v-else-if="item.sisa > 0" class="badge badge-warning">Tersedia / dapat diretur</span>
                                     <span v-else class="badge badge-success">Habis</span>
                                 </td>
                                 <td class="text-center">
+                                    <Button v-if="item.multi_dosis" icon="pi pi-check-square" class="p-button-text p-button-success p-button-sm"
+                                        v-tooltip.top="'Habis pakai (kemasan selesai dipakai)'" :disabled="item.sisa <= 0" @click="call_habis_pakai(item)" />
                                     <Button icon="pi pi-replay" class="p-button-text p-button-warning p-button-sm" v-tooltip.top="'Retur ke farmasi'"
                                         :disabled="item.sisa <= 0" @click="call_retur(item)" />
                                     <Button icon="pi pi-book" class="p-button-text p-button-info p-button-sm" v-tooltip.top="'Kartu stok'"
@@ -333,6 +349,28 @@
             </template>
         </Dialog>
 
+        <!-- ===== DIALOG: HABIS PAKAI OBAT MULTI-DOSIS ===== -->
+        <Dialog header="Habis Pakai Obat Multi-dosis" v-model:visible="showHabisPakai" :style="{ width: '35vw' }"
+            :breakpoints="{ '768px': '100vw' }" :modal="true">
+            <div v-if="habis_pakai.item" class="p-2">
+                <div class="mb-2"><b>{{ habis_pakai.item.nama_obat }}</b></div>
+                <div class="mb-3 text-muted">
+                    Sisa stok: {{ $numeral(habis_pakai.item.sisa, '0,0.[00]') }} {{ habis_pakai.item.satuan }},
+                    sudah {{ habis_pakai.item.jumlah_pemberian }}&times; pemberian.
+                    Kemasan yang ditandai habis pakai keluar dari stok pasien.
+                </div>
+                <label class="form-label-custom">Jumlah Kemasan Habis <span class="text-danger">*</span></label>
+                <InputNumber class="w-100 mb-3" inputClass="w-100" v-model="habis_pakai.qty" :min="0" :max="habis_pakai.item.sisa"
+                    :minFractionDigits="0" :maxFractionDigits="2" :suffix="habis_pakai.item.satuan ? ' ' + habis_pakai.item.satuan : ''" />
+                <label class="form-label-custom">Keterangan</label>
+                <InputText class="w-100" v-model="habis_pakai.keterangan" placeholder="Contoh: botol habis / kedaluwarsa setelah dibuka" />
+            </div>
+            <template #footer>
+                <Button label="Batal" icon="pi pi-times" class="p-button-text p-button-secondary" @click="showHabisPakai=false" />
+                <Button label="Simpan" icon="pi pi-save" class="p-button-success" :loading="isLoading" @click="simpan_habis_pakai()" />
+            </template>
+        </Dialog>
+
         <!-- ===== DIALOG: KARTU STOK OBAT PASIEN ===== -->
         <Dialog :header="'Kartu Stok: ' + kartu_label" v-model:visible="showKartu" :style="{ width: '70vw' }"
             :breakpoints="{ '768px': '100vw' }" :modal="true">
@@ -349,10 +387,11 @@
                         <th>Ruangan</th>
                         <th>User</th>
                         <th>Keterangan</th>
+                        <th class="text-center" style="width:60px">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="row in kartu_rows" :key="row.ID">
+                    <tr v-for="(row, i) in kartu_rows" :key="row.ID">
                         <td>{{ row.TANGGAL_TRANS }}</td>
                         <td>{{ row.CAPTION }}</td>
                         <td>{{ row.SUB_BARCODE }}</td>
@@ -363,6 +402,11 @@
                         <td>{{ row.RUANGAN }}</td>
                         <td>{{ row.USER_ID }}</td>
                         <td>{{ row.KETERANGAN }}</td>
+                        <td class="text-center">
+                            <!-- Satu habis pakai bisa beberapa baris (per batch): tombol di baris pertama saja -->
+                            <Button v-if="bisa_batal_habis_pakai(row, i)" icon="pi pi-times" class="p-button-text p-button-danger p-button-sm"
+                                v-tooltip.top="'Batalkan habis pakai'" @click="batal_habis_pakai(row)" />
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -386,7 +430,8 @@
                          <!-- Dosis -->
                     <div class="col-md-6 mb-3">
                         <label class="form-label-custom">Dosis Pemakaian <span class="text-danger">*</span></label>
-                        <InputText class="w-100" placeholder="Contoh: 500 mg" v-model="form.dosis" />
+                        <InputText class="w-100" :placeholder="is_multi_dosis ? 'Takaran per pemberian, contoh: 5 ml / 1 tetes / 1 oles' : 'Contoh: 500 mg'"
+                            v-model="form.dosis" />
                     </div>
                     <!-- Nama Obat -->
                     <div class="col-md-6 mb-3">
@@ -399,17 +444,38 @@
                             placeholder="Pilih atau ketik nama obat"
                             :editable="true"
                             :filter="true"
-                        />
+                        >
+                            <!-- Tandai obat multi-dosis & sisa stok resep di ruangan -->
+                            <template #option="slotProps">
+                                <div class="d-flex align-items-center justify-content-between w-100" style="gap:8px">
+                                    <span>{{ slotProps.option }}</span>
+                                    <span v-if="stok_by_nama[slotProps.option]" class="text-nowrap">
+                                        <span v-if="stok_by_nama[slotProps.option].multi_dosis" class="badge badge-info mr-1">Multi-dosis</span>
+                                        <small class="text-muted">
+                                            sisa {{ $numeral(stok_by_nama[slotProps.option].sisa, '0,0.[00]') }} {{ stok_by_nama[slotProps.option].satuan }}
+                                        </small>
+                                    </span>
+                                </div>
+                            </template>
+                        </Select>
+                        <small v-if="is_multi_dosis" class="d-block mt-1 text-info">
+                            <i class="pi pi-info-circle mr-1"></i>Obat multi-dosis &mdash; sudah {{ selected_stok.jumlah_pemberian }}&times; diberikan dari kemasan ini.
+                        </small>
                     </div>
 
                     <!-- Jumlah diberikan (mengurangi stok resep) -->
                     <div class="col-md-6 mb-3">
                         <label class="form-label-custom">
-                            Jumlah Diberikan <span v-if="form.barcode" class="text-danger">*</span>
+                            Jumlah Diberikan <span v-if="form.barcode && !is_multi_dosis" class="text-danger">*</span>
                         </label>
-                        <InputNumber class="w-100" inputClass="w-100" v-model="form.qty" :min="0"
+                        <InputNumber v-if="!is_multi_dosis" class="w-100" inputClass="w-100" v-model="form.qty" :min="0"
                             :minFractionDigits="0" :maxFractionDigits="2" :disabled="!form.barcode"
                             :suffix="form.satuan ? ' ' + form.satuan : ''" placeholder="0" />
+                        <div v-else class="multi-dosis-info">
+                            <i class="pi pi-info-circle mr-1"></i>
+                            Obat multi-dosis: diberikan dari kemasan yang sedang dipakai, stok tidak dipotong.
+                            Tulis takaran di <b>Dosis Pemakaian</b> (mis. 5 ml). Tandai <b>Habis pakai</b> di menu Stok Obat saat kemasan habis.
+                        </div>
                         <small v-if="selected_stok" :class="selected_stok.sisa > 0 ? 'text-muted' : 'text-danger'">
                             Sisa stok: {{ $numeral(selected_stok.sisa, '0,0.[00]') }} {{ selected_stok.satuan }}
                             (diterima {{ $numeral(selected_stok.diterima, '0,0.[00]') }})
@@ -466,6 +532,7 @@
         props: ['datapasien'],
         data() {
             return {
+                confirmGroup: 'FormPemberianObatComponent-' + Math.random().toString(36).slice(2, 11),
                 fact: [],
                 form: {
                     startdate: '',
@@ -525,6 +592,8 @@
                 stok_pasien: { stok: [], belum_diterima: [], kartu: [] },
                 showRetur: false,
                 retur: { item: null, qty: null, keterangan: '' },
+                showHabisPakai: false,
+                habis_pakai: { item: null, qty: null, keterangan: '' },
                 showKartu: false,
                 kartu_barcode: '',
                 kartu_label: ''
@@ -552,9 +621,26 @@
                     satuan: x.SATUAN,
                     diterima: parseFloat(x.DITERIMA) || 0,
                     diberikan: parseFloat(x.DIBERIKAN) || 0,
+                    habis_pakai: parseFloat(x.HABIS_PAKAI) || 0,
                     diretur: parseFloat(x.DIRETUR) || 0,
-                    sisa: parseFloat(x.SALDO) || 0
+                    sisa: parseFloat(x.SALDO) || 0,
+                    // Multi-dosis (sirup, salep, tetes, ...): pemberian tidak memotong stok
+                    multi_dosis: x.MULTI_DOSIS == 1,
+                    jumlah_pemberian: parseInt(x.JUMLAH_PEMBERIAN) || 0
                 }));
+            },
+            stok_by_nama() {
+                const map = {};
+                this.stok_obat.forEach(x => { map[x.nama_obat] = x; });
+                return map;
+            },
+            is_multi_dosis() {
+                return !!(this.selected_stok && this.selected_stok.multi_dosis);
+            },
+            // REFF habis pakai yang sudah dibatalkan
+            reff_batal_habis_pakai() {
+                return new Set((this.stok_pasien.kartu || [])
+                    .filter(x => x.CAPTION === 'BATAL HABIS PAKAI').map(x => x.REFF_NUMBER));
             },
             belum_diterima() {
                 return this.stok_pasien.belum_diterima || [];
@@ -633,6 +719,66 @@
                     .finally(() => this.isLoading = false);
                 this.get_stok_obat_pasien();
             },
+            call_habis_pakai(item) {
+                this.habis_pakai = { item: item, qty: Math.min(1, item.sisa), keterangan: '' };
+                this.showHabisPakai = true;
+            },
+            async simpan_habis_pakai() {
+                const item = this.habis_pakai.item;
+                const qty = parseFloat(this.habis_pakai.qty) || 0;
+                if (qty <= 0 || qty > item.sisa) {
+                    this.open('warning', `Jumlah kemasan habis harus antara 0 dan sisa stok (${item.sisa})`);
+                    return;
+                }
+                this.isLoading = true;
+                await axios.post('/habis_pakai_obat_pasien', {
+                    noregister: this.datapasien.NOPENDAFTARAN,
+                    nama_ruangan: this.datapasien.POLI,
+                    barcode: item.barcode,
+                    nama_obat: item.nama_obat,
+                    satuan: item.satuan,
+                    qty: qty,
+                    keterangan: this.habis_pakai.keterangan
+                })
+                    .then(response => {
+                        const meta = response.data.metadata || {};
+                        this.open(meta.code == 200 ? 'success' : 'warning', meta.message);
+                        if (meta.code == 200) this.showHabisPakai = false;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.open('error', 'Gagal menyimpan habis pakai');
+                    })
+                    .finally(() => this.isLoading = false);
+                this.get_stok_obat_pasien();
+            },
+            bisa_batal_habis_pakai(row, i) {
+                if (row.CAPTION !== 'HABIS PAKAI' || this.reff_batal_habis_pakai.has(row.REFF_NUMBER)) return false;
+                const prev = this.kartu_rows[i - 1];
+                return !(prev && prev.CAPTION === 'HABIS PAKAI' && prev.REFF_NUMBER === row.REFF_NUMBER);
+            },
+            batal_habis_pakai(row) {
+                this.$confirm.require({
+                    group: this.confirmGroup,
+                    message: `Batalkan habis pakai ${row.NAMABARANG} (${row.TANGGAL_TRANS})? Kemasan kembali ke stok pasien di ruangan.`,
+                    header: 'Batalkan Habis Pakai',
+                    icon: 'pi pi-exclamation-triangle',
+                    accept: async () => {
+                        this.isLoading = true;
+                        await axios.post('/batal_habis_pakai_obat_pasien', { reff_number: row.REFF_NUMBER })
+                            .then(response => {
+                                const meta = response.data.metadata || {};
+                                this.open(meta.code == 200 ? 'success' : 'warning', meta.message);
+                            })
+                            .catch(error => {
+                                console.log(error);
+                                this.open('error', 'Gagal membatalkan habis pakai');
+                            })
+                            .finally(() => this.isLoading = false);
+                        this.get_stok_obat_pasien();
+                    }
+                });
+            },
             status_retur_label(r) {
                 if (r.STATUS === 'MENUNGGU') return 'Menunggu diproses farmasi';
                 if (r.STATUS === 'DITERIMA') return 'Diterima farmasi';
@@ -650,7 +796,7 @@
             },
             batal_retur(r) {
                 this.$confirm.require({
-                    group: 'pemberian_obat',
+                    group: this.confirmGroup,
                     message: `Batalkan retur ${r.NO_RETUR} (${r.NAMABARANG})? Obat kembali ke stok pasien di ruangan.`,
                     header: 'Batalkan Retur',
                     icon: 'pi pi-exclamation-triangle',
@@ -730,11 +876,12 @@
             hapus_line(id)
             {
                 const item = (this.fact || []).find(x => x.id === id) || {};
-                const jumlah = item.barcode ? ` (${this.$numeral(item.qty, '0,0.[00]')} ${item.satuan || ''})` : '';
+                const potong_stok = item.barcode && Number(item.qty) > 0;
+                const jumlah = potong_stok ? ` (${this.$numeral(item.qty, '0,0.[00]')} ${item.satuan || ''})` : '';
                 this.$confirm.require({
-                    group: 'pemberian_obat',
+                    group: this.confirmGroup,
                     message: `Batalkan pemberian ${item.nama_obat || 'obat'}${jumlah} pada ${item.waktu || '-'}?` +
-                        (item.barcode ? ' Jumlah obat kembali ke stok pasien di ruangan.' : ''),
+                        (potong_stok ? ' Jumlah obat kembali ke stok pasien di ruangan.' : ''),
                     header: 'Batalkan Pemberian Obat',
                     icon: 'pi pi-exclamation-triangle',
                     acceptLabel: 'Ya',
@@ -808,7 +955,14 @@
             },
             async simpan_pemberian_obat() {
                 this.sync_stok_obat();
-                if (this.form.barcode) {
+                if (this.is_multi_dosis) {
+                    // Multi-dosis: stok tidak dipotong per pemberian, cukup pastikan kemasan masih ada
+                    this.form.qty = 0;
+                    if (this.selected_stok.sisa <= 0) {
+                        this.open('warning', `Stok ${this.form.nama_obat} di ruangan sudah habis / ditandai habis pakai`);
+                        return;
+                    }
+                } else if (this.form.barcode) {
                     const qty = parseFloat(this.form.qty) || 0;
                     if (qty <= 0) {
                         this.open('warning', 'Jumlah obat yang diberikan wajib diisi');
@@ -858,7 +1012,7 @@
                     this.form.nama_obat= data_filter[0].nama_obat;
                     this.form.frekwensi= data_filter[0].frekwensi;
                     this.sync_stok_obat();
-                    this.form.qty = this.form.barcode ? (parseFloat(data_filter[0].qty) || null) : null;
+                    this.form.qty = this.form.barcode && !this.is_multi_dosis ? (parseFloat(data_filter[0].qty) || null) : null;
                 }
 
             },
@@ -924,6 +1078,13 @@
 }
 .terima-box {
     background: #fff8e1;
+}
+.multi-dosis-info {
+    background: #e0f2fe;
+    border: 1px solid #bae6fd;
+    border-radius: 6px;
+    padding: .45rem .7rem;
+    font-size: .85rem;
 }
 .crosstab-cell {
     vertical-align: middle;

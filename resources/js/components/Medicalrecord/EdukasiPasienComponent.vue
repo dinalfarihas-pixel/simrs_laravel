@@ -1,6 +1,6 @@
 <template>
     <section>
-        <ConfirmDialog group="edukasiPasien" />
+        <ConfirmDialog :group="confirmGroup" />
 
         <!-- ===== DIALOG: TTE PPA ===== -->
         <Dialog header="Tanda Tangan Elektronik (TTE) PPA" v-model:visible="showOtorisasi"
@@ -299,6 +299,7 @@
         },
         data() {
             return {
+                confirmGroup: 'EdukasiPasienComponent-' + Math.random().toString(36).slice(2, 11),
                 noregister: '',
                 dataPasien: {},
                 isLoadingPasien: false,
@@ -622,7 +623,7 @@
             // ===== HAPUS SESI =====
             konfirmasiHapusSesi(row) {
                 this.$confirm.require({
-                    group: 'edukasiPasien',
+                    group: this.confirmGroup,
                     message: `Hapus sesi edukasi tanggal ${this.formatWaktu(row.waktu_edukasi)}? Tindakan ini tidak dapat dibatalkan.`,
                     header: 'Konfirmasi Hapus',
                     icon: 'pi pi-exclamation-triangle',

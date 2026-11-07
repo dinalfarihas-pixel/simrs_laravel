@@ -12,7 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var primevue_usetoast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primevue/usetoast */ "./node_modules/primevue/usetoast/index.mjs");
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../bus */ "./resources/js/components/bus.js");
 /* harmony import */ var _composables_useFormPemantauanICU__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./composables/useFormPemantauanICU */ "./resources/js/components/icu-monitoring/composables/useFormPemantauanICU.js");
 /* harmony import */ var _TabRingkasanVitalSign_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TabRingkasanVitalSign.vue */ "./resources/js/components/icu-monitoring/TabRingkasanVitalSign.vue");
 /* harmony import */ var _TabVentilatorAirway_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TabVentilatorAirway.vue */ "./resources/js/components/icu-monitoring/TabVentilatorAirway.vue");
@@ -49,7 +49,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   setup: function setup(__props, _ref) {
     var __expose = _ref.expose;
     __expose();
-    var toast = (0,primevue_usetoast__WEBPACK_IMPORTED_MODULE_1__.useToast)();
     var props = __props;
 
     // ── Resolve noregister (prop → URL fallback) ──────────────────────────────
@@ -275,19 +274,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               res = _context4.sent;
               result = res.data;
               if ((result === null || result === void 0 ? void 0 : result.code) === 200) {
-                toast.add({
-                  severity: 'success',
-                  summary: 'Berhasil',
-                  detail: result.message || 'Data pemantauan ICU berhasil disimpan',
-                  life: 3000
+                _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus.$emit('show-alert', {
+                  type: 'success',
+                  title: 'Berhasil',
+                  message: result.message || 'Data pemantauan ICU berhasil disimpan',
+                  duration: 3000
                 });
                 fetchTanggalPemantauan();
               } else {
-                toast.add({
-                  severity: 'warn',
-                  summary: 'Gagal',
-                  detail: (result === null || result === void 0 ? void 0 : result.message) || 'Terjadi kesalahan saat menyimpan',
-                  life: 4000
+                _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus.$emit('show-alert', {
+                  type: 'warning',
+                  title: 'Gagal',
+                  message: (result === null || result === void 0 ? void 0 : result.message) || 'Terjadi kesalahan saat menyimpan',
+                  duration: 4000
                 });
               }
               _context4.next = 16;
@@ -296,11 +295,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context4.prev = 12;
               _context4.t0 = _context4["catch"](3);
               console.error('[ICU] onSave:', _context4.t0);
-              toast.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: 'Koneksi ke server gagal',
-                life: 4000
+              _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus.$emit('show-alert', {
+                type: 'error',
+                title: 'Error',
+                message: 'Koneksi ke server gagal',
+                duration: 4000
               });
             case 16:
               _context4.prev = 16;
@@ -320,7 +319,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       fetchTanggalPemantauan();
     });
     var __returned__ = {
-      toast: toast,
       props: props,
       noregister: noregister,
       dataPasien: dataPasien,
@@ -347,8 +345,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       provide: vue__WEBPACK_IMPORTED_MODULE_0__.provide,
       watch: vue__WEBPACK_IMPORTED_MODULE_0__.watch,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
-      get useToast() {
-        return primevue_usetoast__WEBPACK_IMPORTED_MODULE_1__.useToast;
+      get EventBus() {
+        return _bus__WEBPACK_IMPORTED_MODULE_1__.EventBus;
       },
       get useFormPemantauanICU() {
         return _composables_useFormPemantauanICU__WEBPACK_IMPORTED_MODULE_2__.useFormPemantauanICU;
@@ -1491,7 +1489,6 @@ var _hoisted_26 = {
   "class": "d-flex gap-2 mt-2"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_Toast = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Toast");
   var _component_ProgressBar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ProgressBar");
   var _component_Tag = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Tag");
   var _component_DatePicker = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DatePicker");
@@ -1504,7 +1501,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_pemberian_obat = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("pemberian-obat");
   var _component_TabPanels = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TabPanels");
   var _component_Tabs = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Tabs");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Toast), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ═══ KARTU DATA PASIEN ═════════════════════════════════════════════ "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Card, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ═══ KARTU DATA PASIEN ═════════════════════════════════════════════ "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Card, {
     "class": "mb-3"
   }, {
     content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -1780,7 +1777,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       })];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["value"])])], 64 /* STABLE_FRAGMENT */);
+  }, 8 /* PROPS */, ["value"])]);
 }
 
 /***/ }),

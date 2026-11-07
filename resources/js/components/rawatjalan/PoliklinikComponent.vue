@@ -421,6 +421,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay';
     import ProgressBar from 'primevue/progressbar';
     import Sidebar from 'primevue/sidebar';
@@ -554,7 +555,7 @@
             },
 
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

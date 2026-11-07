@@ -93,6 +93,7 @@
  </template>
 
  <script>
+     import { EventBus } from '../bus';
      import Loading from 'vue-loading-overlay';
      export default {
          components: {
@@ -134,7 +135,7 @@
              },
              simpan() {
                 console.log("Data disimpan:", this.form);
-                    alert("Data berhasil disimpan!");
+                    EventBus.$emit('show-alert', { type: 'success', title: '', message: 'Data berhasil disimpan!' });
                 },
                 async simpan_konsul() {
 
@@ -174,7 +175,7 @@
                     };
                 },
                 open(type, message) {
-                 this.$toast.open({
+                 EventBus.$emit('show-alert', {
                      message: message,
                      position: 'top-right',
                      type: type,

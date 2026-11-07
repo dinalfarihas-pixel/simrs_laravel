@@ -1,6 +1,6 @@
 <template>
     <section class="content">
-        <ConfirmDialog></ConfirmDialog>
+        <ConfirmDialog :group="confirmGroup"></ConfirmDialog>
 
         <!-- ===== DRAWER KANAN: MENU AKSI ===== -->
         <Drawer v-model:visible="showMenuAksi" header="Aksi" position="right" :style="{width: '340px', maxWidth: '94vw'}"
@@ -759,6 +759,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay';
     import ProgressBar from 'primevue/progressbar';
     import Sidebar from 'primevue/sidebar';
@@ -797,6 +798,7 @@
         },
         data() {
             return {
+                confirmGroup: 'TriaseIgdComponent-' + Math.random().toString(36).slice(2, 11),
                 showMenuAksi: false,
                 cariMenu: '',
                 rowMenu: null,
@@ -1161,6 +1163,7 @@
             },
             confirm_tidak_merawat(data) {
                 this.$confirm.require({
+                    group: this.confirmGroup,
                     message: 'Konfirmasi bahwa Anda tidak merawat pasien: ' + data.NAMAPASIEN + '?',
                     header: 'Konfirmasi',
                     icon: 'pi pi-info-circle',
@@ -1198,7 +1201,7 @@
                 this.details_pasien = data;
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message,
                     position: 'top-right',
                     type,

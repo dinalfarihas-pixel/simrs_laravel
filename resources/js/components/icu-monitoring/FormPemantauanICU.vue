@@ -1,6 +1,4 @@
-<template>
-    <Toast />
-    <div class="content">
+<template>    <div class="content">
 
         <!-- ═══ KARTU DATA PASIEN ═════════════════════════════════════════════ -->
         <Card class="mb-3">
@@ -211,14 +209,13 @@
 
 <script setup>
 import { ref, computed, provide, watch, onMounted } from 'vue'
-import { useToast } from 'primevue/usetoast'
+import { EventBus } from '../bus'
 import { useFormPemantauanICU, ICU_MONITORING_KEY } from './composables/useFormPemantauanICU'
 import TabRingkasanVitalSign from './TabRingkasanVitalSign.vue'
 import TabVentilatorAirway   from './TabVentilatorAirway.vue'
 import TabBalanceCairan      from './TabBalanceCairan.vue'
 import TabGrafikTren         from './TabGrafikTren.vue'
 
-const toast = useToast()
 
 const props = defineProps({
     noregister: { type: String, default: '' },
@@ -350,14 +347,14 @@ async function onSave() {
         const res = await axios.post('/icu/simpan_pemantauan', payload)
         const result = res.data
         if (result?.code === 200) {
-            toast.add({ severity: 'success', summary: 'Berhasil', detail: result.message || 'Data pemantauan ICU berhasil disimpan', life: 3000 })
+            EventBus.$emit('show-alert', { type: 'success', title: 'Berhasil', message: result.message || 'Data pemantauan ICU berhasil disimpan', duration: 3000 })
             fetchTanggalPemantauan()
         } else {
-            toast.add({ severity: 'warn', summary: 'Gagal', detail: result?.message || 'Terjadi kesalahan saat menyimpan', life: 4000 })
+            EventBus.$emit('show-alert', { type: 'warning', title: 'Gagal', message: result?.message || 'Terjadi kesalahan saat menyimpan', duration: 4000 })
         }
     } catch (e) {
         console.error('[ICU] onSave:', e)
-        toast.add({ severity: 'error', summary: 'Error', detail: 'Koneksi ke server gagal', life: 4000 })
+        EventBus.$emit('show-alert', { type: 'error', title: 'Error', message: 'Koneksi ke server gagal', duration: 4000 })
     } finally {
         isSaving.value = false
     }

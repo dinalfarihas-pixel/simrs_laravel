@@ -21,7 +21,7 @@
             </template>
         </Dialog>
 
-        <ConfirmDialog group="dischargePlanningNotes" />
+        <ConfirmDialog :group="confirmGroup" />
 
         <!-- Dialog Tambah Catatan Discharge Planning -->
         <Dialog header="Tambah Catatan Discharge Planning" v-model:visible="showTambahCatatan"
@@ -312,6 +312,7 @@
         props: ['datapasien'],
         data() {
             return {
+                confirmGroup: 'DischargePlanningComponent-' + Math.random().toString(36).slice(2, 11),
                 isLoading: false,
                 fullPage: false,
                 showOtorisasi: false,
@@ -478,7 +479,7 @@
             },
             konfirmasi_hapus_catatan(row) {
                 this.$confirm.require({
-                    group: 'dischargePlanningNotes',
+                    group: this.confirmGroup,
                     message: `Hapus catatan tanggal ${row.waktu_display}? Tindakan ini tidak dapat dibatalkan.`,
                     header: 'Konfirmasi Hapus',
                     icon: 'pi pi-exclamation-triangle',

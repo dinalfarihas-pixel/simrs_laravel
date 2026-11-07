@@ -4,7 +4,7 @@
             <loading v-model:active="isLoading" :is-full-page="fullPage"></loading>
 
 
-            <ConfirmDialog></ConfirmDialog>
+            <ConfirmDialog :group="confirmGroup"></ConfirmDialog>
             <Dialog header="Header" v-model:visible="form_kco" :containerStyle="{width: '70vw'}" :modal="true">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
@@ -169,7 +169,7 @@
                                         <!-- <strong>{{data.RECEIPT_NO}}</strong> -->
                                     </h5>
                                     <div class="card-tools">
-                                        <Button label="" @click="void_sales(data.RECEIPT_NO)"
+                                        <Button label="" @click="confirmVoidSales(data.RECEIPT_NO)"
                                             class="p-button-text p-button-danger" icon="pi pi-times" />
                                     </div>
                                 </div>
@@ -408,6 +408,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay';
     import Dialog from 'primevue/dialog';
     import InputNumber from 'primevue/inputnumber';
@@ -428,6 +429,7 @@
         props: ['isInput', 'datapasien'],
         data() {
             return {
+                confirmGroup: 'PermintaanRadiologiComponent-' + Math.random().toString(36).slice(2, 11),
                 fact: [],
                 jenisresep: ["R/", "RR/", ''],
                 carapakai_obat: [],
@@ -849,7 +851,7 @@
                     .finally(() => this.isLoading = false)
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,
@@ -881,6 +883,20 @@
                 this.form.catatan='';
 
             },
+            confirmVoidSales(rcpt_no) {
+                this.$confirm.require({
+                    group: this.confirmGroup,
+                    message: `Apakah Anda yakin ingin menghapus permintaan radiologi "${rcpt_no}"?`,
+                    header: 'Konfirmasi Hapus',
+                    icon: 'pi pi-exclamation-triangle',
+                    acceptLabel: 'Ya, Hapus',
+                    rejectLabel: 'Batal',
+                    acceptClass: 'p-button-danger',
+                    accept: () => {
+                        this.void_sales(rcpt_no);
+                    }
+                });
+            },
             async void_sales(rcpt_no) {
                 this.isLoading = true
                 this.form.NOREGISTER = this.datapasien.NOPENDAFTARAN;
@@ -888,11 +904,18 @@
                 await axios.post('/void_sales', this.form)
                     .then(response => {
                         this.isLoading = false
+                        const meta = response.data?.metadata || {};
+                        if (meta.code == 200 || meta.code === undefined) {
+                            this.open("success", meta.message || 'Permintaan radiologi berhasil dihapus');
+                        } else {
+                            this.open("error", meta.message || 'Gagal menghapus permintaan radiologi');
+                        }
                         this.get_riwayat();
                     })
                     .catch(error => {
                         console.log(error)
                         this.isLoading = false
+                        this.open("error", 'Gagal menghapus permintaan radiologi');
                     })
                     .finally(() => this.isLoading = false)
             },

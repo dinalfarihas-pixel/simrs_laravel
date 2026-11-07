@@ -227,6 +227,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay';
     import ProgressBar from 'primevue/progressbar';
     import Chip from 'primevue/chip';
@@ -288,7 +289,7 @@
                 return map[val] || 'Transfer';
             },
             notify(type, message) {
-                this.$toast.open({ message, position: 'top-right', type, duration: 5000, dismissible: true });
+                EventBus.$emit('show-alert', { message, position: 'top-right', type, duration: 5000, dismissible: true });
             },
 
             // ── ACTIONS ──

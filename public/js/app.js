@@ -31156,10 +31156,19 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     _bus__WEBPACK_IMPORTED_MODULE_0__.EventBus.$on('show-alert', function (payload) {
       var id = Date.now();
       var duration = payload.duration || 5000;
-      _this.alerts.push(_objectSpread({
+      // Normalisasi alias tipe (warn/danger/default) ke tipe yang didukung
+      var typeAlias = {
+        warn: 'warning',
+        danger: 'error',
+        "default": 'info'
+      };
+      var type = typeAlias[payload.type] || payload.type || 'info';
+      _this.alerts.push(_objectSpread(_objectSpread({
         id: id,
         duration: duration
-      }, payload));
+      }, payload), {}, {
+        type: type
+      }));
       setTimeout(function () {
         return _this.remove(id);
       }, duration);
@@ -116052,7 +116061,7 @@ module.exports = axios;
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "js/main/" + chunkId + ".js?id=" + {"home":"5b589ff92dbac12f","vendor-primevue":"4f3a15dd5abb4c93","vendor-common":"3c1e96f763539f59","dashboard":"a6aa1b8d2bb08742","persediaan-main":"30e76ec17f531f77","persediaan-transaksi":"921562ae1c795f6d","persediaan-master-item":"19fc27143c73759b","persediaan-penerimaan":"f2236bf1c83dd153","persediaan-distribusi":"4b4cefa44bf2b96e","persediaan-laporan":"0a4e0e296477c0a8","persediaan-laporan-pemakaianobat":"e101dce6eb7f6623","persediaan-laporan-kartustock":"a034775c4e444fdf","returbarang":"95e7939fef00f068","stock-opname":"6148cb248e51723a","transfer":"df60112144902e33","monitoring":"ea1b1b5b5f56ba17","kunjungan":"8282805806a7e72b","dokter":"b2729a6fc0cdd59e","perencanaan":"6788e46282347aaf","igd":"55301d9ae25de143","soap":"e5d8d490f406c6d6","operasi":"4380accac65b959a","upload":"c0d6148ffa3c93f4","gizi":"a599982c8640fb5c","pasien":"389d4c084b51efdf","admin":"077d7bca7bcbae2c","rawat-jalan":"45939924a86c6163","satusehat":"f89b8f17f4ec14b4","tte":"d408c04c08c33c15","tindakan":"e43f61500fc3d275","karyawan":"d19281b11c86a21a","klaim":"92b90023343226ea","obat":"f738cb0785aabc02","penunjang":"ae9c983e30eb6dd5","print-hasil-lab":"7c23e77ccf49ff42","radiologi":"f8b599eab98c1710","purchasing":"bd500a32db61008d","antrean":"1d64abae105994bb","anastesi":"ded65e5555d05449","lab":"6045c4ab1d80503b","medrecord-kajian":"c382cad0f2d2759d","case-manager":"f6fb7c369623b85a","medrecord-transfer":"6ec55b9a2a1055ce","medrecord-consent":"5f95021202d39860","medrecord-monitoring":"fb4c37ea2c4113aa","medrecord-monitoring-ews":"549ed8e776860b23","medrecord-monitoring-cairan":"f84ce3b3d2494574","medrecord-status":"ca59ff18d76b116a","medrecord-treatment":"d5a0bf4118dfd3a7","medrecord-core":"60f5df9600d4cf7d","bpjs":"553541653b996faa","penunjang-fisio":"ab105fa96ce49301","icu":"2e090a707e7562b6","icu-monitoring":"9972d7988d69142d","bedah":"d30bd2239322db95","persalinan":"7c4d893de1e5cfc2","register":"cb4dd08f0ff5194d","kfa":"d9378f308f3e8bda","print":"6dae2a329103459f","utilitas":"0c44fcd9f21a77c8","konsultasi-dokter":"fc7929d4b100d624","siriraj":"ed29220fd1d0e58f","kajian-resiko-jatuh":"9d1039b418082f15","pengkajian-nyeri":"6f8d5b53d80840a0","pengkajian-infeksius":"b3fa3cebb5623cd7","pengkajian-terminal":"f966629b3f1def91","edukasi-pasien":"ba3ff015decf6711","jadwal-kontrol":"8345cc74e69a2649","form-jadwal-kontrol":"858be63b60fb93e5","print-kontrol-ulang":"b3d19abf05b2409a","vendor-charts":"b4e7e34de4961ee4"}[chunkId] + "";
+/******/ 			return "js/main/" + chunkId + ".js?id=" + {"home":"5b589ff92dbac12f","vendor-primevue":"4f3a15dd5abb4c93","vendor-common":"3c1e96f763539f59","dashboard":"ebd6c59ec3f015b5","persediaan-main":"f9ccf60d2fd2953d","persediaan-transaksi":"921562ae1c795f6d","persediaan-master-item":"b6bc2c1a04637aae","persediaan-penerimaan":"6cb33d42cfdaf564","persediaan-distribusi":"369d9ccb31a39270","persediaan-laporan":"0a4e0e296477c0a8","persediaan-laporan-pemakaianobat":"e101dce6eb7f6623","persediaan-laporan-kartustock":"8429f9cb6df7a97e","returbarang":"a6ae7744d8e92cfd","stock-opname":"82810270d3642579","transfer":"27b798ed3e40c5dd","monitoring":"0c44f1e562533a32","kunjungan":"634a36e3a2233859","dokter":"cc7d4938dbf424b0","perencanaan":"1a6cb4d310b9978e","igd":"9167e7084d7e5a86","soap":"4a7028d8aaed2ea8","operasi":"4368d86f293772f0","upload":"0cb7de6ffe4dbc57","gizi":"2148a8b8af9e3f4b","pasien":"778108b53aec17dd","admin":"5d67c25d416c24c2","rawat-jalan":"440f5bd07af8b32c","satusehat":"f89b8f17f4ec14b4","tte":"646e9e117a4e1bb7","tindakan":"e43f61500fc3d275","karyawan":"7beb8205941e9560","klaim":"76bcc04db73ed9d9","obat":"43c51b3939452c4a","penunjang":"ac8a2871a21513db","print-hasil-lab":"7c23e77ccf49ff42","radiologi":"4862dff05fb64e29","purchasing":"93e32e53d726b345","antrean":"8bb89adf88b18924","anastesi":"ded65e5555d05449","lab":"e9b1e6b2bc087d60","medrecord-kajian":"aabca53fe95d4ad7","case-manager":"982fd4b27e2d6e8b","medrecord-transfer":"de9ba5347fd90bca","medrecord-consent":"a159fdb536e7b628","medrecord-monitoring":"fb4c37ea2c4113aa","medrecord-monitoring-ews":"549ed8e776860b23","medrecord-monitoring-cairan":"773ed77768f52b4b","medrecord-status":"ca59ff18d76b116a","medrecord-treatment":"171e36ea2da0f964","medrecord-core":"c36a706f600ce9cf","bpjs":"2b4235a44456148c","penunjang-fisio":"efd67e1dea4948ab","icu":"027d49349416ac59","icu-monitoring":"e688b7a58ed7a6fb","bedah":"d30bd2239322db95","persalinan":"9cb75b594f86a7b0","register":"801b5c0a9ee66cc8","kfa":"9719e5fabf20e476","print":"6dae2a329103459f","utilitas":"12b0322c434b250c","konsultasi-dokter":"f7cf27b0e0beef52","siriraj":"ae830611c034b797","kajian-resiko-jatuh":"17dc6dc00e8e8462","pengkajian-nyeri":"52274f780c37461b","pengkajian-infeksius":"c51c8e64c578957c","pengkajian-terminal":"203a0328c9936eb2","edukasi-pasien":"b9d7f6cc5f21a7e6","jadwal-kontrol":"8345cc74e69a2649","form-jadwal-kontrol":"cb4410e63f0dcb69","print-kontrol-ulang":"b3d19abf05b2409a","vendor-charts":"b4e7e34de4961ee4"}[chunkId] + "";
 /******/ 		};
 /******/ 	})();
 /******/ 	

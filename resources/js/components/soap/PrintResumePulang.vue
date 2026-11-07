@@ -274,6 +274,7 @@
 </template>
 
 <script>
+import { EventBus } from '../bus';
 import Loading from 'vue-loading-overlay';
 import QrcodeVue from 'qrcode.vue';
 
@@ -384,7 +385,7 @@ export default {
         .finally(() => this.isLoading = false)
     },
     open(type, message) {
-      this.$toast.open({ message, position: 'top-right', type, duration: 3000, dismissible: true });
+      EventBus.$emit('show-alert', { message, position: 'top-right', type, duration: 3000, dismissible: true });
     },
   }
 }

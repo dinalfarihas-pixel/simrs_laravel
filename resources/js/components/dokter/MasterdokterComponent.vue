@@ -76,7 +76,7 @@
                         </div>
                     </div>
 
-                    <ConfirmDialog></ConfirmDialog>
+                    <ConfirmDialog :group="confirmGroup"></ConfirmDialog>
                     <span v-if="show_form_input==false">
                         <DataTable :value="fact" v-model:filters="filters1" :rowHover="true" stripedRows
                             :resizableColumns="true" class="p-datatable-sm"
@@ -150,6 +150,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay';
     import Dropdown from 'primevue/dropdown';
     import ConfirmDialog from 'primevue/confirmdialog';
@@ -167,6 +168,7 @@
         },
         data() {
             return {
+                confirmGroup: 'MasterdokterComponent-' + Math.random().toString(36).slice(2, 11),
                 fact: [],
                 masterdokter_bpjs: [],
                 stts_ative_selected:'',
@@ -242,6 +244,7 @@
             },
             delete_dokter(data) {
                 this.$confirm.require({
+                    group: this.confirmGroup,
                     message: 'Dokter ini akan di non aktifkan?',
                     header: 'Confirmation',
                     icon: 'pi pi-exclamation-triangle',
@@ -306,7 +309,7 @@
 
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

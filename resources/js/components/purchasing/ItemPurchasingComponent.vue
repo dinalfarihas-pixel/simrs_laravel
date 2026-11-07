@@ -235,6 +235,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay';
     import InputNumber from 'primevue/inputnumber';
     import Textarea from 'primevue/textarea';
@@ -308,7 +309,7 @@
                 var currentDate = new Date();
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

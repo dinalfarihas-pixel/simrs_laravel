@@ -149,6 +149,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from "vue-loading-overlay";
     import Checkbox from 'primevue/checkbox';
     import Tag from "primevue/tag"
@@ -218,7 +219,7 @@
         },
         methods: {
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message,
                     position: "top-right",
                     type,

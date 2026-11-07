@@ -267,6 +267,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay';
     import DataTable from 'primevue/datatable'
     import Galleria from 'primevue/galleria';
@@ -352,7 +353,7 @@
                 console.log(this.form.startdate);
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,
@@ -487,10 +488,10 @@
                     .then(response => {
                         var res = response.data.metadata
                         if (res['code'] == 200) {
-                            alert('berhasil dihapus')
+                            EventBus.$emit('show-alert', { type: 'success', title: '', message: 'Berhasil dihapus' })
                             this.getdata_lampiran(this.data_trans);
                         } else {
-                            alert('Gagal dihapus')
+                            EventBus.$emit('show-alert', { type: 'error', title: '', message: 'Gagal dihapus' })
                         }
                     })
                     .catch(error => {

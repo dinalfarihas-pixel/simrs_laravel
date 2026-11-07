@@ -97,6 +97,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../../bus';
     import {
         AsyncCompiler
     } from 'sass';
@@ -198,7 +199,7 @@
                     .finally(() => this.isLoading = false)
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

@@ -283,6 +283,7 @@ var TTL_JASA_MS = 3 * 60 * 60 * 1000;
   emits: ['update:visible'],
   data: function data() {
     return {
+      confirmGroup: 'AdministrasiBillingDialog-' + Math.random().toString(36).slice(2, 11),
       billing: null,
       loading: false,
       errorMsg: '',
@@ -495,7 +496,7 @@ var TTL_JASA_MS = 3 * 60 * 60 * 1000;
     konfirmasiHapus: function konfirmasiHapus(item) {
       var _this4 = this;
       this.$confirm.require({
-        group: 'adm',
+        group: this.confirmGroup,
         header: 'Hapus Item Tagihan',
         message: "Hapus \"".concat(item.ITEM, "\" (").concat(this.rupiah(item.TOTALAMOUNT), ") dari tagihan pasien?"),
         icon: 'pi pi-exclamation-triangle',
@@ -566,7 +567,7 @@ var TTL_JASA_MS = 3 * 60 * 60 * 1000;
       var sudahAda = this.jumlahSudahAda(this.jasaDipilih.NAMA);
       if (sudahAda > 0) {
         this.$confirm.require({
-          group: 'adm',
+          group: this.confirmGroup,
           header: 'Jasa Sudah Ada',
           message: "\"".concat(this.jasaDipilih.NAMA, "\" sudah tercatat ").concat(sudahAda, "x pada tagihan ini. Tetap tambahkan lagi?"),
           icon: 'pi pi-question-circle',
@@ -4215,21 +4216,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/index.js");
-/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var primevue_progressbar__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! primevue/progressbar */ "./node_modules/primevue/progressbar/index.mjs");
-/* harmony import */ var primevue_sidebar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primevue/sidebar */ "./node_modules/primevue/sidebar/index.mjs");
-/* harmony import */ var primevue_dialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primevue/dialog */ "./node_modules/primevue/dialog/index.mjs");
-/* harmony import */ var primevue_drawer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primevue/drawer */ "./node_modules/primevue/drawer/index.mjs");
-/* harmony import */ var primevue_tabs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primevue/tabs */ "./node_modules/primevue/tabs/index.mjs");
-/* harmony import */ var primevue_tablist__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primevue/tablist */ "./node_modules/primevue/tablist/index.mjs");
-/* harmony import */ var primevue_tab__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primevue/tab */ "./node_modules/primevue/tab/index.mjs");
-/* harmony import */ var primevue_tabpanels__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! primevue/tabpanels */ "./node_modules/primevue/tabpanels/index.mjs");
-/* harmony import */ var primevue_tabpanel__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! primevue/tabpanel */ "./node_modules/primevue/tabpanel/index.mjs");
-/* harmony import */ var primevue_message__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! primevue/message */ "./node_modules/primevue/message/index.mjs");
-/* harmony import */ var primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! primevue/confirmdialog */ "./node_modules/primevue/confirmdialog/index.mjs");
-/* harmony import */ var _AdministrasiBillingDialog_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdministrasiBillingDialog.vue */ "./resources/js/components/igd/AdministrasiBillingDialog.vue");
-/* harmony import */ var primevue_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! primevue/api */ "./node_modules/@primevue/core/api/index.mjs");
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../bus */ "./resources/js/components/bus.js");
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/index.js");
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var primevue_progressbar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! primevue/progressbar */ "./node_modules/primevue/progressbar/index.mjs");
+/* harmony import */ var primevue_sidebar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primevue/sidebar */ "./node_modules/primevue/sidebar/index.mjs");
+/* harmony import */ var primevue_dialog__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primevue/dialog */ "./node_modules/primevue/dialog/index.mjs");
+/* harmony import */ var primevue_drawer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primevue/drawer */ "./node_modules/primevue/drawer/index.mjs");
+/* harmony import */ var primevue_tabs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primevue/tabs */ "./node_modules/primevue/tabs/index.mjs");
+/* harmony import */ var primevue_tablist__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primevue/tablist */ "./node_modules/primevue/tablist/index.mjs");
+/* harmony import */ var primevue_tab__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! primevue/tab */ "./node_modules/primevue/tab/index.mjs");
+/* harmony import */ var primevue_tabpanels__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! primevue/tabpanels */ "./node_modules/primevue/tabpanels/index.mjs");
+/* harmony import */ var primevue_tabpanel__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! primevue/tabpanel */ "./node_modules/primevue/tabpanel/index.mjs");
+/* harmony import */ var primevue_message__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! primevue/message */ "./node_modules/primevue/message/index.mjs");
+/* harmony import */ var primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! primevue/confirmdialog */ "./node_modules/primevue/confirmdialog/index.mjs");
+/* harmony import */ var _AdministrasiBillingDialog_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdministrasiBillingDialog.vue */ "./resources/js/components/igd/AdministrasiBillingDialog.vue");
+/* harmony import */ var primevue_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primevue/api */ "./node_modules/@primevue/core/api/index.mjs");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -4253,27 +4255,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    Loading: (vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default()),
-    Sidebar: primevue_sidebar__WEBPACK_IMPORTED_MODULE_3__["default"],
-    Dialog: primevue_dialog__WEBPACK_IMPORTED_MODULE_4__["default"],
-    Drawer: primevue_drawer__WEBPACK_IMPORTED_MODULE_5__["default"],
-    Tabs: primevue_tabs__WEBPACK_IMPORTED_MODULE_6__["default"],
-    TabList: primevue_tablist__WEBPACK_IMPORTED_MODULE_7__["default"],
-    Tab: primevue_tab__WEBPACK_IMPORTED_MODULE_8__["default"],
-    TabPanels: primevue_tabpanels__WEBPACK_IMPORTED_MODULE_9__["default"],
-    TabPanel: primevue_tabpanel__WEBPACK_IMPORTED_MODULE_10__["default"],
-    Message: primevue_message__WEBPACK_IMPORTED_MODULE_11__["default"],
-    ProgressBar: primevue_progressbar__WEBPACK_IMPORTED_MODULE_12__["default"],
-    ConfirmDialog: primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_13__["default"],
-    AdministrasiBillingDialog: _AdministrasiBillingDialog_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Loading: (vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default()),
+    Sidebar: primevue_sidebar__WEBPACK_IMPORTED_MODULE_4__["default"],
+    Dialog: primevue_dialog__WEBPACK_IMPORTED_MODULE_5__["default"],
+    Drawer: primevue_drawer__WEBPACK_IMPORTED_MODULE_6__["default"],
+    Tabs: primevue_tabs__WEBPACK_IMPORTED_MODULE_7__["default"],
+    TabList: primevue_tablist__WEBPACK_IMPORTED_MODULE_8__["default"],
+    Tab: primevue_tab__WEBPACK_IMPORTED_MODULE_9__["default"],
+    TabPanels: primevue_tabpanels__WEBPACK_IMPORTED_MODULE_10__["default"],
+    TabPanel: primevue_tabpanel__WEBPACK_IMPORTED_MODULE_11__["default"],
+    Message: primevue_message__WEBPACK_IMPORTED_MODULE_12__["default"],
+    ProgressBar: primevue_progressbar__WEBPACK_IMPORTED_MODULE_13__["default"],
+    ConfirmDialog: primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_14__["default"],
+    AdministrasiBillingDialog: _AdministrasiBillingDialog_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: {
     msg: String
   },
   data: function data() {
     return {
+      confirmGroup: 'TriaseIgdComponent-' + Math.random().toString(36).slice(2, 11),
       showMenuAksi: false,
       cariMenu: '',
       rowMenu: null,
@@ -4290,7 +4294,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       filters: {
         'global': {
           value: null,
-          matchMode: primevue_api__WEBPACK_IMPORTED_MODULE_2__.FilterMatchMode.CONTAINS
+          matchMode: primevue_api__WEBPACK_IMPORTED_MODULE_3__.FilterMatchMode.CONTAINS
         }
       },
       formData: {
@@ -4796,6 +4800,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     confirm_tidak_merawat: function confirm_tidak_merawat(data) {
       var _this15 = this;
       this.$confirm.require({
+        group: this.confirmGroup,
         message: 'Konfirmasi bahwa Anda tidak merawat pasien: ' + data.NAMAPASIEN + '?',
         header: 'Konfirmasi',
         icon: 'pi pi-info-circle',
@@ -4861,7 +4866,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     open: function open(type, message) {
-      this.$toast.open({
+      _bus__WEBPACK_IMPORTED_MODULE_0__.EventBus.$emit('show-alert', {
         message: message,
         position: 'top-right',
         type: type,
@@ -5366,12 +5371,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ConfirmDialog, {
-        group: "adm",
+        group: $data.confirmGroup,
         style: {
           width: '26rem',
           maxWidth: '94vw'
         }
-      }), $props.pasien ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_cache[8] || (_cache[8] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, null, 8 /* PROPS */, ["group"]), $props.pasien ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_cache[8] || (_cache[8] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "adm-lbl"
       }, "Pasien", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.pasien.NAMAPASIEN), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_cache[9] || (_cache[9] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "adm-lbl"
@@ -9827,7 +9832,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Select = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Select");
   var _component_Calendar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Calendar");
   var _component_SelectButton = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("SelectButton");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ConfirmDialog), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ===== DRAWER KANAN: MENU AKSI ===== "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Drawer, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ConfirmDialog, {
+    group: $data.confirmGroup
+  }, null, 8 /* PROPS */, ["group"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ===== DRAWER KANAN: MENU AKSI ===== "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Drawer, {
     visible: $data.showMenuAksi,
     "onUpdate:visible": _cache[2] || (_cache[2] = function ($event) {
       return $data.showMenuAksi = $event;

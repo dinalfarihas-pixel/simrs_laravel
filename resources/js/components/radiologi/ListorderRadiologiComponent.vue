@@ -1,7 +1,7 @@
 <template>
   <section class="content">
     <loading v-model:active="isLoading" :is-full-page="fullPage"></loading>
-    <ConfirmDialog></ConfirmDialog>
+    <ConfirmDialog :group="confirmGroup"></ConfirmDialog>
 
     <!-- ===== DIALOG: Detail & Hasil Baca ===== -->
     <Dialog header="Permintaan Radiologi" v-model:visible="showdialog"
@@ -345,6 +345,7 @@
 </template>
 
 <script>
+import { EventBus } from '../bus';
 import Loading from 'vue-loading-overlay';
 import SelectButton from 'primevue/selectbutton';
 import ImagePreview from 'primevue/image';
@@ -370,6 +371,7 @@ export default {
 
   data() {
     return {
+                confirmGroup: 'ListorderRadiologiComponent-' + Math.random().toString(36).slice(2, 11),
       form: {
         startdate: new Date(),
         enddate: new Date(),
@@ -455,7 +457,7 @@ export default {
     },
 
     showToast(type, message) {
-      this.$toast.open({
+      EventBus.$emit('show-alert', {
         message,
         position: 'top-right',
         type,
@@ -496,6 +498,7 @@ export default {
 
     confirmResetOtorisasi(data) {
       this.$confirm.require({
+        group: this.confirmGroup,
         message: 'Otorisasi akan direset dan harus dilakukan ulang. Lanjutkan?',
         header: 'Konfirmasi Reset Otorisasi',
         icon: 'pi pi-exclamation-triangle',
@@ -532,6 +535,7 @@ export default {
     // ── Hapus lampiran foto ───────────────────────────────────────────────────
     confirmHapusLampiran(att) {
       this.$confirm.require({
+        group: this.confirmGroup,
         message: 'Anda ingin menghapus file lampiran ini?',
         header: 'Konfirmasi hapus',
         icon: 'pi pi-info-circle',

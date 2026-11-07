@@ -139,7 +139,7 @@
                 <strong style="color:red">Production </strong> <b>Version</b> 3.2.2
                 @endif
             </div>
-            <strong>Copyright &copy; {{ date('Y') }} <a href="#">ws-simrs</a> </strong> All rights reserved.
+            <strong>Copyright  &copy; {{ date('Y') }} <a href="#">ws-simrs</a> </strong> All rights reserved.
         </footer>
         <!-- mix('js/app.js') -->
         <!-- Control Sidebar -->
@@ -150,7 +150,7 @@
     </div>
     <!-- ./wrapper -->
     <!-- jQuery -->
-    <script src="{{asset('js/app.js')}}?v=e57622377d6638f4384f97c72b2696f4"></script>
+    <script src="{{asset('js/app.js')}}?v=169693f585a43a096053f623b404f7cd"></script>
     <!-- <script src="{{asset('js/app.js?=643a63c5c0b1cd139c8d26f9f8181e65 ')}}"></script> -->
     <script src="{{asset('template/plugins/jquery/jquery.min.js')}}"></script>
     <!-- Bootstrap -->

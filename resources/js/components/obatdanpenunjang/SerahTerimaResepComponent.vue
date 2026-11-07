@@ -3,12 +3,13 @@
         <Dialog :header="'Serah Terima Obat: ' + receiptNo" :visible="visible" @update:visible="$emit('update:visible', $event)"
             :style="{width: '85vw'}" :modal="true">
             <div class="form-serah-terima">
-                <div v-if="header && header.WAKTU_DITERIMA" class="alert-diterima mb-3">
+                <div v-if="header && header.WAKTU_DITERIMA && itemBelumDiterima.length == 0" class="alert-diterima mb-3">
                     <i class="pi pi-check-circle mr-1"></i>
                     Obat sudah diterima <b>{{ header.DITERIMA_OLEH }}</b> pada {{ header.WAKTU_DITERIMA }}
                 </div>
                 <p v-else class="mb-2 text-muted">
                     Cocokkan obat yang diantar dengan permintaan. Centang item yang sudah diterima dan isi jumlah yang benar-benar diterima.
+                    Obat yang belum diberikan farmasi (diberikan 0) dapat diterima nanti pada resep yang sama setelah farmasi memberikannya.
                 </p>
                 <table class="table table-striped">
                     <thead>
@@ -22,6 +23,7 @@
                             <th>Satuan</th>
                             <th class="text-center">Diminta</th>
                             <th class="text-center">Diberikan</th>
+                            <th class="text-center">Sudah Diterima</th>
                             <th class="text-center" style="width: 14%">Jumlah Diterima</th>
                             <th class="text-center">Status</th>
                         </tr>
@@ -43,19 +45,32 @@
                             <td class="text-center">{{ $numeral(item.QTY_KIRIM, '0,0.[00]') }}</td>
                             <td class="text-center">
                                 <span v-if="item.sudah_diterima">{{ $numeral(item.QTY_TERIMA, '0,0.[00]') }}</span>
-                                <span v-else-if="!bisaDikonfirmasi(item)">-</span>
-                                <InputNumber v-else v-model="item.qty_input" :min="0" :max="Number(item.QTY_KIRIM)"
-                                    :maxFractionDigits="2" :disabled="!item.checked" inputClass="text-center"
-                                    :inputStyle="{width: '6em'}" />
+                                <span v-else>-</span>
                             </td>
                             <td class="text-center">
-                                <div v-if="item.sudah_diterima">
-                                    <span class="badge badge-primary">Diterima</span>
-                                    <div class="status-terima-user">{{ item.DITERIMA_OLEH }}</div>
-                                    <div class="status-terima-waktu">{{ item.TANGGAL_TERIMA }}</div>
+                                <span v-if="!bisaDikonfirmasi(item)">-</span>
+                                <template v-else>
+                                    <InputNumber v-model="item.qty_input" :min="0" :max="Number(item.QTY_SISA)"
+                                        :maxFractionDigits="2" :disabled="!item.checked" inputClass="text-center"
+                                        :inputStyle="{width: '6em'}" />
+                                    <div v-if="item.sudah_diterima" class="status-terima-waktu">
+                                        tambahan {{ $numeral(item.QTY_SISA, '0,0.[00]') }}
+                                    </div>
+                                </template>
+                            </td>
+                            <td class="text-center">
+                                <span v-if="tanpaRincian" class="badge badge-secondary">Tanpa rincian item</span>
+                                <span v-else-if="bisaDikonfirmasi(item) && item.sudah_diterima" class="badge badge-warning">Ada tambahan obat</span>
+                                <span v-else-if="bisaDikonfirmasi(item)" class="badge badge-warning">Belum diterima</span>
+                                <span v-else-if="!item.sudah_diterima" class="badge badge-secondary">Belum diberikan farmasi</span>
+                                <span v-else class="badge badge-primary">Diterima</span>
+                                <!-- Riwayat penerimaan (bisa lebih dari sekali) -->
+                                <div v-for="(r, i) in riwayatItem(item)" :key="i" class="status-riwayat">
+                                    <span v-if="riwayatItem(item).length > 1" class="font-weight-bold">{{ i + 1 }}.</span>
+                                    <span class="status-terima-user">{{ r.DITERIMA_OLEH }}</span>
+                                    <span v-if="riwayatItem(item).length > 1">({{ $numeral(r.QTY_TERIMA, '0,0.[00]') }})</span>
+                                    <div class="status-terima-waktu">{{ r.TANGGAL_TERIMA }}</div>
                                 </div>
-                                <span v-else-if="header && header.WAKTU_DITERIMA" class="badge badge-secondary">Tanpa rincian item</span>
-                                <span v-else class="badge badge-warning">Belum diterima</span>
                                 <div v-if="selisih(item) != 0" class="text-danger status-selisih">
                                     Selisih {{ $numeral(selisih(item), '0,0.[00]') }}
                                 </div>
@@ -114,6 +129,7 @@
 
 <script>
     import Dialog from 'primevue/dialog';
+    import { EventBus } from '../bus';
     export default {
         components: {
             Dialog,
@@ -127,6 +143,7 @@
             return {
                 header: null,
                 items: [],
+                riwayat: [],
                 pilihSemua: false,
                 displayOtorisasi: false,
                 otorisasi: {
@@ -137,6 +154,10 @@
             };
         },
         computed: {
+            // Resep yang diterima lewat tombol Terima lama (tanpa rincian item): tidak bisa diserahterimakan lagi
+            tanpaRincian() {
+                return !!(this.header && this.header.TANPA_RINCIAN == 1);
+            },
             itemBelumDiterima() {
                 return this.items.filter(item => this.bisaDikonfirmasi(item));
             },
@@ -154,22 +175,26 @@
         },
         methods: {
             open(type, message) {
-                this.$toast.open({
-                    message: message,
-                    position: 'top-right',
-                    type: type,
-                    duration: 4000,
-                    dismissible: true
-                })
+                EventBus.$emit('show-alert', { type, title: 'Serah Terima Obat', message });
             },
+            // Bisa diterima selama ada obat diberikan yang belum diterima (QTY_SISA > 0), termasuk penerimaan
+            // kedua dst. pada resep yang sama. Diberikan 0 -> tidak bisa dicentang.
             bisaDikonfirmasi(item) {
-                // Header sudah diterima (termasuk konfirmasi lama tanpa rincian) -> tidak bisa dikonfirmasi lagi
-                return !item.sudah_diterima && !(this.header && this.header.WAKTU_DITERIMA);
+                return !this.tanpaRincian && Number(item.QTY_SISA) > 0;
             },
+            riwayatItem(item) {
+                return this.riwayat.filter(r => r.ITEM_ID == item.ITEM_ID);
+            },
+            // Total diterima (termasuk input sekarang bila dicentang) dibanding jumlah diberikan yang sudah diserahkan
             selisih(item) {
-                const terima = item.sudah_diterima ? item.QTY_TERIMA : (item.checked ? item.qty_input : null);
-                if (terima === null || terima === undefined) return 0;
-                return Number(terima) - Number(item.QTY_KIRIM);
+                let terima = item.sudah_diterima ? Number(item.QTY_TERIMA) : null;
+                const input_aktif = item.checked && this.bisaDikonfirmasi(item)
+                    && item.qty_input !== null && item.qty_input !== undefined;
+                if (input_aktif) terima = (terima || 0) + Number(item.qty_input);
+                if (terima === null) return 0;
+                // Tambahan yang belum diterima (tidak dicentang) bukan selisih
+                const dasar = Number(item.QTY_KIRIM) - (input_aktif ? 0 : Number(item.QTY_SISA));
+                return terima - dasar;
             },
             togglePilihSemua() {
                 this.itemBelumDiterima.forEach(item => item.checked = this.pilihSemua);
@@ -177,6 +202,7 @@
             async loadDetail() {
                 this.header = null;
                 this.items = [];
+                this.riwayat = [];
                 this.pilihSemua = false;
                 this.$emit('loading', true);
                 try {
@@ -187,12 +213,20 @@
                         return;
                     }
                     this.header = response.data.header;
-                    this.items = response.data.response.map(item => ({
-                        ...item,
-                        sudah_diterima: item.QTY_TERIMA !== null,
-                        checked: false,
-                        qty_input: Number(item.QTY_KIRIM)
-                    }));
+                    this.riwayat = response.data.riwayat || [];
+                    this.items = response.data.response.map(item => {
+                        // API lama (sebelum penerimaan bertahap) belum mengirim QTY_SISA: hitung dengan cara lama
+                        const sisa = item.QTY_SISA !== undefined && item.QTY_SISA !== null
+                            ? Number(item.QTY_SISA)
+                            : (item.QTY_TERIMA === null ? Number(item.QTY_KIRIM) : 0);
+                        return {
+                            ...item,
+                            QTY_SISA: sisa,
+                            sudah_diterima: item.QTY_TERIMA !== null,
+                            checked: false,
+                            qty_input: sisa
+                        };
+                    });
                 } catch (error) {
                     console.log(error);
                     this.open('error', 'Gagal memuat detail serah terima obat');
@@ -295,6 +329,15 @@
     .status-terima-waktu {
         font-size: 0.85rem;
         color: #6b7280;
+    }
+
+    .status-riwayat {
+        margin-top: 0.3rem;
+        line-height: 1.2;
+    }
+
+    .status-riwayat .status-terima-user {
+        margin-top: 0;
     }
 
     .status-selisih {

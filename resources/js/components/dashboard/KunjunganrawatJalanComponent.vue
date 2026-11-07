@@ -569,6 +569,7 @@
 </template>
 
 <script>
+import { EventBus } from '../bus';
 import Loading from 'vue-loading-overlay';
 import Chart from 'primevue/chart';
 
@@ -777,11 +778,11 @@ export default {
       this.showQuickCompare = false;
 
       if (!this.form.tanggalawal || !this.form.tanggalakhir) {
-        this.$toast.add({
-          severity: 'warn',
-          summary: 'Peringatan',
-          detail: 'Silakan pilih periode utama terlebih dahulu',
-          life: 3000
+        EventBus.$emit('show-alert', {
+          type: 'warning',
+          title: 'Peringatan',
+          message: 'Silakan pilih periode utama terlebih dahulu',
+          duration: 3000
         });
         return;
       }
@@ -916,7 +917,7 @@ export default {
     },
 
     open(type, message) {
-      this.$toast.open({
+      EventBus.$emit('show-alert', {
         message: message,
         position: 'top-right',
         type: type,
@@ -927,29 +928,29 @@ export default {
 
     async handleCompareSubmit() {
       if (!this.isCompareFormValid) {
-        this.$toast.add({
-          severity: 'warn',
-          summary: 'Peringatan',
-          detail: 'Silakan pilih tanggal pembanding terlebih dahulu',
-          life: 3000
+        EventBus.$emit('show-alert', {
+          type: 'warning',
+          title: 'Peringatan',
+          message: 'Silakan pilih tanggal pembanding terlebih dahulu',
+          duration: 3000
         });
         return;
       }
       try {
         await Promise.all([this.getComparisonData(1), this.getComparisonData(2)]);
         this.updateChartsWithComparison();
-        this.$toast.add({
-          severity: 'success',
-          summary: 'Berhasil',
-          detail: 'Data perbandingan berhasil dimuat',
-          life: 3000
+        EventBus.$emit('show-alert', {
+          type: 'success',
+          title: 'Berhasil',
+          message: 'Data perbandingan berhasil dimuat',
+          duration: 3000
         });
       } catch (error) {
-        this.$toast.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Gagal memuat data perbandingan. Silakan coba lagi.',
-          life: 5000
+        EventBus.$emit('show-alert', {
+          type: 'error',
+          title: 'Error',
+          message: 'Gagal memuat data perbandingan. Silakan coba lagi.',
+          duration: 5000
         });
       }
     },

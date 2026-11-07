@@ -139,6 +139,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay';
     import PDFViewer from 'pdf-viewer-vue/dist/vue3-pdf-viewer'
     import Tag from 'primevue/tag';
@@ -191,11 +192,11 @@
                         label: 'Update',
                         icon: 'pi pi-refresh',
                         command: () => {
-                            this.$toast.add({
-                                severity: 'success',
-                                summary: 'Updated',
-                                detail: 'Data Updated',
-                                life: 3000
+                            EventBus.$emit('show-alert', {
+                                type: 'success',
+                                title: 'Updated',
+                                message: 'Data Updated',
+                                duration: 3000
                             });
                         }
                     },
@@ -203,11 +204,11 @@
                         label: 'Batalkan',
                         icon: 'pi pi-times',
                         command: () => {
-                            this.$toast.add({
-                                severity: 'warn',
-                                summary: 'Delete',
-                                detail: 'Data Deleted',
-                                life: 3000
+                            EventBus.$emit('show-alert', {
+                                type: 'warning',
+                                title: 'Delete',
+                                message: 'Data Deleted',
+                                duration: 3000
                             });
                         }
                     },
@@ -243,7 +244,7 @@
             },
 
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

@@ -1,7 +1,7 @@
 ﻿<template>
     <section class="content">
         <!-- <loading v-model:active="isLoading" :is-full-page="fullPage"></loading> -->
-        <ConfirmDialog></ConfirmDialog>
+        <ConfirmDialog :group="confirmGroup"></ConfirmDialog>
 
         <Calendar v-model="form.startdate" class="text-sm" :showIcon="true" view="year" dateFormat="yy"
             :yearNavigator="true" aria-placeholder="Tanggal awal" style="width: 14em; " />
@@ -134,6 +134,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay';
     import {
         FilterMatchMode
@@ -154,6 +155,7 @@
         },
         data() {
             return {
+                confirmGroup: 'SubListPenerimaanComponent-' + Math.random().toString(36).slice(2, 11),
                 fact: [],
                 id_lokasi: '',
                 show_kfa_form: false,
@@ -222,6 +224,7 @@
             },
             confirm1(x) {
                 this.$confirm.require({
+                    group: this.confirmGroup,
                     message: 'Anda ingin membatalkan penerimaan ' + x.ID_PENERIMAAN + ' dengan no faktur ' + x
                         .NO_REFF + ' dari ' + x.NAMASUPLIER + ' ?',
                     header: 'Hapus konfirmasi',
@@ -237,7 +240,7 @@
                 });
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

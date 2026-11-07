@@ -30,6 +30,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      confirmGroup: 'PengkajianInfeksiusComponent-' + Math.random().toString(36).slice(2, 11),
       noregister: '',
       dataPasien: {},
       isLoadingPasien: false,
@@ -370,7 +371,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     konfirmasiHapus: function konfirmasiHapus(row) {
       var _this5 = this;
       this.$confirm.require({
-        group: 'skriningInfeksius',
+        group: this.confirmGroup,
         message: "Hapus skrining tanggal ".concat(this.formatWaktu(row.waktu_kajian), "? Tindakan ini tidak dapat dibatalkan."),
         header: 'Konfirmasi Hapus',
         icon: 'pi pi-exclamation-triangle',
@@ -699,8 +700,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Card = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Card");
   var _directive_tooltip = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveDirective)("tooltip");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ConfirmDialog, {
-    group: "skriningInfeksius"
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ===== DIALOG: FORM SKRINING ===== "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
+    group: $data.confirmGroup
+  }, null, 8 /* PROPS */, ["group"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ===== DIALOG: FORM SKRINING ===== "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
     visible: $data.showForm,
     "onUpdate:visible": _cache[10] || (_cache[10] = function ($event) {
       return $data.showForm = $event;

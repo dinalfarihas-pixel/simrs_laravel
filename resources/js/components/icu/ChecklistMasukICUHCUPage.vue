@@ -1,6 +1,6 @@
 <template>
   <section>
-    <ConfirmDialog group="icuChecklist" />
+    <ConfirmDialog :group="confirmGroup" />
 
     <!-- DIALOG: DETAIL RIWAYAT -->
     <Dialog v-model:visible="showDetail" header="Detail Checklist Masuk ICU/HCU" :modal="true"
@@ -688,6 +688,7 @@ export default {
 
   data() {
     return {
+                confirmGroup: 'ChecklistMasukICUHCUPage-' + Math.random().toString(36).slice(2, 11),
       noregister:        '',
       dataPasien:        {},
       isLoadingPasien:   false,
@@ -846,7 +847,7 @@ export default {
 
     konfirmasiHapus(row) {
       this.$confirm.require({
-        group: 'icuChecklist',
+        group: this.confirmGroup,
         message: `Hapus checklist tanggal ${this.formatWaktu(row.created_at)}? Tindakan ini tidak dapat dibatalkan.`,
         header: 'Konfirmasi Hapus',
         icon: 'pi pi-exclamation-triangle',

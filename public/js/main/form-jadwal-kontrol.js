@@ -15,6 +15,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../bus */ "./resources/js/components/bus.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -40,6 +45,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         jadwal_dokter: ''
       },
       riwayatKontrolUlang: [],
+      bulanRiwayat: '',
+      // 'YYYY-MM' bulan yang terakhir dimuat dari BPJS
+      loadingRiwayat: false,
+      riwayatError: '',
+      syncingMap: {},
+      // { [noSuratKontrol]: true } saat proses sync
+      syncResultMap: {},
+      // { [noSuratKontrol]: 'success' | 'error' }
       isLoading: false,
       loadingDokter: false,
       loadingHapus: null,
@@ -55,13 +68,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this$selectedPoli;
       return ((_this$selectedPoli = this.selectedPoli) === null || _this$selectedPoli === void 0 ? void 0 : _this$selectedPoli.NAMA) || '-';
     },
+    // Bulan riwayat mengikuti Tanggal Kontrol Ulang; jika kosong pakai bulan berjalan
+    tanggalAcuanRiwayat: function tanggalAcuanRiwayat() {
+      return this.form.tanggal_kontrol ? new Date(this.form.tanggal_kontrol) : new Date();
+    },
+    labelBulanRiwayat: function labelBulanRiwayat() {
+      return this.tanggalAcuanRiwayat.toLocaleDateString('id-ID', {
+        month: 'long',
+        year: 'numeric'
+      });
+    },
     riwayatKontrolUlangFiltered: function riwayatKontrolUlangFiltered() {
-      var _this = this;
       if (!this.form.tanggal_kontrol) return this.riwayatKontrolUlang;
       var target = this.formatDateForApi(this.form.tanggal_kontrol);
       return this.riwayatKontrolUlang.filter(function (row) {
-        if (!row.TANGGAL_KONTROL) return false;
-        return _this.formatDateForApi(row.TANGGAL_KONTROL) === target;
+        if (!row.tglRencanaKontrol) return false;
+        return row.tglRencanaKontrol === target;
       });
     }
   },
@@ -87,30 +109,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.dialogHapus = true;
     },
     hapusSuratKontrol: function hapusSuratKontrol() {
-      var _this2 = this;
+      var _this = this;
       return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _this2.loadingHapus = _this2.hapusTarget.NO_KONTROL_ULANG;
+              _this.loadingHapus = _this.hapusTarget.noSuratKontrol;
               _context.next = 3;
               return axios.post('/hapus_surat_kontrol', {
-                no_kontrol: _this2.hapusTarget.NO_KONTROL_ULANG
+                no_kontrol: _this.hapusTarget.noSuratKontrol
               }).then(function (response) {
                 var data = typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
                 if (data.code == 200) {
-                  _this2.notify('success', 'Surat kontrol berhasil dibatalkan');
-                  _this2.dialogHapus = false;
-                  _this2.hapusTarget = null;
-                  _this2.getRiwayatKontrolUlang();
+                  _this.notify('success', 'Surat kontrol berhasil dibatalkan');
+                  _this.dialogHapus = false;
+                  _this.hapusTarget = null;
+                  _this.getRiwayatKontrolUlang();
                 } else {
-                  _this2.notify('error', data.message || 'Gagal membatalkan surat kontrol');
+                  _this.notify('error', data.message || 'Gagal membatalkan surat kontrol');
                 }
               })["catch"](function (error) {
-                _this2.notify('error', 'Gagal membatalkan surat kontrol');
+                _this.notify('error', 'Gagal membatalkan surat kontrol');
                 console.error(error);
               })["finally"](function () {
-                _this2.loadingHapus = null;
+                _this.loadingHapus = null;
               });
             case 3:
             case "end":
@@ -119,83 +141,191 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
+    // Riwayat rencana kontrol diambil langsung dari server BPJS (per bulan)
     getRiwayatKontrolUlang: function getRiwayatKontrolUlang() {
-      var _this3 = this;
+      var _this2 = this;
       return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var _response$data, response;
+        var d, akhirBulan, _data$metaData, res, data, code, raw, _data$metaData2;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.prev = 0;
-              _context2.next = 3;
-              return axios.get("/get_riwayat_kontrolulang/".concat(_this3.data_pasien.NOMR));
-            case 3:
-              response = _context2.sent;
-              // console.log('Riwayat kontrol ulang response:', response);
-              _this3.riwayatKontrolUlang = (response === null || response === void 0 || (_response$data = response.data) === null || _response$data === void 0 ? void 0 : _response$data.response) || [];
-              _context2.next = 10;
+              _this2.riwayatKontrolUlang = [];
+              _this2.riwayatError = '';
+              if (_this2.data_pasien.NOJAMINAN) {
+                _context2.next = 5;
+                break;
+              }
+              _this2.riwayatError = 'No. Kartu BPJS pasien tidak tersedia.';
+              return _context2.abrupt("return");
+            case 5:
+              d = _this2.tanggalAcuanRiwayat;
+              akhirBulan = new Date(d.getFullYear(), d.getMonth() + 1, 0);
+              _this2.bulanRiwayat = _this2.formatDateForApi(d).slice(0, 7);
+              _this2.loadingRiwayat = true;
+              _this2.syncResultMap = {};
+              _context2.prev = 10;
+              _context2.next = 13;
+              return axios.post('/list_rencana_kontrol_bpjs', {
+                no_kartu: _this2.data_pasien.NOJAMINAN,
+                tanggal: _this2.formatDateForApi(akhirBulan)
+              });
+            case 13:
+              res = _context2.sent;
+              data = typeof res.data === 'string' ? JSON.parse(res.data) : res.data;
+              code = data === null || data === void 0 || (_data$metaData = data.metaData) === null || _data$metaData === void 0 ? void 0 : _data$metaData.code;
+              if (code == 200) {
+                raw = data === null || data === void 0 ? void 0 : data.response;
+                _this2.riwayatKontrolUlang = Array.isArray(raw) ? raw : Array.isArray(raw === null || raw === void 0 ? void 0 : raw.list) ? raw.list : [];
+              } else {
+                _this2.riwayatError = (data === null || data === void 0 || (_data$metaData2 = data.metaData) === null || _data$metaData2 === void 0 ? void 0 : _data$metaData2.message) || 'Data tidak ditemukan.';
+              }
+              _context2.next = 23;
               break;
-            case 7:
-              _context2.prev = 7;
-              _context2.t0 = _context2["catch"](0);
-              console.error('Gagal memuat riwayat kontrol ulang:', _context2.t0);
-            case 10:
+            case 19:
+              _context2.prev = 19;
+              _context2.t0 = _context2["catch"](10);
+              console.error('Gagal memuat riwayat kontrol dari BPJS:', _context2.t0);
+              _this2.riwayatError = 'Koneksi ke server BPJS gagal.';
+            case 23:
+              _context2.prev = 23;
+              _this2.loadingRiwayat = false;
+              return _context2.finish(23);
+            case 26:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[0, 7]]);
+        }, _callee2, null, [[10, 19, 23, 26]]);
       }))();
     },
+    syncItem: function syncItem(row) {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var key, res, data, aksi, next;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              key = row.noSuratKontrol;
+              if (!(!key || _this3.syncingMap[key])) {
+                _context3.next = 3;
+                break;
+              }
+              return _context3.abrupt("return");
+            case 3:
+              _this3.syncingMap = _objectSpread(_objectSpread({}, _this3.syncingMap), {}, _defineProperty({}, key, true));
+              _this3.syncResultMap = _objectSpread(_objectSpread({}, _this3.syncResultMap), {}, _defineProperty({}, key, null));
+              _context3.prev = 5;
+              _context3.next = 8;
+              return axios.post('/sync_no_kontrol_ulang', {
+                no_kontrol_ulang: key,
+                noregister: _this3.noregister,
+                noSepAsalKontrol: row.noSepAsalKontrol,
+                noKartu: row.noKartu,
+                norm: _this3.data_pasien.NOMR,
+                kodeDokter: row.kodeDokter,
+                poliTujuan: row.poliTujuan,
+                tglRencanaKontrol: row.tglRencanaKontrol,
+                tglSEP: row.tglSEP,
+                terbitSEP: row.terbitSEP
+              });
+            case 8:
+              res = _context3.sent;
+              data = typeof res.data === 'string' ? JSON.parse(res.data) : res.data;
+              if ((data === null || data === void 0 ? void 0 : data.code) == 200) {
+                _this3.syncResultMap = _objectSpread(_objectSpread({}, _this3.syncResultMap), {}, _defineProperty({}, key, 'success'));
+                aksi = (data === null || data === void 0 ? void 0 : data.action) === 'insert' ? 'Data baru disimpan' : 'Data diperbarui';
+                _this3.notify('success', "".concat(key, " \u2014 ").concat(aksi, " ke SIMRS"));
+              } else {
+                _this3.syncResultMap = _objectSpread(_objectSpread({}, _this3.syncResultMap), {}, _defineProperty({}, key, 'error'));
+                _this3.notify('error', (data === null || data === void 0 ? void 0 : data.message) || 'Gagal sync surat kontrol.');
+              }
+              _context3.next = 18;
+              break;
+            case 13:
+              _context3.prev = 13;
+              _context3.t0 = _context3["catch"](5);
+              console.error(_context3.t0);
+              _this3.syncResultMap = _objectSpread(_objectSpread({}, _this3.syncResultMap), {}, _defineProperty({}, key, 'error'));
+              _this3.notify('error', 'Koneksi ke server gagal.');
+            case 18:
+              _context3.prev = 18;
+              next = _objectSpread({}, _this3.syncingMap);
+              delete next[key];
+              _this3.syncingMap = next;
+              return _context3.finish(18);
+            case 23:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, null, [[5, 13, 18, 23]]);
+      }))();
+    },
+    syncIcon: function syncIcon(key) {
+      var r = this.syncResultMap[key];
+      return r === 'success' ? 'pi pi-check' : r === 'error' ? 'pi pi-times-circle' : 'pi pi-cloud-download';
+    },
+    syncSeverity: function syncSeverity(key) {
+      var r = this.syncResultMap[key];
+      return r === 'success' ? 'success' : r === 'error' ? 'danger' : 'help';
+    },
+    // Jika tanggal kontrol pindah bulan, muat ulang riwayat BPJS bulan tersebut
+    sinkronBulanRiwayat: function sinkronBulanRiwayat() {
+      var bulan = this.formatDateForApi(this.tanggalAcuanRiwayat).slice(0, 7);
+      if (bulan !== this.bulanRiwayat) {
+        this.getRiwayatKontrolUlang();
+      }
+    },
     onTanggalChange: function onTanggalChange() {
+      this.sinkronBulanRiwayat();
       this.getDokterLive();
     },
     geserTanggal: function geserTanggal(arah) {
       var d = new Date(this.form.tanggal_kontrol);
       d.setDate(d.getDate() + arah);
       this.form.tanggal_kontrol = d;
+      this.sinkronBulanRiwayat();
       this.getDokterLive();
     },
     getDokterLive: function getDokterLive() {
       var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         var _this4$selectedPoli, _res$data, res;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
               if (!(!_this4.selectedPoli || !_this4.form.tanggal_kontrol)) {
-                _context3.next = 2;
+                _context4.next = 2;
                 break;
               }
-              return _context3.abrupt("return");
+              return _context4.abrupt("return");
             case 2:
               _this4.loadingDokter = true;
               _this4.dataDokter = [];
               _this4.selectedDokter = null;
-              _context3.prev = 5;
-              _context3.next = 8;
+              _context4.prev = 5;
+              _context4.next = 8;
               return axios.post('/get_dokter_live', {
                 kode_poli: (_this4$selectedPoli = _this4.selectedPoli) === null || _this4$selectedPoli === void 0 ? void 0 : _this4$selectedPoli.KODE_BPJS,
                 tanggal: _this4.formatDateForApi(_this4.form.tanggal_kontrol)
               });
             case 8:
-              res = _context3.sent;
+              res = _context4.sent;
               _this4.dataDokter = ((_res$data = res.data) === null || _res$data === void 0 || (_res$data = _res$data.response) === null || _res$data === void 0 ? void 0 : _res$data.list) || [];
-              _context3.next = 16;
+              _context4.next = 16;
               break;
             case 12:
-              _context3.prev = 12;
-              _context3.t0 = _context3["catch"](5);
-              console.error(_context3.t0);
+              _context4.prev = 12;
+              _context4.t0 = _context4["catch"](5);
+              console.error(_context4.t0);
               _this4.notify('error', 'Gagal memuat jadwal dokter');
             case 16:
-              _context3.prev = 16;
+              _context4.prev = 16;
               _this4.loadingDokter = false;
-              return _context3.finish(16);
+              return _context4.finish(16);
             case 19:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
-        }, _callee3, null, [[5, 12, 16, 19]]);
+        }, _callee4, null, [[5, 12, 16, 19]]);
       }))();
     },
     formatDateForApi: function formatDateForApi(date) {
@@ -208,12 +338,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     getDataPasien: function getDataPasien() {
       var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
             case 0:
               _this5.isLoading = true;
-              _context4.next = 3;
+              _context5.next = 3;
               return axios.post('/datapasienpertransaksi', {
                 noregister: _this5.noregister,
                 mode: 'history8'
@@ -230,19 +360,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               });
             case 3:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
-        }, _callee4);
+        }, _callee5);
       }))();
     },
     getDataPoly: function getDataPoly() {
       var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
             case 0:
               _this6.form.mode = 0;
-              _context5.next = 3;
+              _context6.next = 3;
               return axios.post('/getnamaruangan_poli', _this6.form).then(function (response) {
                 _this6.dataPoly = response.data;
               })["catch"](function (e) {
@@ -252,9 +382,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               });
             case 3:
             case "end":
-              return _context5.stop();
+              return _context6.stop();
           }
-        }, _callee5);
+        }, _callee6);
       }))();
     },
     konfirmasiTerbitkan: function konfirmasiTerbitkan() {
@@ -271,11 +401,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     simpan: function simpan() {
       var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
         var _this7$selectedDokter, _this7$selectedPoli;
         var payload;
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
             case 0:
               _this7.isLoading = true;
               payload = {
@@ -290,7 +420,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   KodePoliBPJS: ((_this7$selectedPoli = _this7.selectedPoli) === null || _this7$selectedPoli === void 0 ? void 0 : _this7$selectedPoli.KODE_BPJS) || null
                 }
               };
-              _context6.next = 4;
+              _context7.next = 4;
               return axios.post('/terbitkan_kontrolulang', payload).then(function (response) {
                 var data = typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
                 if (data.code == 200) {
@@ -299,8 +429,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this7.getRiwayatKontrolUlang();
                   //setTimeout(() => window.location.href = '/jadwal-kontrol', 1500);
                 } else {
-                  var _data$metaData;
-                  var msg = (data === null || data === void 0 || (_data$metaData = data.metaData) === null || _data$metaData === void 0 ? void 0 : _data$metaData.message) || (data === null || data === void 0 ? void 0 : data.message) || 'Gagal menerbitkan jadwal';
+                  var _data$metaData3;
+                  var msg = (data === null || data === void 0 || (_data$metaData3 = data.metaData) === null || _data$metaData3 === void 0 ? void 0 : _data$metaData3.message) || (data === null || data === void 0 ? void 0 : data.message) || 'Gagal menerbitkan jadwal';
                   _this7.notify('error', msg);
                 }
               })["catch"](function (error) {
@@ -311,13 +441,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               });
             case 4:
             case "end":
-              return _context6.stop();
+              return _context7.stop();
           }
-        }, _callee6);
+        }, _callee7);
       }))();
     },
     cetakKontrol: function cetakKontrol(row) {
-      var url = "/print-kontrol-ulang?no_kontrol=".concat(row.NO_KONTROL_ULANG, "&noregister=").concat(this.noregister);
+      var url = "/print-kontrol-ulang?no_kontrol=".concat(row.noSuratKontrol, "&noregister=").concat(this.noregister);
       window.open(url, '_blank');
     },
     kembali: function kembali() {
@@ -472,108 +602,127 @@ var _hoisted_35 = {
   "class": "fk-card-title"
 };
 var _hoisted_36 = {
-  key: 0,
-  "class": "fk-riwayat-empty"
+  "class": "fk-riwayat-filter"
 };
 var _hoisted_37 = {
-  key: 0
+  "class": "fk-riwayat-filter-info"
 };
 var _hoisted_38 = {
-  key: 1
+  "class": "fk-riwayat-filter-ctrl"
 };
 var _hoisted_39 = {
-  key: 1,
-  "class": "fk-riwayat-table-wrapper"
+  "class": "fk-riwayat-filter-info"
 };
 var _hoisted_40 = {
-  "class": "fk-riwayat-table"
+  key: 0,
+  "class": "fk-dokter-loading"
 };
 var _hoisted_41 = {
-  "class": "fk-code"
+  key: 1,
+  "class": "fk-riwayat-empty"
 };
 var _hoisted_42 = {
-  "class": "fk-code"
+  key: 0
 };
 var _hoisted_43 = {
+  key: 1
+};
+var _hoisted_44 = {
+  key: 2
+};
+var _hoisted_45 = {
+  key: 2,
+  "class": "fk-riwayat-table-wrapper"
+};
+var _hoisted_46 = {
+  "class": "fk-riwayat-table"
+};
+var _hoisted_47 = {
+  "class": "fk-code"
+};
+var _hoisted_48 = {
+  "class": "fk-code"
+};
+var _hoisted_49 = {
   style: {
     "display": "flex",
     "gap": "4px",
     "align-items": "center"
   }
 };
-var _hoisted_44 = {
-  "class": "fk-summary"
-};
-var _hoisted_45 = {
-  "class": "fk-summary-row"
-};
-var _hoisted_46 = {
-  "class": "fk-summary-value font-weight-bold"
-};
-var _hoisted_47 = {
-  "class": "fk-summary-row"
-};
-var _hoisted_48 = {
-  "class": "fk-summary-value"
-};
-var _hoisted_49 = {
-  "class": "fk-summary-row"
-};
 var _hoisted_50 = {
-  "class": "fk-summary-value"
+  "class": "fk-summary"
 };
 var _hoisted_51 = {
   "class": "fk-summary-row"
 };
 var _hoisted_52 = {
-  "class": "fk-summary-value"
+  "class": "fk-summary-value font-weight-bold"
 };
 var _hoisted_53 = {
-  key: 0,
   "class": "fk-summary-row"
 };
 var _hoisted_54 = {
   "class": "fk-summary-value"
 };
 var _hoisted_55 = {
-  key: 1,
   "class": "fk-summary-row"
 };
 var _hoisted_56 = {
-  "class": "fk-hapus-body"
+  "class": "fk-summary-value"
 };
 var _hoisted_57 = {
-  key: 0,
-  "class": "fk-summary mt-2"
+  "class": "fk-summary-row"
 };
 var _hoisted_58 = {
-  "class": "fk-summary-row"
+  "class": "fk-summary-value"
 };
 var _hoisted_59 = {
-  "class": "fk-code"
+  key: 0,
+  "class": "fk-summary-row"
 };
 var _hoisted_60 = {
-  "class": "fk-summary-row"
+  "class": "fk-summary-value"
 };
 var _hoisted_61 = {
-  "class": "fk-summary-value"
-};
-var _hoisted_62 = {
+  key: 1,
   "class": "fk-summary-row"
 };
+var _hoisted_62 = {
+  "class": "fk-hapus-body"
+};
 var _hoisted_63 = {
-  "class": "fk-summary-value"
+  key: 0,
+  "class": "fk-summary mt-2"
 };
 var _hoisted_64 = {
   "class": "fk-summary-row"
 };
 var _hoisted_65 = {
-  "class": "fk-summary-value"
+  "class": "fk-code"
 };
 var _hoisted_66 = {
   "class": "fk-summary-row"
 };
 var _hoisted_67 = {
+  "class": "fk-summary-value"
+};
+var _hoisted_68 = {
+  "class": "fk-summary-row"
+};
+var _hoisted_69 = {
+  "class": "fk-summary-value"
+};
+var _hoisted_70 = {
+  "class": "fk-summary-row"
+};
+var _hoisted_71 = {
+  "class": "fk-summary-value"
+};
+var _hoisted_72 = {
+  "class": "fk-summary-row"
+};
+var _hoisted_73 = {
   "class": "fk-summary-value"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -600,7 +749,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $options.kembali();
     })
-  }), _cache[14] || (_cache[14] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", {
+  }), _cache[15] || (_cache[15] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", {
     "class": "fk-page-title"
   }, "Form Jadwal Kontrol Ulang"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", {
     "class": "fk-page-sub"
@@ -608,31 +757,31 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "fk-card mb-3"
   }, {
     title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return _toConsumableArray(_cache[15] || (_cache[15] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      return _toConsumableArray(_cache[16] || (_cache[16] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         "class": "fk-card-title"
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": "pi pi-id-card"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Informasi Pasien")], -1 /* CACHED */)]));
     }),
     content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [$data.data_pasien.NAMAPASIEN ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_cache[16] || (_cache[16] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      return [$data.data_pasien.NAMAPASIEN ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_cache[17] || (_cache[17] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-info-label"
-      }, "Nama Pasien", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data_pasien.NAMAPASIEN), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_cache[17] || (_cache[17] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, "Nama Pasien", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data_pasien.NAMAPASIEN), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_cache[18] || (_cache[18] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-info-label"
-      }, "No. MR", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data_pasien.NOMR), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_cache[18] || (_cache[18] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, "No. MR", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data_pasien.NOMR), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_cache[19] || (_cache[19] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-info-label"
-      }, "No. Pendaftaran", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data_pasien.NOPENDAFTARAN), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_cache[19] || (_cache[19] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, "No. Pendaftaran", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data_pasien.NOPENDAFTARAN), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_cache[20] || (_cache[20] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-info-label"
-      }, "Dokter DPJP", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data_pasien.NAMADOKTER), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_cache[20] || (_cache[20] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, "Dokter DPJP", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data_pasien.NAMADOKTER), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_cache[21] || (_cache[21] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-info-label"
-      }, "Ruangan", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data_pasien.NAMA_RUANGAN), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_cache[21] || (_cache[21] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, "Ruangan", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data_pasien.NAMA_RUANGAN), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_cache[22] || (_cache[22] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-info-label"
       }, "Cara Bayar", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Tag, {
         value: $data.data_pasien.CARABAYAR,
         severity: "info"
-      }, null, 8 /* PROPS */, ["value"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_cache[22] || (_cache[22] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, null, 8 /* PROPS */, ["value"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_cache[23] || (_cache[23] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-info-label"
-      }, "Tanggal Masuk", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data_pasien.MASUKPOLY), 1 /* TEXT */)])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_17, _toConsumableArray(_cache[23] || (_cache[23] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+      }, "Tanggal Masuk", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data_pasien.MASUKPOLY), 1 /* TEXT */)])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_17, _toConsumableArray(_cache[24] || (_cache[24] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": "pi pi-spin pi-spinner"
       }, null, -1 /* CACHED */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Memuat data pasien...", -1 /* CACHED */)]))))];
     }),
@@ -641,7 +790,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "fk-card"
   }, {
     title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return _toConsumableArray(_cache[24] || (_cache[24] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      return _toConsumableArray(_cache[25] || (_cache[25] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         "class": "fk-card-title"
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": "pi pi-calendar-plus fk-icon-green"
@@ -658,7 +807,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validationMsg), 1 /* TEXT */)];
         }),
         _: 1 /* STABLE */
-      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [_cache[25] || (_cache[25] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [_cache[26] || (_cache[26] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
         "class": "fk-label"
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Tanggal Kontrol Ulang "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-required"
@@ -689,7 +838,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         onClick: _cache[4] || (_cache[4] = function ($event) {
           return $options.geserTanggal(1);
         })
-      }, null, 8 /* PROPS */, ["disabled"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_cache[26] || (_cache[26] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+      }, null, 8 /* PROPS */, ["disabled"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_cache[27] || (_cache[27] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
         "class": "fk-label"
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Poli Tujuan "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-required"
@@ -706,21 +855,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         },
         filter: true,
         filterPlaceholder: "Cari poli..."
-      }, null, 8 /* PROPS */, ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Dokter & Jadwal (dinamis dari API) "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_cache[33] || (_cache[33] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+      }, null, 8 /* PROPS */, ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Dokter & Jadwal (dinamis dari API) "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_cache[34] || (_cache[34] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
         "class": "fk-label"
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Pilih Dokter & Jadwal Praktek "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-optional"
-      }, "(opsional)")], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Hint: belum pilih poli / tanggal "), !$data.selectedPoli || !$data.form.tanggal_kontrol ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23, _toConsumableArray(_cache[27] || (_cache[27] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+      }, "(opsional)")], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Hint: belum pilih poli / tanggal "), !$data.selectedPoli || !$data.form.tanggal_kontrol ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23, _toConsumableArray(_cache[28] || (_cache[28] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": "pi pi-info-circle"
       }, null, -1 /* CACHED */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Pilih ", -1 /* CACHED */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "poli tujuan", -1 /* CACHED */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" dan ", -1 /* CACHED */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "tanggal", -1 /* CACHED */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" terlebih dahulu untuk melihat jadwal dokter yang tersedia. ", -1 /* CACHED */)])))) : $data.loadingDokter ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
         key: 1
-      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Loading "), _cache[28] || (_cache[28] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Loading "), _cache[29] || (_cache[29] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         "class": "fk-dokter-loading"
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": "pi pi-spin pi-spinner"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Memuat jadwal dokter...")], -1 /* CACHED */))], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */)) : $data.dataDokter.length === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
         key: 2
-      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Empty "), _cache[29] || (_cache[29] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Empty "), _cache[30] || (_cache[30] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         "class": "fk-dokter-empty"
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": "pi pi-calendar-times"
@@ -735,15 +884,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           onClick: function onClick($event) {
             return $data.selectedDokter = dokter;
           }
-        }, [_cache[32] || (_cache[32] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+        }, [_cache[33] || (_cache[33] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
           "class": "fk-dokter-card-left"
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
           "class": "fk-dokter-card-icon"
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
           "class": "pi pi-user-plus"
-        })])], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(dokter.namaDokter), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_29, [_cache[30] || (_cache[30] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+        })])], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(dokter.namaDokter), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_29, [_cache[31] || (_cache[31] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
           "class": "pi pi-clock"
-        }, null, -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(dokter.jadwalPraktek), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_30, [_cache[31] || (_cache[31] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+        }, null, -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(dokter.jadwalPraktek), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_30, [_cache[32] || (_cache[32] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
           "class": "pi pi-users"
         }, null, -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(dokter.kapasitas) + " pasien ", 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [$data.selectedDokter === dokter ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("i", _hoisted_32)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("i", _hoisted_33))])], 10 /* CLASS, PROPS */, _hoisted_25);
       }), 128 /* KEYED_FRAGMENT */))])], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */))])])];
@@ -772,29 +921,54 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "fk-card mt-3"
   }, {
     title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [_cache[34] || (_cache[34] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [_cache[35] || (_cache[35] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": "pi pi-history fk-icon-blue"
-      }, null, -1 /* CACHED */)), _cache[35] || (_cache[35] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Riwayat Kontrol Ulang", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Tag, {
+      }, null, -1 /* CACHED */)), _cache[36] || (_cache[36] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Riwayat Kontrol Ulang", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Tag, {
+        value: "Server BPJS",
+        severity: "secondary"
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Tag, {
         value: $options.riwayatKontrolUlangFiltered.length,
         severity: "info",
         "class": "ml-auto"
       }, null, 8 /* PROPS */, ["value"])])];
     }),
     content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [$options.riwayatKontrolUlangFiltered.length === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_36, [_cache[36] || (_cache[36] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Filter bulan/tahun "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, [_cache[37] || (_cache[37] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+        "class": "pi pi-credit-card"
+      }, null, -1 /* CACHED */)), _cache[38] || (_cache[38] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" No. Kartu: ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data_pasien.NOJAMINAN || '—'), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_39, [_cache[39] || (_cache[39] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+        "class": "pi pi-calendar"
+      }, null, -1 /* CACHED */)), _cache[40] || (_cache[40] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Periode: ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.labelBulanRiwayat), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+        label: "Muat Ulang",
+        icon: "pi pi-refresh",
+        severity: "info",
+        size: "small",
+        outlined: "",
+        loading: $data.loadingRiwayat,
+        onClick: _cache[8] || (_cache[8] = function ($event) {
+          return $options.getRiwayatKontrolUlang();
+        })
+      }, null, 8 /* PROPS */, ["loading"])])]), $data.loadingRiwayat ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_40, _toConsumableArray(_cache[41] || (_cache[41] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+        "class": "pi pi-spin pi-spinner"
+      }, null, -1 /* CACHED */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Mengambil data dari server BPJS...", -1 /* CACHED */)])))) : $options.riwayatKontrolUlangFiltered.length === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_41, [_cache[42] || (_cache[42] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": "pi pi-inbox"
-      }, null, -1 /* CACHED */)), $data.form.tanggal_kontrol ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_37, "Tidak ada riwayat kontrol pada tanggal ini.")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_38, "Belum ada riwayat kontrol ulang."))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_40, [_cache[37] || (_cache[37] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "No. Kontrol"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Tgl. Kontrol"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Poli"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Dokter"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Diagnosa"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "No. SEP"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Tgl. Entri"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Status"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Aksi")])], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.riwayatKontrolUlangFiltered, function (row, idx) {
+      }, null, -1 /* CACHED */)), $data.riwayatError ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_42, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.riwayatError), 1 /* TEXT */)) : $data.form.tanggal_kontrol ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_43, "Tidak ada rencana kontrol pada tanggal ini.")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_44, "Tidak ada rencana kontrol pada periode ini."))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_46, [_cache[43] || (_cache[43] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "No. Surat Kontrol"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Jenis"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Tgl. Kontrol"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Tgl. Terbit"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "SEP Asal"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Tgl. SEP"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Poli Tujuan"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Dokter"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Terbit SEP"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Aksi")])], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.riwayatKontrolUlangFiltered, function (row, idx) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
-          key: idx
-        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("code", _hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.NO_KONTROL_ULANG), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatTanggal(row.TANGGAL_KONTROL)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.POLI), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.NAMADOKTER), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.KODE_DIAGNOSA), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("code", _hoisted_42, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.NOSEP), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatTanggal(row.TLG_ENTRI)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [row.STTS ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Tag, {
-          key: 0,
-          value: row.STTS,
-          severity: "success"
-        }, null, 8 /* PROPS */, ["value"])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Tag, {
-          key: 1,
-          value: "Aktif",
-          severity: "info"
-        }))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+          key: row.noSuratKontrol || idx
+        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("code", _hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.noSuratKontrol || '—'), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.namaJnsKontrol || '—'), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.tglRencanaKontrol || '—'), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.tglTerbitKontrol || '—'), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("code", _hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.noSepAsalKontrol || '—'), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.tglSEP || '—'), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.namaPoliTujuan || row.poliTujuan || '—'), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.namaDokter || '—'), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Tag, {
+          value: row.terbitSEP || '—',
+          severity: row.terbitSEP === 'Sudah' ? 'success' : 'secondary'
+        }, null, 8 /* PROPS */, ["value", "severity"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+          text: "",
+          rounded: "",
+          size: "small",
+          icon: $options.syncIcon(row.noSuratKontrol),
+          severity: $options.syncSeverity(row.noSuratKontrol),
+          loading: !!$data.syncingMap[row.noSuratKontrol],
+          disabled: !!$data.syncingMap[row.noSuratKontrol],
+          onClick: function onClick($event) {
+            return $options.syncItem(row);
+          }
+        }, null, 8 /* PROPS */, ["icon", "severity", "loading", "disabled", "onClick"]), [[_directive_tooltip, 'Sync ke SIMRS']]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
           icon: "pi pi-print",
           severity: "info",
           text: "",
@@ -809,18 +983,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           text: "",
           rounded: "",
           size: "small",
-          loading: $data.loadingHapus === row.NO_KONTROL_ULANG,
+          loading: $data.loadingHapus === row.noSuratKontrol,
+          disabled: row.terbitSEP === 'Sudah',
           onClick: function onClick($event) {
             return $options.konfirmasiHapus(row);
           }
-        }, null, 8 /* PROPS */, ["loading", "onClick"]), [[_directive_tooltip, 'Batalkan']])])])]);
+        }, null, 8 /* PROPS */, ["loading", "disabled", "onClick"]), [[_directive_tooltip, 'Batalkan']])])])]);
       }), 128 /* KEYED_FRAGMENT */))])])]))];
     }),
     _: 1 /* STABLE */
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Dialog Konfirmasi "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
     header: "Konfirmasi Terbitkan Jadwal",
     visible: $data.dialogKonfirmasi,
-    "onUpdate:visible": _cache[10] || (_cache[10] = function ($event) {
+    "onUpdate:visible": _cache[11] || (_cache[11] = function ($event) {
       return $data.dialogKonfirmasi = $event;
     }),
     style: {
@@ -834,14 +1009,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         icon: "pi pi-times",
         severity: "secondary",
         outlined: "",
-        onClick: _cache[8] || (_cache[8] = function ($event) {
+        onClick: _cache[9] || (_cache[9] = function ($event) {
           return $data.dialogKonfirmasi = false;
         })
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
         label: "Ya, Terbitkan",
         icon: "pi pi-check",
         severity: "success",
-        onClick: _cache[9] || (_cache[9] = function ($event) {
+        onClick: _cache[10] || (_cache[10] = function ($event) {
           return $options.simpan();
         }),
         loading: $data.isLoading
@@ -854,22 +1029,22 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "mb-3"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return _toConsumableArray(_cache[38] || (_cache[38] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+          return _toConsumableArray(_cache[44] || (_cache[44] = [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
             "class": "pi pi-exclamation-triangle mr-1"
           }, null, -1 /* CACHED */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Pastikan semua data sudah benar sebelum menerbitkan. ", -1 /* CACHED */)]));
         }),
         _: 1 /* STABLE */
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [_cache[39] || (_cache[39] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [_cache[45] || (_cache[45] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-summary-label"
-      }, "Pasien", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data_pasien.NAMAPASIEN), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [_cache[40] || (_cache[40] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, "Pasien", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_52, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data_pasien.NAMAPASIEN), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_53, [_cache[46] || (_cache[46] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-summary-label"
-      }, "No. Register", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.noregister), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [_cache[41] || (_cache[41] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, "No. Register", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_54, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.noregister), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_55, [_cache[47] || (_cache[47] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-summary-label"
-      }, "Poli Tujuan", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.namaPoliSelected), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [_cache[42] || (_cache[42] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, "Poli Tujuan", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_56, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.namaPoliSelected), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_57, [_cache[48] || (_cache[48] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-summary-label"
-      }, "Tanggal Kontrol", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_52, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatTanggal($data.form.tanggal_kontrol)), 1 /* TEXT */)]), $data.selectedDokter ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_53, [_cache[43] || (_cache[43] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, "Tanggal Kontrol", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_58, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatTanggal($data.form.tanggal_kontrol)), 1 /* TEXT */)]), $data.selectedDokter ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_59, [_cache[49] || (_cache[49] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-summary-label"
-      }, "Dokter", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_54, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedDokter.namaDokter), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.selectedDokter ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_55, [_cache[44] || (_cache[44] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, "Dokter", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_60, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedDokter.namaDokter), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.selectedDokter ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_61, [_cache[50] || (_cache[50] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-summary-label"
       }, "Jadwal Praktek", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Tag, {
         value: $data.selectedDokter.jadwalPraktek,
@@ -880,7 +1055,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8 /* PROPS */, ["visible"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Dialog Konfirmasi Hapus Surat Kontrol "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
     header: "Batalkan Surat Kontrol",
     visible: $data.dialogHapus,
-    "onUpdate:visible": _cache[13] || (_cache[13] = function ($event) {
+    "onUpdate:visible": _cache[14] || (_cache[14] = function ($event) {
       return $data.dialogHapus = $event;
     }),
     style: {
@@ -894,37 +1069,37 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         icon: "pi pi-times",
         severity: "secondary",
         outlined: "",
-        onClick: _cache[11] || (_cache[11] = function ($event) {
+        onClick: _cache[12] || (_cache[12] = function ($event) {
           return $data.dialogHapus = false;
         })
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
         label: "Ya, Batalkan",
         icon: "pi pi-trash",
         severity: "danger",
-        onClick: _cache[12] || (_cache[12] = function ($event) {
+        onClick: _cache[13] || (_cache[13] = function ($event) {
           return $options.hapusSuratKontrol();
         }),
         loading: $data.loadingHapus !== null
       }, null, 8 /* PROPS */, ["loading"])];
     }),
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_56, [_cache[50] || (_cache[50] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_62, [_cache[56] || (_cache[56] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         "class": "fk-hapus-icon"
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": "pi pi-exclamation-triangle"
-      })], -1 /* CACHED */)), _cache[51] || (_cache[51] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+      })], -1 /* CACHED */)), _cache[57] || (_cache[57] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
         "class": "fk-hapus-desc"
-      }, " Apakah Anda yakin ingin membatalkan surat kontrol berikut? ", -1 /* CACHED */)), $data.hapusTarget ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_57, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_58, [_cache[45] || (_cache[45] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, " Apakah Anda yakin ingin membatalkan surat kontrol berikut? ", -1 /* CACHED */)), $data.hapusTarget ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_63, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_64, [_cache[51] || (_cache[51] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-summary-label"
-      }, "No. Kontrol", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("code", _hoisted_59, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.hapusTarget.NO_KONTROL_ULANG), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_60, [_cache[46] || (_cache[46] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, "No. Kontrol", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("code", _hoisted_65, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.hapusTarget.noSuratKontrol), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_66, [_cache[52] || (_cache[52] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-summary-label"
-      }, "Pasien", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_61, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.hapusTarget.NAMA), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_62, [_cache[47] || (_cache[47] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, "Pasien", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_67, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.hapusTarget.nama || $data.data_pasien.NAMAPASIEN), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_68, [_cache[53] || (_cache[53] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-summary-label"
-      }, "Poli", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_63, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.hapusTarget.POLI), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_64, [_cache[48] || (_cache[48] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, "Poli", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_69, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.hapusTarget.namaPoliTujuan || $data.hapusTarget.poliTujuan), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_70, [_cache[54] || (_cache[54] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-summary-label"
-      }, "Dokter", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_65, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.hapusTarget.NAMADOKTER), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_66, [_cache[49] || (_cache[49] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      }, "Dokter", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_71, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.hapusTarget.namaDokter), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_72, [_cache[55] || (_cache[55] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
         "class": "fk-summary-label"
-      }, "Tgl. Kontrol", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_67, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formatTanggal($data.hapusTarget.TANGGAL_KONTROL)), 1 /* TEXT */)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])];
+      }, "Tgl. Kontrol", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_73, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.hapusTarget.tglRencanaKontrol), 1 /* TEXT */)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])];
     }),
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["visible"])]);
@@ -948,7 +1123,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.fk-wrapper[data-v-4f503373] {\r\n    max-width: 860px;\r\n    margin: 0 auto;\r\n    padding: 1.5rem 1rem;\n}\n.fk-page-header[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 0.75rem;\r\n    margin-bottom: 1.25rem;\n}\n.fk-page-title[data-v-4f503373] {\r\n    margin: 0;\r\n    font-size: 1.1rem;\r\n    font-weight: 700;\r\n    color: #1e293b;\n}\n.fk-page-sub[data-v-4f503373] {\r\n    color: #64748b;\r\n    font-size: 12px;\n}\n.fk-card[data-v-4f503373] {\r\n    border-radius: 12px;\r\n    border: 1px solid #e2e8f0;\n}\n.fk-card-title[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 0.5rem;\r\n    font-size: 0.95rem;\r\n    font-weight: 700;\r\n    color: #334155;\n}\n.fk-icon-green[data-v-4f503373] { color: #16a34a;\n}\r\n\r\n/* Patient info grid */\n.fk-patient-grid[data-v-4f503373] {\r\n    display: grid;\r\n    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));\r\n    gap: 1rem 1.5rem;\n}\n.fk-info-item[data-v-4f503373] {\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 3px;\n}\n.fk-info-label[data-v-4f503373] {\r\n    font-size: 11px;\r\n    font-weight: 600;\r\n    color: #94a3b8;\r\n    text-transform: uppercase;\r\n    letter-spacing: 0.4px;\n}\n.fk-info-value[data-v-4f503373] {\r\n    font-size: 13px;\r\n    font-weight: 600;\r\n    color: #1e293b;\n}\n.fk-loading-info[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 0.5rem;\r\n    color: #94a3b8;\r\n    font-size: 13px;\n}\r\n\r\n/* Date nav */\n.fk-date-nav[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 6px;\n}\n[data-v-4f503373] .fk-date-nav .p-datepicker-input {\r\n    flex: 1;\n}\r\n\r\n/* Form labels */\n.fk-label[data-v-4f503373] {\r\n    display: block;\r\n    font-size: 12px;\r\n    font-weight: 600;\r\n    color: #475569;\r\n    margin-bottom: 6px;\n}\n.fk-required[data-v-4f503373] { color: #ef4444;\n}\n.fk-optional[data-v-4f503373] { font-weight: 400; color: #94a3b8;\n}\r\n\r\n/* Dokter states */\n.fk-dokter-hint[data-v-4f503373],\r\n.fk-dokter-loading[data-v-4f503373],\r\n.fk-dokter-empty[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 10px;\r\n    padding: 12px 16px;\r\n    border-radius: 8px;\r\n    font-size: 13px;\n}\n.fk-dokter-hint[data-v-4f503373] {\r\n    background: #f8fafc;\r\n    border: 1px dashed #cbd5e1;\r\n    color: #64748b;\n}\n.fk-dokter-hint i[data-v-4f503373] { color: #3b82f6;\n}\n.fk-dokter-loading[data-v-4f503373] {\r\n    background: #eff6ff;\r\n    border: 1px solid #bfdbfe;\r\n    color: #1d4ed8;\n}\n.fk-dokter-empty[data-v-4f503373] {\r\n    background: #fff7ed;\r\n    border: 1px solid #fed7aa;\r\n    color: #c2410c;\n}\r\n\r\n/* Card list jadwal dokter */\n.fk-dokter-list[data-v-4f503373] {\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 8px;\n}\n.fk-dokter-card[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 12px;\r\n    padding: 12px 16px;\r\n    border: 2px solid #e2e8f0;\r\n    border-radius: 10px;\r\n    cursor: pointer;\r\n    background: #fff;\r\n    transition: all 0.15s ease;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n            user-select: none;\n}\n.fk-dokter-card[data-v-4f503373]:hover {\r\n    border-color: #93c5fd;\r\n    background: #f0f9ff;\n}\n.fk-dokter-card--selected[data-v-4f503373] {\r\n    border-color: #3b82f6 !important;\r\n    background: #eff6ff !important;\r\n    box-shadow: 0 0 0 3px rgba(59,130,246,0.15);\n}\n.fk-dokter-card-left[data-v-4f503373] {\r\n    flex-shrink: 0;\n}\n.fk-dokter-card-icon[data-v-4f503373] {\r\n    width: 40px;\r\n    height: 40px;\r\n    border-radius: 50%;\r\n    background: #dbeafe;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    color: #2563eb;\r\n    font-size: 16px;\n}\n.fk-dokter-card--selected .fk-dokter-card-icon[data-v-4f503373] {\r\n    background: #3b82f6;\r\n    color: #fff;\n}\n.fk-dokter-card-body[data-v-4f503373] {\r\n    flex: 1;\r\n    min-width: 0;\n}\n.fk-dokter-card-nama[data-v-4f503373] {\r\n    font-size: 13px;\r\n    font-weight: 700;\r\n    color: #1e293b;\r\n    margin-bottom: 4px;\n}\n.fk-dokter-card-meta[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 14px;\n}\n.fk-dokter-card-jam[data-v-4f503373],\r\n.fk-dokter-card-kapasitas[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 4px;\r\n    font-size: 12px;\r\n    color: #64748b;\n}\n.fk-dokter-card-jam i[data-v-4f503373] { color: #16a34a;\n}\n.fk-dokter-card-kapasitas i[data-v-4f503373] { color: #7c3aed;\n}\n.fk-dokter-card-right[data-v-4f503373] { flex-shrink: 0;\n}\n.fk-check-icon[data-v-4f503373] { color: #3b82f6; font-size: 20px;\n}\n.fk-uncheck-icon[data-v-4f503373] { color: #cbd5e1; font-size: 20px;\n}\r\n\r\n/* Footer actions */\n.fk-footer-actions[data-v-4f503373] {\r\n    display: flex;\r\n    justify-content: flex-end;\r\n    gap: 0.5rem;\n}\r\n\r\n/* Confirmation summary */\n.fk-summary[data-v-4f503373] {\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 0;\n}\n.fk-summary-row[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: flex-start;\r\n    justify-content: space-between;\r\n    padding: 8px 0;\r\n    border-bottom: 1px solid #f1f5f9;\r\n    gap: 1rem;\n}\n.fk-summary-row[data-v-4f503373]:last-child { border-bottom: none;\n}\n.fk-summary-label[data-v-4f503373] {\r\n    font-size: 12px;\r\n    font-weight: 600;\r\n    color: #64748b;\r\n    min-width: 130px;\n}\n.fk-summary-value[data-v-4f503373] {\r\n    font-size: 13px;\r\n    color: #1e293b;\r\n    text-align: right;\r\n    flex: 1;\n}\r\n\r\n/* Dialog hapus */\n.fk-hapus-body[data-v-4f503373] {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    text-align: center;\r\n    padding: 0.5rem 0 0.25rem;\n}\n.fk-hapus-icon[data-v-4f503373] {\r\n    width: 52px;\r\n    height: 52px;\r\n    border-radius: 50%;\r\n    background: #fef2f2;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    margin-bottom: 0.75rem;\n}\n.fk-hapus-icon i[data-v-4f503373] {\r\n    font-size: 22px;\r\n    color: #ef4444;\n}\n.fk-hapus-desc[data-v-4f503373] {\r\n    font-size: 13px;\r\n    color: #475569;\r\n    margin: 0;\n}\r\n\r\n/* Riwayat table */\n.fk-icon-blue[data-v-4f503373] { color: #3b82f6;\n}\n.fk-riwayat-empty[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 10px;\r\n    padding: 20px;\r\n    color: #94a3b8;\r\n    font-size: 13px;\r\n    justify-content: center;\n}\n.fk-riwayat-empty i[data-v-4f503373] { font-size: 20px;\n}\n.fk-riwayat-table-wrapper[data-v-4f503373] {\r\n    overflow-x: auto;\n}\n.fk-riwayat-table[data-v-4f503373] {\r\n    width: 100%;\r\n    border-collapse: collapse;\r\n    font-size: 12px;\n}\n.fk-riwayat-table thead tr[data-v-4f503373] {\r\n    background: #f8fafc;\r\n    border-bottom: 2px solid #e2e8f0;\n}\n.fk-riwayat-table th[data-v-4f503373] {\r\n    padding: 8px 12px;\r\n    text-align: left;\r\n    font-size: 11px;\r\n    font-weight: 700;\r\n    color: #64748b;\r\n    text-transform: uppercase;\r\n    letter-spacing: 0.4px;\r\n    white-space: nowrap;\n}\n.fk-riwayat-table td[data-v-4f503373] {\r\n    padding: 8px 12px;\r\n    border-bottom: 1px solid #f1f5f9;\r\n    color: #334155;\r\n    vertical-align: middle;\n}\n.fk-riwayat-table tbody tr[data-v-4f503373]:hover {\r\n    background: #f8fafc;\n}\n.fk-riwayat-table tbody tr:last-child td[data-v-4f503373] {\r\n    border-bottom: none;\n}\n.fk-code[data-v-4f503373] {\r\n    font-size: 11px;\r\n    background: #f1f5f9;\r\n    padding: 2px 6px;\r\n    border-radius: 4px;\r\n    color: #475569;\r\n    font-family: monospace;\n}\n@media (max-width: 576px) {\n.fk-wrapper[data-v-4f503373] { padding: 1rem 0.5rem;\n}\n.fk-patient-grid[data-v-4f503373] { grid-template-columns: 1fr 1fr;\n}\n.fk-footer-actions[data-v-4f503373] { flex-direction: column-reverse;\n}\n.fk-footer-actions .p-button[data-v-4f503373] { width: 100%; justify-content: center;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.fk-wrapper[data-v-4f503373] {\r\n    max-width: 860px;\r\n    margin: 0 auto;\r\n    padding: 1.5rem 1rem;\n}\n.fk-page-header[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 0.75rem;\r\n    margin-bottom: 1.25rem;\n}\n.fk-page-title[data-v-4f503373] {\r\n    margin: 0;\r\n    font-size: 1.1rem;\r\n    font-weight: 700;\r\n    color: #1e293b;\n}\n.fk-page-sub[data-v-4f503373] {\r\n    color: #64748b;\r\n    font-size: 12px;\n}\n.fk-card[data-v-4f503373] {\r\n    border-radius: 12px;\r\n    border: 1px solid #e2e8f0;\n}\n.fk-card-title[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 0.5rem;\r\n    font-size: 0.95rem;\r\n    font-weight: 700;\r\n    color: #334155;\n}\n.fk-icon-green[data-v-4f503373] { color: #16a34a;\n}\r\n\r\n/* Patient info grid */\n.fk-patient-grid[data-v-4f503373] {\r\n    display: grid;\r\n    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));\r\n    gap: 1rem 1.5rem;\n}\n.fk-info-item[data-v-4f503373] {\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 3px;\n}\n.fk-info-label[data-v-4f503373] {\r\n    font-size: 11px;\r\n    font-weight: 600;\r\n    color: #94a3b8;\r\n    text-transform: uppercase;\r\n    letter-spacing: 0.4px;\n}\n.fk-info-value[data-v-4f503373] {\r\n    font-size: 13px;\r\n    font-weight: 600;\r\n    color: #1e293b;\n}\n.fk-loading-info[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 0.5rem;\r\n    color: #94a3b8;\r\n    font-size: 13px;\n}\r\n\r\n/* Date nav */\n.fk-date-nav[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 6px;\n}\n[data-v-4f503373] .fk-date-nav .p-datepicker-input {\r\n    flex: 1;\n}\r\n\r\n/* Form labels */\n.fk-label[data-v-4f503373] {\r\n    display: block;\r\n    font-size: 12px;\r\n    font-weight: 600;\r\n    color: #475569;\r\n    margin-bottom: 6px;\n}\n.fk-required[data-v-4f503373] { color: #ef4444;\n}\n.fk-optional[data-v-4f503373] { font-weight: 400; color: #94a3b8;\n}\r\n\r\n/* Dokter states */\n.fk-dokter-hint[data-v-4f503373],\r\n.fk-dokter-loading[data-v-4f503373],\r\n.fk-dokter-empty[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 10px;\r\n    padding: 12px 16px;\r\n    border-radius: 8px;\r\n    font-size: 13px;\n}\n.fk-dokter-hint[data-v-4f503373] {\r\n    background: #f8fafc;\r\n    border: 1px dashed #cbd5e1;\r\n    color: #64748b;\n}\n.fk-dokter-hint i[data-v-4f503373] { color: #3b82f6;\n}\n.fk-dokter-loading[data-v-4f503373] {\r\n    background: #eff6ff;\r\n    border: 1px solid #bfdbfe;\r\n    color: #1d4ed8;\n}\n.fk-dokter-empty[data-v-4f503373] {\r\n    background: #fff7ed;\r\n    border: 1px solid #fed7aa;\r\n    color: #c2410c;\n}\r\n\r\n/* Card list jadwal dokter */\n.fk-dokter-list[data-v-4f503373] {\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 8px;\n}\n.fk-dokter-card[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 12px;\r\n    padding: 12px 16px;\r\n    border: 2px solid #e2e8f0;\r\n    border-radius: 10px;\r\n    cursor: pointer;\r\n    background: #fff;\r\n    transition: all 0.15s ease;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n            user-select: none;\n}\n.fk-dokter-card[data-v-4f503373]:hover {\r\n    border-color: #93c5fd;\r\n    background: #f0f9ff;\n}\n.fk-dokter-card--selected[data-v-4f503373] {\r\n    border-color: #3b82f6 !important;\r\n    background: #eff6ff !important;\r\n    box-shadow: 0 0 0 3px rgba(59,130,246,0.15);\n}\n.fk-dokter-card-left[data-v-4f503373] {\r\n    flex-shrink: 0;\n}\n.fk-dokter-card-icon[data-v-4f503373] {\r\n    width: 40px;\r\n    height: 40px;\r\n    border-radius: 50%;\r\n    background: #dbeafe;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    color: #2563eb;\r\n    font-size: 16px;\n}\n.fk-dokter-card--selected .fk-dokter-card-icon[data-v-4f503373] {\r\n    background: #3b82f6;\r\n    color: #fff;\n}\n.fk-dokter-card-body[data-v-4f503373] {\r\n    flex: 1;\r\n    min-width: 0;\n}\n.fk-dokter-card-nama[data-v-4f503373] {\r\n    font-size: 13px;\r\n    font-weight: 700;\r\n    color: #1e293b;\r\n    margin-bottom: 4px;\n}\n.fk-dokter-card-meta[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 14px;\n}\n.fk-dokter-card-jam[data-v-4f503373],\r\n.fk-dokter-card-kapasitas[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 4px;\r\n    font-size: 12px;\r\n    color: #64748b;\n}\n.fk-dokter-card-jam i[data-v-4f503373] { color: #16a34a;\n}\n.fk-dokter-card-kapasitas i[data-v-4f503373] { color: #7c3aed;\n}\n.fk-dokter-card-right[data-v-4f503373] { flex-shrink: 0;\n}\n.fk-check-icon[data-v-4f503373] { color: #3b82f6; font-size: 20px;\n}\n.fk-uncheck-icon[data-v-4f503373] { color: #cbd5e1; font-size: 20px;\n}\r\n\r\n/* Footer actions */\n.fk-footer-actions[data-v-4f503373] {\r\n    display: flex;\r\n    justify-content: flex-end;\r\n    gap: 0.5rem;\n}\r\n\r\n/* Confirmation summary */\n.fk-summary[data-v-4f503373] {\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 0;\n}\n.fk-summary-row[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: flex-start;\r\n    justify-content: space-between;\r\n    padding: 8px 0;\r\n    border-bottom: 1px solid #f1f5f9;\r\n    gap: 1rem;\n}\n.fk-summary-row[data-v-4f503373]:last-child { border-bottom: none;\n}\n.fk-summary-label[data-v-4f503373] {\r\n    font-size: 12px;\r\n    font-weight: 600;\r\n    color: #64748b;\r\n    min-width: 130px;\n}\n.fk-summary-value[data-v-4f503373] {\r\n    font-size: 13px;\r\n    color: #1e293b;\r\n    text-align: right;\r\n    flex: 1;\n}\r\n\r\n/* Dialog hapus */\n.fk-hapus-body[data-v-4f503373] {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    text-align: center;\r\n    padding: 0.5rem 0 0.25rem;\n}\n.fk-hapus-icon[data-v-4f503373] {\r\n    width: 52px;\r\n    height: 52px;\r\n    border-radius: 50%;\r\n    background: #fef2f2;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    margin-bottom: 0.75rem;\n}\n.fk-hapus-icon i[data-v-4f503373] {\r\n    font-size: 22px;\r\n    color: #ef4444;\n}\n.fk-hapus-desc[data-v-4f503373] {\r\n    font-size: 13px;\r\n    color: #475569;\r\n    margin: 0;\n}\r\n\r\n/* Riwayat table */\n.fk-icon-blue[data-v-4f503373] { color: #3b82f6;\n}\n.fk-riwayat-empty[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 10px;\r\n    padding: 20px;\r\n    color: #94a3b8;\r\n    font-size: 13px;\r\n    justify-content: center;\n}\n.fk-riwayat-empty i[data-v-4f503373] { font-size: 20px;\n}\n.fk-riwayat-filter[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    flex-wrap: wrap;\r\n    gap: 0.75rem;\r\n    padding: 10px 14px;\r\n    margin-bottom: 12px;\r\n    background: #f8fafc;\r\n    border: 1px solid #e2e8f0;\r\n    border-radius: 8px;\n}\n.fk-riwayat-filter-info[data-v-4f503373] {\r\n    flex: 1;\r\n    font-size: 12px;\r\n    color: #64748b;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 6px;\n}\n.fk-riwayat-filter-ctrl[data-v-4f503373] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 8px;\n}\n.fk-riwayat-table-wrapper[data-v-4f503373] {\r\n    overflow-x: auto;\n}\n.fk-riwayat-table[data-v-4f503373] {\r\n    width: 100%;\r\n    border-collapse: collapse;\r\n    font-size: 12px;\n}\n.fk-riwayat-table thead tr[data-v-4f503373] {\r\n    background: #f8fafc;\r\n    border-bottom: 2px solid #e2e8f0;\n}\n.fk-riwayat-table th[data-v-4f503373] {\r\n    padding: 8px 12px;\r\n    text-align: left;\r\n    font-size: 11px;\r\n    font-weight: 700;\r\n    color: #64748b;\r\n    text-transform: uppercase;\r\n    letter-spacing: 0.4px;\r\n    white-space: nowrap;\n}\n.fk-riwayat-table td[data-v-4f503373] {\r\n    padding: 8px 12px;\r\n    border-bottom: 1px solid #f1f5f9;\r\n    color: #334155;\r\n    vertical-align: middle;\n}\n.fk-riwayat-table tbody tr[data-v-4f503373]:hover {\r\n    background: #f8fafc;\n}\n.fk-riwayat-table tbody tr:last-child td[data-v-4f503373] {\r\n    border-bottom: none;\n}\n.fk-code[data-v-4f503373] {\r\n    font-size: 11px;\r\n    background: #f1f5f9;\r\n    padding: 2px 6px;\r\n    border-radius: 4px;\r\n    color: #475569;\r\n    font-family: monospace;\n}\n@media (max-width: 576px) {\n.fk-wrapper[data-v-4f503373] { padding: 1rem 0.5rem;\n}\n.fk-patient-grid[data-v-4f503373] { grid-template-columns: 1fr 1fr;\n}\n.fk-footer-actions[data-v-4f503373] { flex-direction: column-reverse;\n}\n.fk-footer-actions .p-button[data-v-4f503373] { width: 100%; justify-content: center;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

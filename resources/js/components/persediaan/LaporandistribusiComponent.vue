@@ -797,6 +797,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import { FilterMatchMode } from '@primevue/core/api';
     import Loading from 'vue-loading-overlay';
     import Chart from 'primevue/chart';
@@ -1352,9 +1353,7 @@
                     .finally(() => this.isLoading = false);
             },
             open(type, message) {
-                if (this.$toast) {
-                    this.$toast.open({ message, position: 'top-right', type, duration: 3000, dismissible: true });
-                }
+                EventBus.$emit('show-alert', { message, position: 'top-right', type, duration: 3000, dismissible: true });
             },
             buildCharts() {
                 const bulanLabels = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agt','Sep','Okt','Nov','Des'];

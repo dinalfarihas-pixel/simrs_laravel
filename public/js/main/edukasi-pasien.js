@@ -40,6 +40,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      confirmGroup: 'EdukasiPasienComponent-' + Math.random().toString(36).slice(2, 11),
       noregister: '',
       dataPasien: {},
       isLoadingPasien: false,
@@ -439,7 +440,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     konfirmasiHapusSesi: function konfirmasiHapusSesi(row) {
       var _this8 = this;
       this.$confirm.require({
-        group: 'edukasiPasien',
+        group: this.confirmGroup,
         message: "Hapus sesi edukasi tanggal ".concat(this.formatWaktu(row.waktu_edukasi), "? Tindakan ini tidak dapat dibatalkan."),
         header: 'Konfirmasi Hapus',
         icon: 'pi pi-exclamation-triangle',
@@ -876,8 +877,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_DataTable = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DataTable");
   var _directive_tooltip = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveDirective)("tooltip");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ConfirmDialog, {
-    group: "edukasiPasien"
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ===== DIALOG: TTE PPA ===== "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
+    group: $data.confirmGroup
+  }, null, 8 /* PROPS */, ["group"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ===== DIALOG: TTE PPA ===== "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
     header: "Tanda Tangan Elektronik (TTE) PPA",
     visible: $data.showOtorisasi,
     "onUpdate:visible": _cache[1] || (_cache[1] = function ($event) {

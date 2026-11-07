@@ -130,6 +130,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   props: ['isInput', 'datapasien'],
   data: function data() {
     return {
+      confirmGroup: 'ObatComponent-' + Math.random().toString(36).slice(2, 11),
       loadinngItem: false,
       showSerahTerima: false,
       responvalue: 0,
@@ -1157,7 +1158,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var primevue_dialog__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! primevue/dialog */ "./node_modules/primevue/dialog/index.mjs");
+/* harmony import */ var primevue_dialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primevue/dialog */ "./node_modules/primevue/dialog/index.mjs");
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../bus */ "./resources/js/components/bus.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
@@ -1168,9 +1170,10 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    Dialog: primevue_dialog__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Dialog: primevue_dialog__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
     visible: Boolean,
@@ -1181,6 +1184,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       header: null,
       items: [],
+      riwayat: [],
       pilihSemua: false,
       displayOtorisasi: false,
       otorisasi: {
@@ -1191,6 +1195,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   computed: {
+    // Resep yang diterima lewat tombol Terima lama (tanpa rincian item): tidak bisa diserahterimakan lagi
+    tanpaRincian: function tanpaRincian() {
+      return !!(this.header && this.header.TANPA_RINCIAN == 1);
+    },
     itemBelumDiterima: function itemBelumDiterima() {
       var _this = this;
       return this.items.filter(function (item) {
@@ -1213,22 +1221,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     open: function open(type, message) {
-      this.$toast.open({
-        message: message,
-        position: 'top-right',
+      _bus__WEBPACK_IMPORTED_MODULE_0__.EventBus.$emit('show-alert', {
         type: type,
-        duration: 4000,
-        dismissible: true
+        title: 'Serah Terima Obat',
+        message: message
       });
     },
+    // Bisa diterima selama ada obat diberikan yang belum diterima (QTY_SISA > 0), termasuk penerimaan
+    // kedua dst. pada resep yang sama. Diberikan 0 -> tidak bisa dicentang.
     bisaDikonfirmasi: function bisaDikonfirmasi(item) {
-      // Header sudah diterima (termasuk konfirmasi lama tanpa rincian) -> tidak bisa dikonfirmasi lagi
-      return !item.sudah_diterima && !(this.header && this.header.WAKTU_DITERIMA);
+      return !this.tanpaRincian && Number(item.QTY_SISA) > 0;
     },
+    riwayatItem: function riwayatItem(item) {
+      return this.riwayat.filter(function (r) {
+        return r.ITEM_ID == item.ITEM_ID;
+      });
+    },
+    // Total diterima (termasuk input sekarang bila dicentang) dibanding jumlah diberikan yang sudah diserahkan
     selisih: function selisih(item) {
-      var terima = item.sudah_diterima ? item.QTY_TERIMA : item.checked ? item.qty_input : null;
-      if (terima === null || terima === undefined) return 0;
-      return Number(terima) - Number(item.QTY_KIRIM);
+      var terima = item.sudah_diterima ? Number(item.QTY_TERIMA) : null;
+      var input_aktif = item.checked && this.bisaDikonfirmasi(item) && item.qty_input !== null && item.qty_input !== undefined;
+      if (input_aktif) terima = (terima || 0) + Number(item.qty_input);
+      if (terima === null) return 0;
+      // Tambahan yang belum diterima (tidak dicentang) bukan selisih
+      var dasar = Number(item.QTY_KIRIM) - (input_aktif ? 0 : Number(item.QTY_SISA));
+      return terima - dasar;
     },
     togglePilihSemua: function togglePilihSemua() {
       var _this2 = this;
@@ -1245,47 +1262,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _this3.header = null;
               _this3.items = [];
+              _this3.riwayat = [];
               _this3.pilihSemua = false;
               _this3.$emit('loading', true);
-              _context.prev = 4;
-              _context.next = 7;
+              _context.prev = 5;
+              _context.next = 8;
               return axios.post('/get_detail_serah_terima_resep', {
                 receipt_no: _this3.receiptNo
               });
-            case 7:
+            case 8:
               response = _context.sent;
               if (!(response.data.metadata.code != 200)) {
-                _context.next = 12;
+                _context.next = 13;
                 break;
               }
               _this3.open('warning', response.data.metadata.message);
               _this3.$emit('update:visible', false);
               return _context.abrupt("return");
-            case 12:
+            case 13:
               _this3.header = response.data.header;
+              _this3.riwayat = response.data.riwayat || [];
               _this3.items = response.data.response.map(function (item) {
+                // API lama (sebelum penerimaan bertahap) belum mengirim QTY_SISA: hitung dengan cara lama
+                var sisa = item.QTY_SISA !== undefined && item.QTY_SISA !== null ? Number(item.QTY_SISA) : item.QTY_TERIMA === null ? Number(item.QTY_KIRIM) : 0;
                 return _objectSpread(_objectSpread({}, item), {}, {
+                  QTY_SISA: sisa,
                   sudah_diterima: item.QTY_TERIMA !== null,
                   checked: false,
-                  qty_input: Number(item.QTY_KIRIM)
+                  qty_input: sisa
                 });
               });
-              _context.next = 20;
+              _context.next = 22;
               break;
-            case 16:
-              _context.prev = 16;
-              _context.t0 = _context["catch"](4);
+            case 18:
+              _context.prev = 18;
+              _context.t0 = _context["catch"](5);
               console.log(_context.t0);
               _this3.open('error', 'Gagal memuat detail serah terima obat');
-            case 20:
-              _context.prev = 20;
+            case 22:
+              _context.prev = 22;
               _this3.$emit('loading', false);
-              return _context.finish(20);
-            case 23:
+              return _context.finish(22);
+            case 25:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[4, 16, 20, 23]]);
+        }, _callee, null, [[5, 18, 22, 25]]);
       }))();
     },
     konfirmasi: function konfirmasi() {
@@ -1424,9 +1446,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/index.js");
-/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primevue/confirmdialog */ "./node_modules/primevue/confirmdialog/index.mjs");
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../bus */ "./resources/js/components/bus.js");
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/index.js");
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! primevue/confirmdialog */ "./node_modules/primevue/confirmdialog/index.mjs");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -1438,13 +1461,15 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    Loading: (vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default()),
-    ConfirmDialog: primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Loading: (vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default()),
+    ConfirmDialog: primevue_confirmdialog__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
+      confirmGroup: 'TemplateObatComponent-' + Math.random().toString(36).slice(2, 11),
       fact: [],
       isLoading: false,
       showAddnewtemplate: false,
@@ -1643,6 +1668,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
               _this3.$confirm.require({
+                group: _this3.confirmGroup,
                 message: 'Apakah Anda yakin ingin menghapus template ini?',
                 header: 'Konfirmasi Hapus',
                 icon: 'pi pi-exclamation-triangle',
@@ -1771,7 +1797,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     open: function open(type, message) {
-      this.$toast.open({
+      _bus__WEBPACK_IMPORTED_MODULE_0__.EventBus.$emit('show-alert', {
         message: message,
         position: 'top-right',
         type: type,
@@ -2207,8 +2233,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     "is-full-page": $data.fullPage
   }, null, 8 /* PROPS */, ["active", "is-full-page"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ConfirmDialog, {
-    group: "terimaObat"
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
+    group: $data.confirmGroup
+  }, null, 8 /* PROPS */, ["group"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dialog, {
     header: "Daftar",
     visible: $data.form_kco,
     "onUpdate:visible": _cache[3] || (_cache[3] = function ($event) {
@@ -2923,46 +2949,72 @@ var _hoisted_14 = {
   key: 0
 };
 var _hoisted_15 = {
-  "class": "status-terima-user"
-};
-var _hoisted_16 = {
+  key: 0,
   "class": "status-terima-waktu"
 };
+var _hoisted_16 = {
+  "class": "text-center"
+};
 var _hoisted_17 = {
-  key: 1,
+  key: 0,
   "class": "badge badge-secondary"
 };
 var _hoisted_18 = {
-  key: 2,
+  key: 1,
   "class": "badge badge-warning"
 };
 var _hoisted_19 = {
-  key: 3,
-  "class": "text-danger status-selisih"
+  key: 2,
+  "class": "badge badge-warning"
 };
 var _hoisted_20 = {
-  "class": "form-serah-terima"
+  key: 3,
+  "class": "badge badge-secondary"
 };
 var _hoisted_21 = {
-  "class": "mb-3 text-muted"
+  key: 4,
+  "class": "badge badge-primary"
 };
 var _hoisted_22 = {
-  "class": "form-group"
+  key: 0,
+  "class": "font-weight-bold"
 };
 var _hoisted_23 = {
-  "class": "form-group"
+  "class": "status-terima-user"
 };
 var _hoisted_24 = {
+  key: 1
+};
+var _hoisted_25 = {
+  "class": "status-terima-waktu"
+};
+var _hoisted_26 = {
+  key: 5,
+  "class": "text-danger status-selisih"
+};
+var _hoisted_27 = {
+  "class": "form-serah-terima"
+};
+var _hoisted_28 = {
+  "class": "mb-3 text-muted"
+};
+var _hoisted_29 = {
+  "class": "form-group"
+};
+var _hoisted_30 = {
+  "class": "form-group"
+};
+var _hoisted_31 = {
   key: 0,
   "class": "oto-user-info"
 };
-var _hoisted_25 = {
+var _hoisted_32 = {
   "class": "w-100"
 };
-var _hoisted_26 = {
+var _hoisted_33 = {
   key: 0
 };
-var _hoisted_27 = {
+var _hoisted_34 = {
   key: 1
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -2999,9 +3051,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8 /* PROPS */, ["disabled", "onClick"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
     }),
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [$data.header && $data.header.WAKTU_DITERIMA ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [_cache[10] || (_cache[10] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [$data.header && $data.header.WAKTU_DITERIMA && $options.itemBelumDiterima.length == 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [_cache[10] || (_cache[10] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
         "class": "pi pi-check-circle mr-1"
-      }, null, -1 /* CACHED */)), _cache[11] || (_cache[11] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Obat sudah diterima ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.header.DITERIMA_OLEH), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" pada " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.header.WAKTU_DITERIMA), 1 /* TEXT */)])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_3, " Cocokkan obat yang diantar dengan permintaan. Centang item yang sudah diterima dan isi jumlah yang benar-benar diterima. ")), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Checkbox, {
+      }, null, -1 /* CACHED */)), _cache[11] || (_cache[11] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Obat sudah diterima ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.header.DITERIMA_OLEH), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" pada " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.header.WAKTU_DITERIMA), 1 /* TEXT */)])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_3, " Cocokkan obat yang diantar dengan permintaan. Centang item yang sudah diterima dan isi jumlah yang benar-benar diterima. Obat yang belum diberikan farmasi (diberikan 0) dapat diterima nanti pada resep yang sama setelah farmasi memberikannya. ")), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Checkbox, {
         modelValue: $data.pilihSemua,
         "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
           return $data.pilihSemua = $event;
@@ -3022,11 +3074,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, "Diminta", -1 /* CACHED */)), _cache[16] || (_cache[16] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
         "class": "text-center"
       }, "Diberikan", -1 /* CACHED */)), _cache[17] || (_cache[17] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        "class": "text-center"
+      }, "Sudah Diterima", -1 /* CACHED */)), _cache[18] || (_cache[18] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
         "class": "text-center",
         style: {
           "width": "14%"
         }
-      }, "Jumlah Diterima", -1 /* CACHED */)), _cache[18] || (_cache[18] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+      }, "Jumlah Diterima", -1 /* CACHED */)), _cache[19] || (_cache[19] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
         "class": "text-center"
       }, "Status", -1 /* CACHED */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.items, function (item, k) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
@@ -3038,23 +3092,27 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           },
           binary: true,
           disabled: !$options.bisaDikonfirmasi(item)
-        }, null, 8 /* PROPS */, ["modelValue", "onUpdate:modelValue", "disabled"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(k + 1), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.NAMABARANG) + " ", 1 /* TEXT */), item.NAMABARANG_REQ && item.NAMABARANG_REQ != item.NAMABARANG ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, " Diminta: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.NAMABARANG_REQ), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.SATUAN), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral(item.QTY_REQ, '0,0.[00]')), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral(item.QTY_KIRIM, '0,0.[00]')), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_10, [item.sudah_diterima ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral(item.QTY_TERIMA, '0,0.[00]')), 1 /* TEXT */)) : !$options.bisaDikonfirmasi(item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_12, "-")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_InputNumber, {
-          key: 2,
+        }, null, 8 /* PROPS */, ["modelValue", "onUpdate:modelValue", "disabled"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(k + 1), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.NAMABARANG) + " ", 1 /* TEXT */), item.NAMABARANG_REQ && item.NAMABARANG_REQ != item.NAMABARANG ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, " Diminta: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.NAMABARANG_REQ), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.SATUAN), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral(item.QTY_REQ, '0,0.[00]')), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral(item.QTY_KIRIM, '0,0.[00]')), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_10, [item.sudah_diterima ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral(item.QTY_TERIMA, '0,0.[00]')), 1 /* TEXT */)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_12, "-"))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_13, [!$options.bisaDikonfirmasi(item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_14, "-")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+          key: 1
+        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputNumber, {
           modelValue: item.qty_input,
           "onUpdate:modelValue": function onUpdateModelValue($event) {
             return item.qty_input = $event;
           },
           min: 0,
-          max: Number(item.QTY_KIRIM),
+          max: Number(item.QTY_SISA),
           maxFractionDigits: 2,
           disabled: !item.checked,
           inputClass: "text-center",
           inputStyle: {
             width: '6em'
           }
-        }, null, 8 /* PROPS */, ["modelValue", "onUpdate:modelValue", "max", "disabled"]))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_13, [item.sudah_diterima ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_14, [_cache[19] || (_cache[19] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-          "class": "badge badge-primary"
-        }, "Diterima", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.DITERIMA_OLEH), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.TANGGAL_TERIMA), 1 /* TEXT */)])) : $data.header && $data.header.WAKTU_DITERIMA ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_17, "Tanpa rincian item")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_18, "Belum diterima")), $options.selisih(item) != 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_19, " Selisih " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral($options.selisih(item), '0,0.[00]')), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+        }, null, 8 /* PROPS */, ["modelValue", "onUpdate:modelValue", "max", "disabled"]), item.sudah_diterima ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, " tambahan " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral(item.QTY_SISA, '0,0.[00]')), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_16, [$options.tanpaRincian ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_17, "Tanpa rincian item")) : $options.bisaDikonfirmasi(item) && item.sudah_diterima ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_18, "Ada tambahan obat")) : $options.bisaDikonfirmasi(item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_19, "Belum diterima")) : !item.sudah_diterima ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_20, "Belum diberikan farmasi")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_21, "Diterima")), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Riwayat penerimaan (bisa lebih dari sekali) "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.riwayatItem(item), function (r, i) {
+          return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+            key: i,
+            "class": "status-riwayat"
+          }, [$options.riwayatItem(item).length > 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(i + 1) + ".", 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(r.DITERIMA_OLEH), 1 /* TEXT */), $options.riwayatItem(item).length > 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_24, "(" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral(r.QTY_TERIMA, '0,0.[00]')) + ")", 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(r.TANGGAL_TERIMA), 1 /* TEXT */)]);
+        }), 128 /* KEYED_FRAGMENT */)), $options.selisih(item) != 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_26, " Selisih " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$numeral($options.selisih(item), '0,0.[00]')), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
       }), 128 /* KEYED_FRAGMENT */))])])])];
     }),
     _: 1 /* STABLE */
@@ -3092,12 +3150,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8 /* PROPS */, ["onClick"]))];
     }),
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_21, " Konfirmasi terima " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.itemDipilih.length) + " item obat resep " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.receiptNo) + ". Masukkan user dan password petugas. Data yang sudah dikonfirmasi tidak dapat diubah. ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_28, " Konfirmasi terima " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.itemDipilih.length) + " item obat resep " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.receiptNo) + ". Masukkan user dan password petugas. Data yang sudah dikonfirmasi tidak dapat diubah. ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
         onSubmit: _cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
           return $data.otorisasi.user ? $options.simpan() : $options.cekUser();
         }, ["prevent"])),
         autocomplete: "off"
-      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_cache[20] || (_cache[20] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [_cache[20] || (_cache[20] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
         "for": "oto_resep_username"
       }, "Username", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
         id: "oto_resep_username",
@@ -3111,7 +3169,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         onInput: _cache[4] || (_cache[4] = function ($event) {
           return $data.otorisasi.user = null;
         })
-      }, null, 8 /* PROPS */, ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [_cache[21] || (_cache[21] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+      }, null, 8 /* PROPS */, ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [_cache[21] || (_cache[21] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
         "for": "oto_resep_password"
       }, "Password", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
         id: "oto_resep_password",
@@ -3128,13 +3186,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8 /* PROPS */, ["modelValue"])]), _cache[22] || (_cache[22] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
         type: "submit",
         "class": "d-none"
-      }, null, -1 /* CACHED */))], 32 /* NEED_HYDRATION */), $data.otorisasi.user ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_24, [_cache[27] || (_cache[27] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      }, null, -1 /* CACHED */))], 32 /* NEED_HYDRATION */), $data.otorisasi.user ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_31, [_cache[27] || (_cache[27] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         "class": "text-muted small mb-1"
-      }, "Pastikan data user berikut benar sebelum konfirmasi:", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_cache[23] || (_cache[23] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+      }, "Pastikan data user berikut benar sebelum konfirmasi:", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_cache[23] || (_cache[23] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
         style: {
           "width": "35%"
         }
-      }, "Nama", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.otorisasi.user.nama), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_cache[24] || (_cache[24] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Username", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.otorisasi.user.username), 1 /* TEXT */)]), $data.otorisasi.user.jabatan ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_26, [_cache[25] || (_cache[25] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Jabatan", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.otorisasi.user.jabatan), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.otorisasi.user.lokasi ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_27, [_cache[26] || (_cache[26] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Lokasi", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.otorisasi.user.lokasi), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])];
+      }, "Nama", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.otorisasi.user.nama), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_cache[24] || (_cache[24] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Username", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.otorisasi.user.username), 1 /* TEXT */)]), $data.otorisasi.user.jabatan ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_33, [_cache[25] || (_cache[25] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Jabatan", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.otorisasi.user.jabatan), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.otorisasi.user.lokasi ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_34, [_cache[26] || (_cache[26] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Lokasi", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.otorisasi.user.lokasi), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])];
     }),
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["visible"])]);
@@ -3436,7 +3494,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.isLoading = $event;
     }),
     "is-full-page": $data.fullPage
-  }, null, 8 /* PROPS */, ["active", "is-full-page"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ConfirmDialog), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Content Header "), _cache[48] || (_cache[48] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"content-header\" data-v-06f3b660><div class=\"container-fluid\" data-v-06f3b660><div class=\"row mb-2\" data-v-06f3b660><div class=\"col-sm-6\" data-v-06f3b660><h1 class=\"m-0 text-dark\" data-v-06f3b660>Template Obat</h1></div><div class=\"col-sm-6\" data-v-06f3b660><ol class=\"breadcrumb float-sm-right\" data-v-06f3b660><li class=\"breadcrumb-item\" data-v-06f3b660><a href=\"#\" data-v-06f3b660>Home</a></li><li class=\"breadcrumb-item\" data-v-06f3b660><a href=\"#\" data-v-06f3b660>Obat &amp; Penunjang</a></li><li class=\"breadcrumb-item active\" data-v-06f3b660>Template Obat</li></ol></div></div></div></div>", 1)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Main Content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Toolbar Row "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, null, 8 /* PROPS */, ["active", "is-full-page"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ConfirmDialog, {
+    group: $data.confirmGroup
+  }, null, 8 /* PROPS */, ["group"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Content Header "), _cache[48] || (_cache[48] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"content-header\" data-v-06f3b660><div class=\"container-fluid\" data-v-06f3b660><div class=\"row mb-2\" data-v-06f3b660><div class=\"col-sm-6\" data-v-06f3b660><h1 class=\"m-0 text-dark\" data-v-06f3b660>Template Obat</h1></div><div class=\"col-sm-6\" data-v-06f3b660><ol class=\"breadcrumb float-sm-right\" data-v-06f3b660><li class=\"breadcrumb-item\" data-v-06f3b660><a href=\"#\" data-v-06f3b660>Home</a></li><li class=\"breadcrumb-item\" data-v-06f3b660><a href=\"#\" data-v-06f3b660>Obat &amp; Penunjang</a></li><li class=\"breadcrumb-item active\" data-v-06f3b660>Template Obat</li></ol></div></div></div></div>", 1)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Main Content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Toolbar Row "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "btn btn-primary btn-sm",
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $options.addnewtemplate();
@@ -3756,7 +3816,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.form-serah-terima[data-v-747ed988] {\n        font-size: 1.05rem;\n}\n.form-serah-terima .table td[data-v-747ed988],\n    .form-serah-terima .table th[data-v-747ed988] {\n        vertical-align: middle;\n}\n.form-serah-terima .badge[data-v-747ed988] {\n        font-size: 0.9rem;\n        padding: 0.4em 0.7em;\n}\n.status-terima-user[data-v-747ed988] {\n        font-weight: 600;\n        font-size: 0.95rem;\n        margin-top: 0.3rem;\n}\n.status-terima-waktu[data-v-747ed988] {\n        font-size: 0.85rem;\n        color: #6b7280;\n}\n.status-selisih[data-v-747ed988] {\n        font-size: 0.9rem;\n        font-weight: 600;\n}\n.text-warning-dark[data-v-747ed988] {\n        color: #b45309;\n}\n.alert-diterima[data-v-747ed988] {\n        background: #ecfdf5;\n        border: 1px solid #a7f3d0;\n        border-radius: 8px;\n        padding: 0.6rem 1rem;\n}\n.oto-user-info[data-v-747ed988] {\n        background: #ecfdf5;\n        border: 1px solid #a7f3d0;\n        border-radius: 8px;\n        padding: 0.75rem 1rem;\n}\n.oto-user-info td[data-v-747ed988] {\n        padding: 0.15rem 0;\n}\n.form-serah-terima[data-v-747ed988] .p-inputnumber-input {\n        font-size: 1.05rem;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.form-serah-terima[data-v-747ed988] {\n        font-size: 1.05rem;\n}\n.form-serah-terima .table td[data-v-747ed988],\n    .form-serah-terima .table th[data-v-747ed988] {\n        vertical-align: middle;\n}\n.form-serah-terima .badge[data-v-747ed988] {\n        font-size: 0.9rem;\n        padding: 0.4em 0.7em;\n}\n.status-terima-user[data-v-747ed988] {\n        font-weight: 600;\n        font-size: 0.95rem;\n        margin-top: 0.3rem;\n}\n.status-terima-waktu[data-v-747ed988] {\n        font-size: 0.85rem;\n        color: #6b7280;\n}\n.status-riwayat[data-v-747ed988] {\n        margin-top: 0.3rem;\n        line-height: 1.2;\n}\n.status-riwayat .status-terima-user[data-v-747ed988] {\n        margin-top: 0;\n}\n.status-selisih[data-v-747ed988] {\n        font-size: 0.9rem;\n        font-weight: 600;\n}\n.text-warning-dark[data-v-747ed988] {\n        color: #b45309;\n}\n.alert-diterima[data-v-747ed988] {\n        background: #ecfdf5;\n        border: 1px solid #a7f3d0;\n        border-radius: 8px;\n        padding: 0.6rem 1rem;\n}\n.oto-user-info[data-v-747ed988] {\n        background: #ecfdf5;\n        border: 1px solid #a7f3d0;\n        border-radius: 8px;\n        padding: 0.75rem 1rem;\n}\n.oto-user-info td[data-v-747ed988] {\n        padding: 0.15rem 0;\n}\n.form-serah-terima[data-v-747ed988] .p-inputnumber-input {\n        font-size: 1.05rem;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

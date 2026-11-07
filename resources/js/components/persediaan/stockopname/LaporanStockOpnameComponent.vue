@@ -292,6 +292,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../../bus';
     import { Dropdown } from 'bootstrap';
     import DataTable from 'primevue/datatable';
     import Loading from 'vue-loading-overlay';
@@ -377,7 +378,7 @@
                     .finally(() => this.isLoading = false)
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

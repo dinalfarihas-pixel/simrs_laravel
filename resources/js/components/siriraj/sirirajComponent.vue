@@ -197,6 +197,7 @@
 </template>
 
 <script>
+import { EventBus } from '../bus';
 // Logic script tetap sama seperti sebelumnya
 import Loading from 'vue-loading-overlay';
 import ConfirmDialog from 'primevue/confirmdialog';
@@ -362,7 +363,7 @@ export default {
                 .finally(() => this.isLoading = false)
         },
         open(type, message) {
-            this.$toast.open({
+            EventBus.$emit('show-alert', {
                 message: message,
                 position: 'top-right',
                 type: type,

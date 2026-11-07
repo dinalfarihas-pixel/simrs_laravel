@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <loading v-model:active="isLoading" :is-full-page="true"></loading>
-        <ConfirmDialog group="retur-ruangan" />
+        <ConfirmDialog :group="confirmGroup" />
 
         <div class="card card-outline card-primary shadow-sm">
             <div class="card-header d-flex align-items-center justify-content-between py-2">
@@ -139,6 +139,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../../bus';
     import Loading from 'vue-loading-overlay';
     export default {
         components: {
@@ -147,6 +148,7 @@
         data() {
             const hari_ini = new Date();
             return {
+                confirmGroup: 'KonfirmasiReturRuanganComponent-' + Math.random().toString(36).slice(2, 11),
                 isLoading: false,
                 retur: [],
                 jumlah_menunggu: 0,
@@ -201,7 +203,7 @@
                 }[status] || 'badge-secondary';
             },
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,
@@ -251,7 +253,7 @@
             },
             terima(r) {
                 this.$confirm.require({
-                    group: 'retur-ruangan',
+                    group: this.confirmGroup,
                     header: 'Terima Retur Obat',
                     message: `Terima retur ${r.NO_RETUR}: ${r.NAMABARANG} ${this.angka(r.QTY)} ${r.SATUAN || ''} dari ${r.RUANGAN || 'ruangan'}? Stok depo akan bertambah ke batch asal.`,
                     icon: 'pi pi-check-circle',

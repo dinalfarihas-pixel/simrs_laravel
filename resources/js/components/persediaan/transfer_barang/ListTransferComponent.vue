@@ -163,6 +163,7 @@
 </template>
 
 <script>
+    import { EventBus } from '../../bus';
     import Loading from 'vue-loading-overlay';
 
     export default {
@@ -283,15 +284,13 @@
             },
 
             showToast(type, message) {
-                if (this.$toast) {
-                    this.$toast.open({
-                        message: message,
-                        position: 'top-right',
-                        type: type,
-                        duration: 3000,
-                        dismissible: true
-                    });
-                }
+                EventBus.$emit('show-alert', {
+                    message: message,
+                    position: 'top-right',
+                    type: type,
+                    duration: 3000,
+                    dismissible: true
+                });
             },
 
             // Legacy method for backward compatibility

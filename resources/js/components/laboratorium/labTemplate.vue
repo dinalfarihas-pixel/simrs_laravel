@@ -310,11 +310,12 @@
                 </form>
             </div>
         </Dialog>
-        <ConfirmDialog />
+        <ConfirmDialog :group="confirmGroup" />
     </section>
 </template>
 
 <script>
+    import { EventBus } from '../bus';
     import Loading from 'vue-loading-overlay';
     import Dialog from 'primevue/dialog';
     import Button from 'primevue/button';
@@ -338,6 +339,7 @@
         },
         data() {
             return {
+                confirmGroup: 'labTemplate-' + Math.random().toString(36).slice(2, 11),
                 form: {
                     startdate: '',
                     enddate: '',
@@ -449,6 +451,7 @@
 
             confirmDelete(data) {
                 this.$confirm.require({
+                    group: this.confirmGroup,
                     message: `Apakah Anda yakin ingin menghapus item "${data.ITEM}" ini?`,
                     header: 'Konfirmasi Hapus',
                     icon: 'pi pi-exclamation-triangle',
@@ -636,7 +639,7 @@
             },
 
             open(type, message) {
-                this.$toast.open({
+                EventBus.$emit('show-alert', {
                     message: message,
                     position: 'top-right',
                     type: type,

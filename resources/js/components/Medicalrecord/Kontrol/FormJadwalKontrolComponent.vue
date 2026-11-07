@@ -171,50 +171,82 @@
                     <div class="fk-card-title">
                         <i class="pi pi-history fk-icon-blue"></i>
                         <span>Riwayat Kontrol Ulang</span>
+                        <Tag value="Server BPJS" severity="secondary" />
                         <Tag :value="riwayatKontrolUlangFiltered.length" severity="info" class="ml-auto" />
                     </div>
                 </template>
                 <template #content>
-                    <div v-if="riwayatKontrolUlangFiltered.length === 0" class="fk-riwayat-empty">
+                    <!-- Filter bulan/tahun -->
+                    <div class="fk-riwayat-filter">
+                        <div class="fk-riwayat-filter-info">
+                            <i class="pi pi-credit-card"></i>
+                            No. Kartu: <strong>{{ data_pasien.NOJAMINAN || '—' }}</strong>
+                        </div>
+                        <div class="fk-riwayat-filter-ctrl">
+                            <span class="fk-riwayat-filter-info">
+                                <i class="pi pi-calendar"></i>
+                                Periode: <strong>{{ labelBulanRiwayat }}</strong>
+                            </span>
+                            <Button label="Muat Ulang" icon="pi pi-refresh" severity="info" size="small" outlined
+                                :loading="loadingRiwayat" @click="getRiwayatKontrolUlang()" />
+                        </div>
+                    </div>
+
+                    <div v-if="loadingRiwayat" class="fk-dokter-loading">
+                        <i class="pi pi-spin pi-spinner"></i>
+                        <span>Mengambil data dari server BPJS...</span>
+                    </div>
+                    <div v-else-if="riwayatKontrolUlangFiltered.length === 0" class="fk-riwayat-empty">
                         <i class="pi pi-inbox"></i>
-                        <span v-if="form.tanggal_kontrol">Tidak ada riwayat kontrol pada tanggal ini.</span>
-                        <span v-else>Belum ada riwayat kontrol ulang.</span>
+                        <span v-if="riwayatError">{{ riwayatError }}</span>
+                        <span v-else-if="form.tanggal_kontrol">Tidak ada rencana kontrol pada tanggal ini.</span>
+                        <span v-else>Tidak ada rencana kontrol pada periode ini.</span>
                     </div>
                     <div v-else class="fk-riwayat-table-wrapper">
                         <table class="fk-riwayat-table">
                             <thead>
                                 <tr>
-                                    <th>No. Kontrol</th>
+                                    <th>No. Surat Kontrol</th>
+                                    <th>Jenis</th>
                                     <th>Tgl. Kontrol</th>
-                                    <th>Poli</th>
+                                    <th>Tgl. Terbit</th>
+                                    <th>SEP Asal</th>
+                                    <th>Tgl. SEP</th>
+                                    <th>Poli Tujuan</th>
                                     <th>Dokter</th>
-                                    <th>Diagnosa</th>
-                                    <th>No. SEP</th>
-                                    <th>Tgl. Entri</th>
-                                    <th>Status</th>
+                                    <th>Terbit SEP</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(row, idx) in riwayatKontrolUlangFiltered" :key="idx">
-                                    <td><code class="fk-code">{{ row.NO_KONTROL_ULANG }}</code></td>
-                                    <td>{{ formatTanggal(row.TANGGAL_KONTROL) }}</td>
-                                    <td>{{ row.POLI }}</td>
-                                    <td>{{ row.NAMADOKTER }}</td>
-                                    <td><small>{{ row.KODE_DIAGNOSA }}</small></td>
-                                    <td><code class="fk-code">{{ row.NOSEP }}</code></td>
-                                    <td>{{ formatTanggal(row.TLG_ENTRI) }}</td>
+                                <tr v-for="(row, idx) in riwayatKontrolUlangFiltered" :key="row.noSuratKontrol || idx">
+                                    <td><code class="fk-code">{{ row.noSuratKontrol || '—' }}</code></td>
+                                    <td>{{ row.namaJnsKontrol || '—' }}</td>
+                                    <td>{{ row.tglRencanaKontrol || '—' }}</td>
+                                    <td>{{ row.tglTerbitKontrol || '—' }}</td>
+                                    <td><code class="fk-code">{{ row.noSepAsalKontrol || '—' }}</code></td>
+                                    <td>{{ row.tglSEP || '—' }}</td>
+                                    <td>{{ row.namaPoliTujuan || row.poliTujuan || '—' }}</td>
+                                    <td>{{ row.namaDokter || '—' }}</td>
                                     <td>
-                                        <Tag v-if="row.STTS" :value="row.STTS" severity="success" />
-                                        <Tag v-else value="Aktif" severity="info" />
+                                        <Tag :value="row.terbitSEP || '—'"
+                                            :severity="row.terbitSEP === 'Sudah' ? 'success' : 'secondary'" />
                                     </td>
                                     <td>
                                         <div style="display:flex;gap:4px;align-items:center">
+                                            <Button text rounded size="small"
+                                                :icon="syncIcon(row.noSuratKontrol)"
+                                                :severity="syncSeverity(row.noSuratKontrol)"
+                                                :loading="!!syncingMap[row.noSuratKontrol]"
+                                                :disabled="!!syncingMap[row.noSuratKontrol]"
+                                                v-tooltip="'Sync ke SIMRS'"
+                                                @click="syncItem(row)" />
                                             <Button icon="pi pi-print" severity="info" text rounded size="small"
                                                 v-tooltip="'Cetak Surat Kontrol'"
                                                 @click="cetakKontrol(row)" />
                                             <Button icon="pi pi-times" severity="danger" text rounded size="small"
-                                                :loading="loadingHapus === row.NO_KONTROL_ULANG"
+                                                :loading="loadingHapus === row.noSuratKontrol"
+                                                :disabled="row.terbitSEP === 'Sudah'"
                                                 v-tooltip="'Batalkan'"
                                                 @click="konfirmasiHapus(row)" />
                                         </div>
@@ -280,23 +312,23 @@
                     <div v-if="hapusTarget" class="fk-summary mt-2">
                         <div class="fk-summary-row">
                             <span class="fk-summary-label">No. Kontrol</span>
-                            <code class="fk-code">{{ hapusTarget.NO_KONTROL_ULANG }}</code>
+                            <code class="fk-code">{{ hapusTarget.noSuratKontrol }}</code>
                         </div>
                         <div class="fk-summary-row">
                             <span class="fk-summary-label">Pasien</span>
-                            <span class="fk-summary-value">{{ hapusTarget.NAMA }}</span>
+                            <span class="fk-summary-value">{{ hapusTarget.nama || data_pasien.NAMAPASIEN }}</span>
                         </div>
                         <div class="fk-summary-row">
                             <span class="fk-summary-label">Poli</span>
-                            <span class="fk-summary-value">{{ hapusTarget.POLI }}</span>
+                            <span class="fk-summary-value">{{ hapusTarget.namaPoliTujuan || hapusTarget.poliTujuan }}</span>
                         </div>
                         <div class="fk-summary-row">
                             <span class="fk-summary-label">Dokter</span>
-                            <span class="fk-summary-value">{{ hapusTarget.NAMADOKTER }}</span>
+                            <span class="fk-summary-value">{{ hapusTarget.namaDokter }}</span>
                         </div>
                         <div class="fk-summary-row">
                             <span class="fk-summary-label">Tgl. Kontrol</span>
-                            <span class="fk-summary-value">{{ formatTanggal(hapusTarget.TANGGAL_KONTROL) }}</span>
+                            <span class="fk-summary-value">{{ hapusTarget.tglRencanaKontrol }}</span>
                         </div>
                     </div>
                 </div>
@@ -335,6 +367,11 @@
                     jadwal_dokter: '',
                 },
                 riwayatKontrolUlang: [],
+                bulanRiwayat: '', // 'YYYY-MM' bulan yang terakhir dimuat dari BPJS
+                loadingRiwayat: false,
+                riwayatError: '',
+                syncingMap: {},     // { [noSuratKontrol]: true } saat proses sync
+                syncResultMap: {},  // { [noSuratKontrol]: 'success' | 'error' }
                 isLoading: false,
                 loadingDokter: false,
                 loadingHapus: null,
@@ -349,13 +386,20 @@
             namaPoliSelected() {
                 return this.selectedPoli?.NAMA || '-';
             },
+            // Bulan riwayat mengikuti Tanggal Kontrol Ulang; jika kosong pakai bulan berjalan
+            tanggalAcuanRiwayat() {
+                return this.form.tanggal_kontrol ? new Date(this.form.tanggal_kontrol) : new Date();
+            },
+            labelBulanRiwayat() {
+                return this.tanggalAcuanRiwayat.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
+            },
             riwayatKontrolUlangFiltered() {
                 if (!this.form.tanggal_kontrol) return this.riwayatKontrolUlang;
 
                 const target = this.formatDateForApi(this.form.tanggal_kontrol);
                 return this.riwayatKontrolUlang.filter(row => {
-                    if (!row.TANGGAL_KONTROL) return false;
-                    return this.formatDateForApi(row.TANGGAL_KONTROL) === target;
+                    if (!row.tglRencanaKontrol) return false;
+                    return row.tglRencanaKontrol === target;
                 });
             },
         },
@@ -382,8 +426,8 @@
             },
 
             async hapusSuratKontrol() {
-                this.loadingHapus = this.hapusTarget.NO_KONTROL_ULANG;
-                await axios.post('/hapus_surat_kontrol', { no_kontrol: this.hapusTarget.NO_KONTROL_ULANG })
+                this.loadingHapus = this.hapusTarget.noSuratKontrol;
+                await axios.post('/hapus_surat_kontrol', { no_kontrol: this.hapusTarget.noSuratKontrol })
                     .then(response => {
                         const data = typeof response.data === 'string'
                             ? JSON.parse(response.data)
@@ -407,23 +451,107 @@
                     });
             },
 
+            // Riwayat rencana kontrol diambil langsung dari server BPJS (per bulan)
             async getRiwayatKontrolUlang() {
+                this.riwayatKontrolUlang = [];
+                this.riwayatError = '';
+                if (!this.data_pasien.NOJAMINAN) {
+                    this.riwayatError = 'No. Kartu BPJS pasien tidak tersedia.';
+                    return;
+                }
+
+                const d = this.tanggalAcuanRiwayat;
+                const akhirBulan = new Date(d.getFullYear(), d.getMonth() + 1, 0);
+                this.bulanRiwayat = this.formatDateForApi(d).slice(0, 7);
+
+                this.loadingRiwayat = true;
+                this.syncResultMap = {};
                 try {
-                    const response = await axios.get(`/get_riwayat_kontrolulang/${this.data_pasien.NOMR}`);
-                    // console.log('Riwayat kontrol ulang response:', response);
-                    this.riwayatKontrolUlang = response?.data?.response || [];
+                    const res = await axios.post('/list_rencana_kontrol_bpjs', {
+                        no_kartu: this.data_pasien.NOJAMINAN,
+                        tanggal : this.formatDateForApi(akhirBulan),
+                    });
+                    const data = typeof res.data === 'string' ? JSON.parse(res.data) : res.data;
+                    const code = data?.metaData?.code;
+                    if (code == 200) {
+                        const raw = data?.response;
+                        this.riwayatKontrolUlang = Array.isArray(raw) ? raw
+                            : (Array.isArray(raw?.list) ? raw.list : []);
+                    } else {
+                        this.riwayatError = data?.metaData?.message || 'Data tidak ditemukan.';
+                    }
                 } catch (error) {
-                    console.error('Gagal memuat riwayat kontrol ulang:', error);
+                    console.error('Gagal memuat riwayat kontrol dari BPJS:', error);
+                    this.riwayatError = 'Koneksi ke server BPJS gagal.';
+                } finally {
+                    this.loadingRiwayat = false;
+                }
+            },
+
+            async syncItem(row) {
+                const key = row.noSuratKontrol;
+                if (!key || this.syncingMap[key]) return;
+
+                this.syncingMap    = { ...this.syncingMap, [key]: true };
+                this.syncResultMap = { ...this.syncResultMap, [key]: null };
+                try {
+                    const res = await axios.post('/sync_no_kontrol_ulang', {
+                        no_kontrol_ulang : key,
+                        noregister       : this.noregister,
+                        noSepAsalKontrol : row.noSepAsalKontrol,
+                        noKartu          : row.noKartu,
+                        norm             : this.data_pasien.NOMR,
+                        kodeDokter       : row.kodeDokter,
+                        poliTujuan       : row.poliTujuan,
+                        tglRencanaKontrol: row.tglRencanaKontrol,
+                        tglSEP           : row.tglSEP,
+                        terbitSEP        : row.terbitSEP,
+                    });
+                    const data = typeof res.data === 'string' ? JSON.parse(res.data) : res.data;
+                    if (data?.code == 200) {
+                        this.syncResultMap = { ...this.syncResultMap, [key]: 'success' };
+                        const aksi = data?.action === 'insert' ? 'Data baru disimpan' : 'Data diperbarui';
+                        this.notify('success', `${key} — ${aksi} ke SIMRS`);
+                    } else {
+                        this.syncResultMap = { ...this.syncResultMap, [key]: 'error' };
+                        this.notify('error', data?.message || 'Gagal sync surat kontrol.');
+                    }
+                } catch (error) {
+                    console.error(error);
+                    this.syncResultMap = { ...this.syncResultMap, [key]: 'error' };
+                    this.notify('error', 'Koneksi ke server gagal.');
+                } finally {
+                    const next = { ...this.syncingMap };
+                    delete next[key];
+                    this.syncingMap = next;
+                }
+            },
+            syncIcon(key) {
+                const r = this.syncResultMap[key];
+                return r === 'success' ? 'pi pi-check' : (r === 'error' ? 'pi pi-times-circle' : 'pi pi-cloud-download');
+            },
+            syncSeverity(key) {
+                const r = this.syncResultMap[key];
+                return r === 'success' ? 'success' : (r === 'error' ? 'danger' : 'help');
+            },
+
+            // Jika tanggal kontrol pindah bulan, muat ulang riwayat BPJS bulan tersebut
+            sinkronBulanRiwayat() {
+                const bulan = this.formatDateForApi(this.tanggalAcuanRiwayat).slice(0, 7);
+                if (bulan !== this.bulanRiwayat) {
+                    this.getRiwayatKontrolUlang();
                 }
             },
 
             onTanggalChange() {
+                this.sinkronBulanRiwayat();
                 this.getDokterLive();
             },
             geserTanggal(arah) {
                 const d = new Date(this.form.tanggal_kontrol);
                 d.setDate(d.getDate() + arah);
                 this.form.tanggal_kontrol = d;
+                this.sinkronBulanRiwayat();
                 this.getDokterLive();
             },
             async getDokterLive() {
@@ -532,7 +660,7 @@
             },
 
             cetakKontrol(row) {
-                const url = `/print-kontrol-ulang?no_kontrol=${row.NO_KONTROL_ULANG}&noregister=${this.noregister}`;
+                const url = `/print-kontrol-ulang?no_kontrol=${row.noSuratKontrol}&noregister=${this.noregister}`;
                 window.open(url, '_blank');
             },
 
@@ -824,6 +952,30 @@
     justify-content: center;
 }
 .fk-riwayat-empty i { font-size: 20px; }
+.fk-riwayat-filter {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+.fk-riwayat-filter-info {
+    flex: 1;
+    font-size: 12px;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.fk-riwayat-filter-ctrl {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 .fk-riwayat-table-wrapper {
     overflow-x: auto;
 }

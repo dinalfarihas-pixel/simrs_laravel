@@ -105,6 +105,7 @@
 </script>
 
 <script>
+    import { EventBus } from './bus';
     import Chart from 'primevue/chart';
     import Toast from 'primevue/toast';
     import Loading from 'vue-loading-overlay';
@@ -170,12 +171,11 @@
 
             showSuccess() {
 
-                this.$toast.add({
-                    severity: 'success',
-                    summary: 'Success Message',
-                    detail: 'Message Content',
-                    group: 'br',
-                    life: 3000
+                EventBus.$emit('show-alert', {
+                    type: 'success',
+                    title: 'Success Message',
+                    message: 'Message Content',
+                    duration: 3000
                 });
             },
             async createPost() {

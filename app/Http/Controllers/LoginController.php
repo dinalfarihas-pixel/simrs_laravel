@@ -243,6 +243,56 @@ class LoginController extends Controller
             ]
         ]); 
         $body = $response->getBody()->getContents();
-        return $body; 
+        return $body;
+    }
+
+    // Rubah password v2: user isi username, password lama, password baru & konfirmasi.
+    // Username boleh user lain (asal satu RS); verifikasi password lama di API (data_referensi/rubah_password_v2), id_client dari session.
+    public function rubah_password_v2(Request $request)
+    {
+        try {
+            $username      = trim((string)$request->username);
+            $password_lama = (string)$request->passwordlama;
+            $password_baru = (string)$request->passwordbaru;
+            $konfirmasi    = (string)$request->ulangipasswordbaru;
+
+            if ($username == '' || $password_lama == '' || $password_baru == '' || $konfirmasi == '') {
+                return response()->json(['metadata' => ['code' => 400, 'message' => 'Semua field wajib diisi']]);
+            }
+            if ($password_baru !== $konfirmasi) {
+                return response()->json(['metadata' => ['code' => 400, 'message' => 'Konfirmasi password baru tidak sama']]);
+            }
+            if (strlen($password_baru) < 6) {
+                return response()->json(['metadata' => ['code' => 400, 'message' => 'Password baru minimal 6 karakter']]);
+            }
+            if ($password_baru === $password_lama) {
+                return response()->json(['metadata' => ['code' => 400, 'message' => 'Password baru tidak boleh sama dengan password lama']]);
+            }
+
+            $client = new Client();
+            $response = $client->post($this->ws_simrs . 'index.php/api/data_referensi/rubah_password_v2', [
+                'json' => [
+                    'username'            => $username,
+                    'id_client'           => Session::get('id_client'),
+                    'password_lama'       => $password_lama,
+                    'password_baru'       => $password_baru,
+                    'konfirmasi_password' => $konfirmasi,
+                ],
+                'headers' => ['Content-Type' => 'application/json', 'Authorization' => ''],
+                'timeout' => 30,
+                'connect_timeout' => 10,
+            ]);
+            $body = $response->getBody()->getContents();
+            $res = json_decode($body, true);
+
+            // Perbarui password di session hanya jika yang diganti adalah user yang sedang login
+            if (isset($res['metadata']['code']) && (int)$res['metadata']['code'] == 200
+                && strtolower($username) == strtolower((string)Session::get('user_id'))) {
+                Session::put('password_sess', $password_baru);
+            }
+            return response()->json($res ?: ['metadata' => ['code' => 500, 'message' => 'Respons API tidak valid']]);
+        } catch (\Throwable $e) {
+            return response()->json(['metadata' => ['code' => 500, 'message' => $e->getMessage()]]);
+        }
     }
 }
